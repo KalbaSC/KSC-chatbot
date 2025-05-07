@@ -111,6 +111,42 @@
 <script>
   var botui = new BotUI('botui-app');
 
+  function showContactOptions() {
+    return botui.action.button({
+      action: [
+        { text: '📞 اتصل بنا', value: 'call' },
+        { text: '📱 واتساب', value: 'whatsapp' },
+        { text: '📸 انستغرام', value: 'instagram' },
+        { text: '📝 اكتب لنا رسالة', value: 'custom' },
+        { text: '🔁 رجوع إلى القائمة', value: 'back' }
+      ]
+    }).then(function (res) {
+      if (res.value === 'call') {
+        window.open('tel:0503874714', '_blank');
+      } else if (res.value === 'whatsapp') {
+        window.open('https://wa.me/+971503874714', '_blank'); // Change number
+      } else if (res.value === 'instagram') {
+        window.open('https://www.instagram.com/kalbasc/', '_blank'); // Change link
+      } else if (res.value === 'custom') {
+        askCustomMessage();
+      } else {
+        mainMenu();
+      }
+    });
+  }
+
+  function askCustomMessage() {
+    botui.action.text({
+      action: {
+        placeholder: 'اكتب رسالتك هنا...'
+      }
+    }).then(function (res) {
+      var message = encodeURIComponent(res.value);
+      window.open("https://wa.me/+971503874714?text=" + message, '_blank'); // Change number
+      botui.message.add({ content: 'تم فتح واتساب لإرسال رسالتك.' }).then(showContactOptions);
+    });
+  }
+
   function mainMenu() {
     botui.message.add({
       content: 'كيف يمكننا مساعدتك؟'
@@ -130,22 +166,13 @@
       } else {
         return botui.message.add({ content: 'لدينا فرق في كرة القدم، كرة الطائرة، وكرة اليد.' });
       }
-    }).then(function () {
-      return botui.action.button({
-        action: [
-          { text: '🔁 رجوع إلى القائمة', value: 'back' }
-        ]
-      });
-    }).then(function () {
-      mainMenu();
-    });
+    }).then(showContactOptions);
   }
 
+  // Initial greeting (single message)
   botui.message.add({
-    content: 'مرحباً بك في نادي كلباء الرياضي الثقافي!'
-  }).then(function () {
-    mainMenu();
-  });
+    content: 'مرحباً بك في نادي كلباء الرياضي الثقافي! 👋'
+  }).then(mainMenu);
 </script>
 
 </body>
