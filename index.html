@@ -51,22 +51,46 @@
       font-size: 18px;
     }
 
-.botui-actions-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px; /* This adds space between buttons */
-  margin-top: 10px;
-}
+    .botui-actions-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
 
-.botui-actions-buttons-button {
-  background-color: #f4e733;
-  color: #000;
-  border-radius: 5px;
-  padding: 10px 16px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  font-weight: bold;
-}
+    .botui-actions-buttons-button {
+      background-color: #f4e733;
+      color: #000;
+      border-radius: 5px;
+      padding: 10px 16px;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 600px) {
+      #botui-container {
+        width: 95%;
+        padding: 15px;
+      }
+
+      .botui-message-content {
+        font-size: 16px;
+      }
+
+      .botui-actions-buttons-button {
+        padding: 10px;
+        font-size: 15px;
+      }
+
+      header h1 {
+        font-size: 20px;
+      }
+
+      header img {
+        height: 60px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -87,24 +111,40 @@
 <script>
   var botui = new BotUI('botui-app');
 
-  botui.message.add({
-    content: 'مرحباً بك في نادي كلباء الرياضي الثقافي! كيف يمكننا مساعدتك؟'
-  }).then(function () {
-    return botui.action.button({
-      action: [
-        { text: 'مواعيد التدريبات', value: 'training' },
-        { text: 'التسجيل في النادي', value: 'register' },
-        { text: 'معلومات عن الفرق', value: 'teams' }
-      ]
+  function mainMenu() {
+    botui.message.add({
+      content: 'كيف يمكننا مساعدتك؟'
+    }).then(function () {
+      return botui.action.button({
+        action: [
+          { text: 'مواعيد التدريبات', value: 'training' },
+          { text: 'التسجيل في النادي', value: 'register' },
+          { text: 'معلومات عن الفرق', value: 'teams' }
+        ]
+      });
+    }).then(function (res) {
+      if(res.value === 'training') {
+        return botui.message.add({ content: 'تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.' });
+      } else if(res.value === 'register') {
+        return botui.message.add({ content: 'للتسجيل، يرجى زيارة مقر النادي أو التواصل عبر الهاتف 123456789.' });
+      } else {
+        return botui.message.add({ content: 'لدينا فرق في كرة القدم، كرة الطائرة، وكرة اليد.' });
+      }
+    }).then(function () {
+      return botui.action.button({
+        action: [
+          { text: '🔁 رجوع إلى القائمة', value: 'back' }
+        ]
+      });
+    }).then(function () {
+      mainMenu();
     });
-  }).then(function (res) {
-    if(res.value === 'training') {
-      botui.message.add({ content: 'تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.' });
-    } else if(res.value === 'register') {
-      botui.message.add({ content: 'للتسجيل، يرجى زيارة مقر النادي أو التواصل عبر الهاتف 123456789.' });
-    } else {
-      botui.message.add({ content: 'لدينا فرق في كرة القدم، كرة الطائرة، وكرة اليد.' });
-    }
+  }
+
+  botui.message.add({
+    content: 'مرحباً بك في نادي كلباء الرياضي الثقافي!'
+  }).then(function () {
+    mainMenu();
   });
 </script>
 
