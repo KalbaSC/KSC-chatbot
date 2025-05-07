@@ -75,12 +75,12 @@
       }
 
       .botui-message-content {
-        font-size: 16px;
+        font-size: 20px;
       }
 
       .botui-actions-buttons-button {
-        padding: 10px;
-        font-size: 15px;
+        padding: 12px;
+        font-size: 17px;
       }
 
       header h1 {
@@ -111,6 +111,25 @@
 <script>
   var botui = new BotUI('botui-app');
 
+  function resetChat() {
+    document.getElementById('botui-app').innerHTML = '<bot-ui></bot-ui>';
+    botui = new BotUI('botui-app');
+    startBot();
+  }
+
+  function askCustomMessage() {
+    botui.action.text({
+      action: {
+        placeholder: 'اكتب رسالتك هنا...'
+      }
+    }).then(function (res) {
+      var subject = encodeURIComponent("رسالة من الزائر");
+      var body = encodeURIComponent(res.value);
+      window.open("mailto:rawandaldomour@gmail.com?subject=" + subject + "&body=" + body, '_blank');
+      botui.message.add({ content: 'تم فتح بريدك لإرسال الرسالة.' }).then(showContactOptions);
+    });
+  }
+
   function showContactOptions() {
     return botui.action.button({
       action: [
@@ -124,55 +143,43 @@
       if (res.value === 'call') {
         window.open('tel:0503874714', '_blank');
       } else if (res.value === 'whatsapp') {
-        window.open('https://wa.me/+971503874714', '_blank'); // Change number
+        window.open('https://wa.me/971503874714', '_blank');
       } else if (res.value === 'instagram') {
-        window.open('https://www.instagram.com/kalbasc/', '_blank'); // Change link
+        window.open('https://www.instagram.com/kalbasc/', '_blank');
       } else if (res.value === 'custom') {
         askCustomMessage();
       } else {
-        mainMenu();
+        resetChat(); // clear and restart
       }
-    });
-  }
-
-  function askCustomMessage() {
-    botui.action.text({
-      action: {
-        placeholder: 'اكتب رسالتك هنا...'
-      }
-    }).then(function (res) {
-      var message = encodeURIComponent(res.value);
-      window.open("https://wa.me/+971503874714?text=" + message, '_blank'); // Change number
-      botui.message.add({ content: 'تم فتح واتساب لإرسال رسالتك.' }).then(showContactOptions);
     });
   }
 
   function mainMenu() {
-    botui.message.add({
-      content: 'كيف يمكننا مساعدتك؟'
-    }).then(function () {
-      return botui.action.button({
-        action: [
-          { text: 'مواعيد التدريبات', value: 'training' },
-          { text: 'التسجيل في النادي', value: 'register' },
-          { text: 'معلومات عن الفرق', value: 'teams' }
-        ]
-      });
+    return botui.action.button({
+      action: [
+        { text: 'مواعيد التدريبات', value: 'training' },
+        { text: 'التسجيل في النادي', value: 'register' },
+        { text: 'معلومات عن الفرق', value: 'teams' }
+      ]
     }).then(function (res) {
       if(res.value === 'training') {
         return botui.message.add({ content: 'تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.' });
       } else if(res.value === 'register') {
-        return botui.message.add({ content: 'للتسجيل، يرجى زيارة مقر النادي أو التواصل عبر الهاتف 123456789.' });
+        return botui.message.add({ content: 'للتسجيل، يرجى زيارة مقر النادي أو التواصل عبر الهاتف 0503874714.' });
       } else {
         return botui.message.add({ content: 'لدينا فرق في كرة القدم، كرة الطائرة، وكرة اليد.' });
       }
     }).then(showContactOptions);
   }
 
-  // Initial greeting (single message)
-  botui.message.add({
-    content: 'مرحباً بك في نادي كلباء الرياضي الثقافي! 👋'
-  }).then(mainMenu);
+  function startBot() {
+    botui.message.add({
+      content: 'مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 كيف يمكننا مساعدتك؟'
+    }).then(mainMenu);
+  }
+
+  // Launch bot
+  startBot();
 </script>
 
 </body>
