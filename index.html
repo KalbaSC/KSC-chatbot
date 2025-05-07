@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Chatbot</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botui/build/botui.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botui/build/botui-theme-default.css">
+</head>
+<body>
+  <div id="botui-app">
+    <bot-ui></bot-ui>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/botui/build/botui.min.js"></script>
+  <script>
+    var botui = new BotUI('botui-app');
+
+    botui.message.add({
+      content: '👋 Hi! What would you like to do?'
+    }).then(function () {
+      return botui.action.button({
+        action: [
+          { text: 'Ask a question', value: 'ask' },
+          { text: 'Get help', value: 'help' }
+        ]
+      });
+    }).then(function (res) {
+      if(res.value === 'ask') {
+        botui.message.add({ content: 'Sure, what’s your question?' });
+      } else {
+        botui.message.add({ content: 'Here’s how I can help...' });
+      }
+    });
+  </script>
+</body>
+</html>
