@@ -70,32 +70,31 @@
     }
 
     @media (max-width: 600px) {
-  #botui-container {
-    width: 75% !important;
-    padding: 25px !important;
-    max-width: 95% !important;
-    min-height: 70vh !important;
-    font-size: 18px !important;
-  }
+      #botui-container {
+        width: 75% !important;
+        padding: 25px !important;
+        max-width: 95% !important;
+        min-height: 70vh !important;
+        font-size: 18px !important;
+      }
 
-  .botui-message-content {
-    font-size: 18px !important;
-  }
+      .botui-message-content {
+        font-size: 18px !important;
+      }
 
-  .botui-actions-buttons-button {
-    padding: 14px 18px !important;
-    font-size: 17px !important;
-  }
+      .botui-actions-buttons-button {
+        padding: 14px 18px !important;
+        font-size: 17px !important;
+      }
 
-  header h1 {
-    font-size: 22px !important;
-  }
+      header h1 {
+        font-size: 22px !important;
+      }
 
-  header img {
-    height: 70px !important;
-  }
-}
-
+      header img {
+        height: 70px !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -115,6 +114,7 @@
 <script src="https://cdn.jsdelivr.net/npm/botui/build/botui.min.js"></script>
 <script>
   var botui = new BotUI('botui-app');
+  let userName = '';
 
   function resetChat() {
     document.getElementById('botui-app').innerHTML = '<bot-ui></bot-ui>';
@@ -124,9 +124,7 @@
 
   function askCustomMessage() {
     botui.action.text({
-      action: {
-        placeholder: 'اكتب رسالتك هنا...'
-      }
+      action: { placeholder: 'اكتب رسالتك هنا...' }
     }).then(function (res) {
       var subject = encodeURIComponent("رسالة من الزائر");
       var body = encodeURIComponent(res.value);
@@ -154,7 +152,7 @@
       } else if (res.value === 'custom') {
         askCustomMessage();
       } else {
-        resetChat(); // clear and restart
+        resetChat(); // restart from name
       }
     });
   }
@@ -164,18 +162,14 @@
       action: [
         { text: 'مواعيد التدريبات', value: 'training' },
         { text: 'التسجيل في النادي', value: 'register' },
-        { text: 'معلومات عن الفرق', value: 'teams' },
-        { text: 'hr', value: 'hr' }
+        { text: 'معلومات عن الفرق', value: 'teams' }
       ]
     }).then(function (res) {
-      if(res.value === 'training') {
+      if (res.value === 'training') {
         return botui.message.add({ content: 'تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.' });
-      } else if(res.value === 'register') {
+      } else if (res.value === 'register') {
         return botui.message.add({ content: 'للتسجيل، يرجى زيارة مقر النادي أو التواصل عبر الهاتف 0503874714.' });
-      } else if(res.value === 'hr') {
-        return botui.message.add({ content: 'hr' });
-      }
-      else {
+      } else {
         return botui.message.add({ content: 'لدينا فرق في كرة القدم، كرة الطائرة، وكرة اليد.' });
       }
     }).then(showContactOptions);
@@ -183,11 +177,17 @@
 
   function startBot() {
     botui.message.add({
-      content: 'مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 كيف يمكننا مساعدتك؟'
+      content: 'مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 ما اسمك؟'
+    }).then(function () {
+      return botui.action.text({
+        action: { placeholder: 'اكتب اسمك هنا' }
+      });
+    }).then(function (res) {
+      userName = res.value;
+      return botui.message.add({ content: `مرحباً بك ${userName}، كيف يمكننا مساعدتك؟` });
     }).then(mainMenu);
   }
 
-  // Launch bot
   startBot();
 </script>
 
