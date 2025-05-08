@@ -105,16 +105,20 @@
         min-height: 70vh !important;
         font-size: 18px !important;
       }
+
       .content {
         font-size: 18px !important;
       }
+
       .chat-btn {
         padding: 14px 18px !important;
         font-size: 17px !important;
       }
+
       header h1 {
         font-size: 22px !important;
       }
+
       header img {
         height: 70px !important;
       }
@@ -128,15 +132,29 @@
   <h1>نادي كلباء الرياضي الثقافي</h1>
 </header>
 
-<div id="chat-box"></div>
+<div id="chat-box">
+  <!-- messages will be added here -->
 
-<div class="button-container" id="main-buttons" style="display: none;">
-  <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
-  <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
-  <button class="chat-btn" onclick="reply('teams')">معلومات عن الفرق</button>
+  <div class="button-container" id="main-buttons" style="display: none;">
+    <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
+    <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
+    <button class="chat-btn" onclick="reply('teams')">معلومات عن الفرق</button>
+    <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
+  </div>
 </div>
 
 <script>
+  function clearChat() {
+    document.getElementById('chat-box').innerHTML = `
+      <div class="button-container" id="main-buttons" style="display: none;">
+        <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
+        <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
+        <button class="chat-btn" onclick="reply('teams')">معلومات عن الفرق</button>
+        <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
+      </div>
+    `;
+  }
+
   function addMessage(content, isUser = false) {
     const wrapper = document.createElement('div');
     wrapper.className = 'message-wrapper ' + (isUser ? 'user' : 'bot');
@@ -151,39 +169,41 @@
 
     wrapper.appendChild(avatar);
     wrapper.appendChild(bubble);
-    document.getElementById('chat-box').appendChild(wrapper);
+
+    const chatBox = document.getElementById('chat-box');
+    chatBox.insertBefore(wrapper, document.getElementById('main-buttons'));
     wrapper.scrollIntoView({ behavior: "smooth" });
   }
 
   function startChat() {
-  addMessage("مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 ما اسمك؟", false);
+    clearChat();
+    addMessage("مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 ما اسمك؟", false);
 
-  // Create input and button in chat
-  const inputDiv = document.createElement("div");
-  inputDiv.style.marginTop = "10px";
-  inputDiv.innerHTML = `
-    <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." 
-           style="padding:10px; font-size:16px; width:70%; border-radius:5px; border:1px solid #ccc;">
-    <button onclick="submitName()" 
-            style="padding:10px 15px; margin-right:10px; background:#f4e733; font-weight:bold; border:none; border-radius:5px;">
-      إرسال
-    </button>
-  `;
-  document.getElementById("chat-box").appendChild(inputDiv);
-}
-
-function submitName() {
-  const input = document.getElementById("nameInput");
-  const name = input.value.trim();
-  if (name) {
-    addMessage(name, true);
-    input.parentElement.remove(); // remove input box
-    setTimeout(() => {
-      addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
-      document.getElementById("main-buttons").style.display = "flex";
-    }, 500);
+    const inputDiv = document.createElement("div");
+    inputDiv.style.marginTop = "10px";
+    inputDiv.innerHTML = `
+      <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." 
+             style="padding:10px; font-size:16px; width:70%; border-radius:5px; border:1px solid #ccc;">
+      <button onclick="submitName()" 
+              style="padding:10px 15px; margin-right:10px; background:#f4e733; font-weight:bold; border:none; border-radius:5px;">
+        إرسال
+      </button>
+    `;
+    document.getElementById("chat-box").insertBefore(inputDiv, document.getElementById('main-buttons'));
   }
-}
+
+  function submitName() {
+    const input = document.getElementById("nameInput");
+    const name = input.value.trim();
+    if (name) {
+      addMessage(name, true);
+      input.parentElement.remove(); // remove input box
+      setTimeout(() => {
+        addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
+        document.getElementById("main-buttons").style.display = "flex";
+      }, 500);
+    }
+  }
 
   function reply(option) {
     document.getElementById("main-buttons").style.display = "none";
@@ -195,6 +215,11 @@ function submitName() {
     } else if (option === 'teams') {
       addMessage("لدينا فرق في كرة القدم، كرة الطائرة، وكرة اليد.", false);
     }
+
+    // Show restart button again
+    setTimeout(() => {
+      document.getElementById("main-buttons").style.display = "flex";
+    }, 1000);
   }
 
   startChat();
