@@ -164,14 +164,17 @@
         { text: 'مواعيد التدريبات', value: 'training' },
         { text: 'التسجيل في النادي', value: 'register' },
         { text: 'معلومات عن الفرق', value: 'teams' }
-        { text: 'hr', value: 'teams' }
+        { text: 'hr', value: 'hr' }
       ]
     }).then(function (res) {
       if(res.value === 'training') {
         return botui.message.add({ content: 'تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.' });
       } else if(res.value === 'register') {
         return botui.message.add({ content: 'للتسجيل، يرجى زيارة مقر النادي أو التواصل عبر الهاتف 0503874714.' });
-      } else {
+      } else if(res.value === 'hr') {
+        return botui.message.add({ content: 'hr' });
+      }
+      else {
         return botui.message.add({ content: 'لدينا فرق في كرة القدم، كرة الطائرة، وكرة اليد.' });
       }
     }).then(showContactOptions);
