@@ -112,7 +112,19 @@
       justify-content: center;
       white-space: nowrap;
     }
-  </style>
+  
+.botui-message.user {
+  display: flex;
+  justify-content: flex-start;
+}
+.botui-message.user .botui-message-content {
+  margin-right: auto !important;
+  margin-left: 0 !important;
+  background-color: #f4e733;
+  color: #000;
+  text-align: right;
+}
+</style>
 </head>
 <body>
 
@@ -141,7 +153,7 @@
     botui.action.text({
       action: { placeholder: 'اكتب رسالتك هنا...' }
     }).then(function (res) {
-      botui.message.add({ type: 'user', content: res.value });
+      botui.message.add({ type: 'user', cssClass: 'user', content: res.value });
       var subject = encodeURIComponent("رسالة من الزائر");
       var body = encodeURIComponent(res.value);
       window.open("mailto:rawandaldomour@gmail.com?subject=" + subject + "&body=" + body, '_blank');
@@ -159,7 +171,7 @@
         { text: '🔁 رجوع إلى القائمة', value: 'back' }
       ]
     }).then(function (res) {
-      botui.message.add({ type: 'user', content: res.text });
+      botui.message.add({ type: 'user', cssClass: 'user', content: res.text });
       if (res.value === 'call') {
         window.open('tel:0503874714', '_blank');
       } else if (res.value === 'whatsapp') {
@@ -182,7 +194,7 @@
         { text: '📌 معلومات عن الفرق', value: 'teams' }
       ]
     }).then(function (res) {
-      botui.message.add({ type: 'user', content: res.text });
+      botui.message.add({ type: 'user', cssClass: 'user', content: res.text });
       if (res.value === 'training') {
         return botui.message.add({ content: 'تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.' });
       } else if (res.value === 'register') {
