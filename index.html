@@ -3,8 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>نادي كلباء الرياضي الثقافي</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui-theme-default.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -37,7 +35,7 @@
       vertical-align: middle;
     }
 
-    #botui-container {
+    #chat-box {
       background-color: white;
       color: black;
       border-radius: 12px;
@@ -46,88 +44,81 @@
       margin: 30px auto;
       max-width: 500px;
       width: 90%;
+      min-height: 300px;
     }
 
-    .botui-message-content {
+    .message-wrapper {
+      display: flex;
+      align-items: flex-start;
+      margin: 10px 0;
+    }
+
+    .message-wrapper.user {
+      flex-direction: row-reverse;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      margin: 0 10px;
+    }
+
+    .content {
+      background-color: #f4e733;
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 75%;
       font-size: 18px;
     }
 
-    .botui-actions-buttons {
+    .message-wrapper.bot .content {
+      background-color: #eee;
+    }
+
+    .button-container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 10px;
-      margin-top: 10px;
+      margin-top: 20px;
     }
 
-    .botui-actions-buttons-button {
+    .chat-btn {
       background-color: #f4e733;
       color: #000;
+      border: none;
       border-radius: 5px;
       padding: 10px 16px;
       font-weight: bold;
+      cursor: pointer;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
     @media (max-width: 600px) {
-      #botui-container {
+      #chat-box {
         width: 75% !important;
         padding: 25px !important;
         max-width: 95% !important;
         min-height: 70vh !important;
         font-size: 18px !important;
       }
-
-      .botui-message-content {
+      .content {
         font-size: 18px !important;
       }
-
-      .botui-actions-buttons-button {
+      .chat-btn {
         padding: 14px 18px !important;
         font-size: 17px !important;
       }
-
       header h1 {
         font-size: 22px !important;
       }
-
       header img {
         height: 70px !important;
       }
     }
-    .botui-message.botui-message-user {
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: flex-start;
-}
-
-.botui-message.botui-message-user::before {
-  content: '';
-  display: inline-block;
-  width: 36px;
-  height: 36px;
-  margin-left: 10px;
-  background-image: url('user-icon.png');
-  background-size: cover;
-  border-radius: 50%;
-}
-
-.botui-message.botui-message-bot {
-  display: flex;
-  align-items: flex-start;
-}
-
-.botui-message.botui-message-bot::before {
-  content: '';
-  display: inline-block;
-  width: 36px;
-  height: 36px;
-  margin-right: 10px;
-  background-image: url('bot-icon.png');
-  background-size: cover;
-  border-radius: 50%;
-}
-
   </style>
 </head>
 <body>
@@ -137,91 +128,60 @@
   <h1>نادي كلباء الرياضي الثقافي</h1>
 </header>
 
-<div id="botui-container">
-  <div id="botui-app">
-    <bot-ui></bot-ui>
-  </div>
+<div id="chat-box"></div>
+
+<div class="button-container" id="main-buttons" style="display: none;">
+  <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
+  <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
+  <button class="chat-btn" onclick="reply('teams')">معلومات عن الفرق</button>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/botui/build/botui.min.js"></script>
 <script>
-  var botui = new BotUI('botui-app');
-  let userName = '';
+  function addMessage(content, isUser = false) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'message-wrapper ' + (isUser ? 'user' : 'bot');
 
-  function resetChat() {
-    document.getElementById('botui-app').innerHTML = '<bot-ui></bot-ui>';
-    botui = new BotUI('botui-app');
-    startBot();
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar';
+    avatar.style.backgroundImage = `url('${isUser ? 'user-icon.png' : 'bot-icon.png'}')`;
+
+    const bubble = document.createElement('div');
+    bubble.className = 'content';
+    bubble.textContent = content;
+
+    wrapper.appendChild(avatar);
+    wrapper.appendChild(bubble);
+    document.getElementById('chat-box').appendChild(wrapper);
+    wrapper.scrollIntoView({ behavior: "smooth" });
   }
 
-  function askCustomMessage() {
-    botui.action.text({
-      action: { placeholder: 'اكتب رسالتك هنا...' }
-    }).then(function (res) {
-      var subject = encodeURIComponent("رسالة من الزائر");
-      var body = encodeURIComponent(res.value);
-      window.open("mailto:rawandaldomour@gmail.com?subject=" + subject + "&body=" + body, '_blank');
-      botui.message.add({ content: 'تم فتح بريدك لإرسال الرسالة.' }).then(showContactOptions);
-    });
-  }
-
-  function showContactOptions() {
-    return botui.action.button({
-      action: [
-        { text: '📞 اتصل بنا', value: 'call' },
-        { text: '📱 واتساب', value: 'whatsapp' },
-        { text: '📸 انستغرام', value: 'instagram' },
-        { text: '📝 اكتب لنا رسالة', value: 'custom' },
-        { text: '🔁 رجوع إلى القائمة', value: 'back' }
-      ]
-    }).then(function (res) {
-      if (res.value === 'call') {
-        window.open('tel:0503874714', '_blank');
-      } else if (res.value === 'whatsapp') {
-        window.open('https://wa.me/971503874714', '_blank');
-      } else if (res.value === 'instagram') {
-        window.open('https://www.instagram.com/kalbasc/', '_blank');
-      } else if (res.value === 'custom') {
-        askCustomMessage();
-      } else {
-        resetChat(); // restart from name
+  function startChat() {
+    addMessage("مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 ما اسمك؟", false);
+    setTimeout(() => {
+      const name = prompt("اكتب اسمك هنا:");
+      if (name) {
+        addMessage(name, true);
+        setTimeout(() => {
+          addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
+          document.getElementById("main-buttons").style.display = "flex";
+        }, 500);
       }
-    });
+    }, 1000);
   }
 
-  function mainMenu() {
-    return botui.action.button({
-      action: [
-        { text: 'مواعيد التدريبات', value: 'training' },
-        { text: 'التسجيل في النادي', value: 'register' },
-        { text: 'معلومات عن الفرق', value: 'teams' }
-      ]
-    }).then(function (res) {
-      if (res.value === 'training') {
-        return botui.message.add({ content: 'تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.' });
-      } else if (res.value === 'register') {
-        return botui.message.add({ content: 'للتسجيل، يرجى زيارة مقر النادي أو التواصل عبر الهاتف 0503874714.' });
-      } else {
-        return botui.message.add({ content: 'لدينا فرق في كرة القدم، كرة الطائرة، وكرة اليد.' });
-      }
-    }).then(showContactOptions);
+  function reply(option) {
+    document.getElementById("main-buttons").style.display = "none";
+
+    if (option === 'training') {
+      addMessage("تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.", false);
+    } else if (option === 'register') {
+      addMessage("للتسجيل، يرجى زيارة مقر النادي أو التواصل عبر الهاتف 0503874714.", false);
+    } else if (option === 'teams') {
+      addMessage("لدينا فرق في كرة القدم، كرة الطائرة، وكرة اليد.", false);
+    }
   }
 
-  function startBot() {
-    botui.message.add({
-      content: 'مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 ما اسمك؟'
-    }).then(function () {
-      return botui.action.text({
-        action: { placeholder: 'اكتب اسمك هنا' }
-      });
-    }).then(function (res) {
-      userName = res.value;
-      return botui.message.add({ content: `مرحباً بك ${userName}، كيف يمكننا مساعدتك؟` });
-    }).then(mainMenu);
-  }
-
-  startBot();
+  startChat();
 </script>
 
 </body>
