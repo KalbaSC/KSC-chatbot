@@ -77,11 +77,11 @@
       background-color: black;
       color: white;
       border-radius: 50%;
-      padding: 10px;
-      font-size: 18px;
+      padding: 15px;
+      font-size: 24px;
       text-align: center;
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -95,6 +95,8 @@
       text-align: right;
       border-radius: 10px;
       padding: 10px;
+      margin-left: 0;
+      margin-right: auto;
     }
 
     /* Align the bot's messages to the right */
@@ -104,6 +106,8 @@
       text-align: left;
       border-radius: 10px;
       padding: 10px;
+      margin-left: auto;
+      margin-right: 0;
     }
 
     @media (max-width: 600px) {
@@ -173,9 +177,9 @@
   function showContactOptions() {
     return botui.action.button({
       action: [
-        { text: '📞 اتصل بنا', value: 'call' },
-        { text: '📱 واتساب', value: 'whatsapp' },
-        { text: '📸 انستغرام', value: 'instagram' },
+        { text: '<i class="fas fa-phone-alt"></i> اتصل بنا', value: 'call' },
+        { text: '<i class="fab fa-whatsapp"></i> واتساب', value: 'whatsapp' },
+        { text: '<i class="fab fa-instagram"></i> انستغرام', value: 'instagram' },
         { text: '📝 اكتب لنا رسالة', value: 'custom' },
         { text: '🔁 رجوع إلى القائمة', value: 'back' }
       ]
