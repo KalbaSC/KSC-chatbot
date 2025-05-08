@@ -5,10 +5,7 @@
   <title>نادي كلباء الرياضي الثقافي</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui-theme-default.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Font Awesome for icons -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-
   <style>
     body {
       background-color: #000;
@@ -53,6 +50,44 @@
 
     .botui-message-content {
       font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .botui-message-content:before {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+    }
+
+    .botui-message-bot .botui-message-content:before {
+      content: "\f007"; /* user icon for bot */
+      color: #000;
+    }
+
+    .botui-message-user .botui-message-content:before {
+      content: "\f4ad"; /* reply icon */
+      color: #000;
+    }
+
+    .botui-message-user .botui-message-content {
+      background-color: #f4e733;
+      color: #000;
+      text-align: right;
+      border-radius: 10px;
+      padding: 10px;
+      margin-left: 0;
+      margin-right: auto;
+    }
+
+    .botui-message-bot .botui-message-content {
+      background-color: #ffffff;
+      color: #000;
+      text-align: left;
+      border-radius: 10px;
+      padding: 10px;
+      margin-left: auto;
+      margin-right: 0;
     }
 
     .botui-actions-buttons {
@@ -64,50 +99,15 @@
     }
 
     .botui-actions-buttons-button {
-      background-color: #f4e733;
-      color: #000;
-      border-radius: 5px;
-      padding: 10px 16px;
+      background-color: #000;
+      color: #fff;
+      border-radius: 50px;
+      padding: 12px 20px;
       font-weight: bold;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Styling for contact icons */
-    .contact-icon {
-      background-color: black;
-      color: white;
-      border-radius: 50%;
-      padding: 15px;
-      font-size: 24px;
-      text-align: center;
-      width: 60px;
-      height: 60px;
+      font-size: 16px;
       display: flex;
-      justify-content: center;
       align-items: center;
-      cursor: pointer;
-    }
-
-    /* Align the user's messages to the left */
-    .botui-message-user .botui-message-content {
-      background-color: #f4e733;
-      color: #000;
-      text-align: right;
-      border-radius: 10px;
-      padding: 10px;
-      margin-left: 0;
-      margin-right: auto;
-    }
-
-    /* Align the bot's messages to the right */
-    .botui-message-bot .botui-message-content {
-      background-color: #ffffff;
-      color: #000;
-      text-align: left;
-      border-radius: 10px;
-      padding: 10px;
-      margin-left: auto;
-      margin-right: 0;
+      gap: 8px;
     }
 
     @media (max-width: 600px) {
@@ -158,7 +158,7 @@
   let userName = '';
 
   function resetChat() {
-    document.getElementById('botui-app').innerHTML = '<bot-ui></botui>';
+    document.getElementById('botui-app').innerHTML = '<bot-ui></bot-ui>';
     botui = new BotUI('botui-app');
     startBot();
   }
@@ -167,6 +167,10 @@
     botui.action.text({
       action: { placeholder: 'اكتب رسالتك هنا...' }
     }).then(function (res) {
+      botui.message.add({
+        type: 'user',
+        content: res.value
+      });
       var subject = encodeURIComponent("رسالة من الزائر");
       var body = encodeURIComponent(res.value);
       window.open("mailto:rawandaldomour@gmail.com?subject=" + subject + "&body=" + body, '_blank');
@@ -180,8 +184,8 @@
         { text: '<i class="fas fa-phone-alt"></i> اتصل بنا', value: 'call' },
         { text: '<i class="fab fa-whatsapp"></i> واتساب', value: 'whatsapp' },
         { text: '<i class="fab fa-instagram"></i> انستغرام', value: 'instagram' },
-        { text: '📝 اكتب لنا رسالة', value: 'custom' },
-        { text: '🔁 رجوع إلى القائمة', value: 'back' }
+        { text: '<i class="fas fa-pencil-alt"></i> اكتب لنا رسالة', value: 'custom' },
+        { text: '<i class="fas fa-undo"></i> رجوع إلى القائمة', value: 'back' }
       ]
     }).then(function (res) {
       if (res.value === 'call') {
@@ -193,7 +197,7 @@
       } else if (res.value === 'custom') {
         askCustomMessage();
       } else {
-        resetChat(); // restart from name
+        resetChat();
       }
     });
   }
@@ -201,11 +205,16 @@
   function mainMenu() {
     return botui.action.button({
       action: [
-        { text: 'مواعيد التدريبات', value: 'training' },
-        { text: 'التسجيل في النادي', value: 'register' },
-        { text: 'معلومات عن الفرق', value: 'teams' }
+        { text: '📅 مواعيد التدريبات', value: 'training' },
+        { text: '📝 التسجيل في النادي', value: 'register' },
+        { text: '📌 معلومات عن الفرق', value: 'teams' }
       ]
     }).then(function (res) {
+      botui.message.add({
+        type: 'user',
+        content: res.text
+      });
+
       if (res.value === 'training') {
         return botui.message.add({ content: 'تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.' });
       } else if (res.value === 'register') {
@@ -225,6 +234,7 @@
       });
     }).then(function (res) {
       userName = res.value;
+      botui.message.add({ type: 'user', content: userName });
       return botui.message.add({ content: `مرحباً بك ${userName}، كيف يمكننا مساعدتك؟` });
     }).then(mainMenu);
   }
