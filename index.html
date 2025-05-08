@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>نادي كلباء الرياضي الثقافي</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui-theme-default.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       background-color: #000;
@@ -16,6 +16,7 @@
       flex-direction: column;
       align-items: center;
     }
+
     header {
       background-color: #f4e733;
       color: black;
@@ -23,16 +24,19 @@
       padding: 20px;
       width: 100%;
     }
+
     header img {
       height: 80px;
       vertical-align: middle;
     }
+
     header h1 {
       display: inline-block;
       margin: 0 10px;
       font-size: 24px;
       vertical-align: middle;
     }
+
     #botui-container {
       background-color: white;
       color: black;
@@ -43,56 +47,11 @@
       max-width: 500px;
       width: 90%;
     }
+
     .botui-message-content {
       font-size: 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
-    .botui-message-bot .botui-message-content::before,
-    .botui-message-user .botui-message-content::before {
-      font-family: "Font Awesome 5 Free";
-      font-weight: 900;
-      background-color: black;
-      color: white;
-      border-radius: 50%;
-      padding: 6px;
-      width: 28px;
-      height: 28px;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .botui-message-bot .botui-message-content::before {
-      content: "\f4bb";
-    }
-    .botui-message-user .botui-message-content::before {
-      content: "\f007";
-    }
-    .botui-message-user {
-      display: flex;
-      justify-content: flex-start;
-    }
-    .botui-message-bot {
-      display: flex;
-      justify-content: flex-end;
-    }
-    .botui-message-user .botui-message-content {
-      background-color: #f4e733;
-      color: #000;
-      border-radius: 10px;
-      padding: 10px;
-      text-align: right;
-      margin-right: auto;
-    }
-    .botui-message-bot .botui-message-content {
-      background-color: #ffffff;
-      color: #000;
-      border-radius: 10px;
-      padding: 10px;
-      text-align: left;
-      margin-left: auto;
-    }
+
     .botui-actions-buttons {
       display: flex;
       flex-wrap: wrap;
@@ -100,59 +59,43 @@
       gap: 10px;
       margin-top: 10px;
     }
+
     .botui-actions-buttons-button {
       background-color: #f4e733;
       color: #000;
       border-radius: 5px;
       padding: 10px 16px;
       font-weight: bold;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      white-space: nowrap;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
-  
-.botui-message.user {
-  display: flex;
-  justify-content: flex-start;
-}
-.botui-message.user .botui-message-content {
-  margin-right: auto !important;
-  margin-left: 0 !important;
-  background-color: #f4e733;
-  color: #000;
-  text-align: right;
-}
 
-.botui-message.user {
-  display: flex;
-  justify-content: flex-start;
-}
-.botui-message.user .botui-message-content {
-  background-color: #f4e733;
-  color: #000;
-  border-radius: 10px;
-  padding: 10px;
-  text-align: right;
-  margin-left: 0;
-  margin-right: auto;
-}
+    @media (max-width: 600px) {
+      #botui-container {
+        width: 75% !important;
+        padding: 25px !important;
+        max-width: 95% !important;
+        min-height: 70vh !important;
+        font-size: 18px !important;
+      }
 
-.botui-message.bot {
-  display: flex;
-  justify-content: flex-end;
-}
-.botui-message.bot .botui-message-content {
-  background-color: #ffffff;
-  color: #000;
-  border-radius: 10px;
-  padding: 10px;
-  text-align: left;
-  margin-left: auto;
-  margin-right: 0;
-}
-</style>
+      .botui-message-content {
+        font-size: 18px !important;
+      }
+
+      .botui-actions-buttons-button {
+        padding: 14px 18px !important;
+        font-size: 17px !important;
+      }
+
+      header h1 {
+        font-size: 22px !important;
+      }
+
+      header img {
+        height: 70px !important;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -162,7 +105,9 @@
 </header>
 
 <div id="botui-container">
-  <div id="botui-app"><bot-ui></bot-ui></div>
+  <div id="botui-app">
+    <bot-ui></bot-ui>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
@@ -172,7 +117,7 @@
   let userName = '';
 
   function resetChat() {
-    document.getElementById('botui-app').innerHTML = '<bot-ui></botui>';
+    document.getElementById('botui-app').innerHTML = '<bot-ui></bot-ui>';
     botui = new BotUI('botui-app');
     startBot();
   }
@@ -181,7 +126,6 @@
     botui.action.text({
       action: { placeholder: 'اكتب رسالتك هنا...' }
     }).then(function (res) {
-      botui.message.add({ type: 'user', cssClass: 'user', content: res.value });
       var subject = encodeURIComponent("رسالة من الزائر");
       var body = encodeURIComponent(res.value);
       window.open("mailto:rawandaldomour@gmail.com?subject=" + subject + "&body=" + body, '_blank');
@@ -193,13 +137,12 @@
     return botui.action.button({
       action: [
         { text: '📞 اتصل بنا', value: 'call' },
-        { text: '💬 واتساب', value: 'whatsapp' },
-        { text: '📷 انستغرام', value: 'instagram' },
-        { text: '✍️ اكتب لنا رسالة', value: 'custom' },
+        { text: '📱 واتساب', value: 'whatsapp' },
+        { text: '📸 انستغرام', value: 'instagram' },
+        { text: '📝 اكتب لنا رسالة', value: 'custom' },
         { text: '🔁 رجوع إلى القائمة', value: 'back' }
       ]
     }).then(function (res) {
-      botui.message.add({ type: 'user', cssClass: 'user', content: res.text });
       if (res.value === 'call') {
         window.open('tel:0503874714', '_blank');
       } else if (res.value === 'whatsapp') {
@@ -209,7 +152,7 @@
       } else if (res.value === 'custom') {
         askCustomMessage();
       } else {
-        resetChat();
+        resetChat(); // restart from name
       }
     });
   }
@@ -217,12 +160,11 @@
   function mainMenu() {
     return botui.action.button({
       action: [
-        { text: '📅 مواعيد التدريبات', value: 'training' },
-        { text: '📝 التسجيل في النادي', value: 'register' },
-        { text: '📌 معلومات عن الفرق', value: 'teams' }
+        { text: 'مواعيد التدريبات', value: 'training' },
+        { text: 'التسجيل في النادي', value: 'register' },
+        { text: 'معلومات عن الفرق', value: 'teams' }
       ]
     }).then(function (res) {
-      botui.message.add({ type: 'user', cssClass: 'user', content: res.text });
       if (res.value === 'training') {
         return botui.message.add({ content: 'تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.' });
       } else if (res.value === 'register') {
@@ -234,14 +176,16 @@
   }
 
   function startBot() {
-    botui.message.add({ content: 'مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 ما اسمك؟' })
-      .then(() => botui.action.text({ action: { placeholder: 'اكتب اسمك هنا' } }))
-      .then((res) => {
-        userName = res.value;
-        botui.message.add({ type: 'user', content: userName });
-        return botui.message.add({ content: `مرحباً بك ${userName}، كيف يمكننا مساعدتك؟` });
-      })
-      .then(mainMenu);
+    botui.message.add({
+      content: 'مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 ما اسمك؟'
+    }).then(function () {
+      return botui.action.text({
+        action: { placeholder: 'اكتب اسمك هنا' }
+      });
+    }).then(function (res) {
+      userName = res.value;
+      return botui.message.add({ content: مرحباً بك ${userName}، كيف يمكننا مساعدتك؟ });
+    }).then(mainMenu);
   }
 
   startBot();
