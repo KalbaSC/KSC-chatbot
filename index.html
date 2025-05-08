@@ -55,24 +55,27 @@
       gap: 10px;
     }
 
-    .botui-message-bot .botui-message-content::before {
-      content: "\f4bb";
+    .botui-message-bot .botui-message-content::before,
+    .botui-message-user .botui-message-content::before {
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
-      background-color: #000;
+      background-color: black;
       color: white;
       border-radius: 50%;
-      padding: 8px;
+      padding: 6px;
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .botui-message-bot .botui-message-content::before {
+      content: "\f4bb"; /* bot icon */
     }
 
     .botui-message-user .botui-message-content::before {
-      content: "\f007";
-      font-family: "Font Awesome 5 Free";
-      font-weight: 900;
-      background-color: #000;
-      color: white;
-      border-radius: 50%;
-      padding: 8px;
+      content: "\f007"; /* user icon */
     }
 
     .botui-message-user .botui-message-content {
@@ -104,15 +107,27 @@
     }
 
     .botui-actions-buttons-button {
-      background-color: black;
-      color: white;
-      border-radius: 50px;
-      padding: 12px 20px;
+      background-color: #f4e733;
+      color: #000;
+      border-radius: 5px;
+      padding: 10px 16px;
       font-weight: bold;
       font-size: 16px;
       display: flex;
       align-items: center;
       gap: 10px;
+    }
+
+    .botui-actions-buttons-button i {
+      background-color: black;
+      color: white;
+      border-radius: 50%;
+      padding: 6px;
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
     }
 
     @media (max-width: 600px) {
@@ -163,7 +178,7 @@
   let userName = '';
 
   function resetChat() {
-    document.getElementById('botui-app').innerHTML = '<bot-ui></bot-ui>';
+    document.getElementById('botui-app').innerHTML = '<bot-ui></botui>';
     botui = new BotUI('botui-app');
     startBot();
   }
@@ -183,13 +198,15 @@
   function showContactOptions() {
     return botui.action.button({
       action: [
-        { text: '<i class="fas fa-phone-alt"></i>', value: 'call' },
-        { text: '<i class="fab fa-whatsapp"></i>', value: 'whatsapp' },
-        { text: '<i class="fab fa-instagram"></i>', value: 'instagram' },
-        { text: '<i class="fas fa-pencil-alt"></i>', value: 'custom' },
-        { text: '<i class="fas fa-undo"></i>', value: 'back' }
+        { text: '<i class="fas fa-phone-alt"></i> اتصل بنا', value: 'call' },
+        { text: '<i class="fab fa-whatsapp"></i> واتساب', value: 'whatsapp' },
+        { text: '<i class="fab fa-instagram"></i> انستغرام', value: 'instagram' },
+        { text: '<i class="fas fa-pencil-alt"></i> اكتب لنا رسالة', value: 'custom' },
+        { text: '<i class="fas fa-undo"></i> رجوع إلى القائمة', value: 'back' }
       ]
     }).then(function (res) {
+      botui.message.add({ type: 'user', content: res.text });
+
       if (res.value === 'call') {
         window.open('tel:0503874714', '_blank');
       } else if (res.value === 'whatsapp') {
@@ -213,6 +230,7 @@
       ]
     }).then(function (res) {
       botui.message.add({ type: 'user', content: res.text });
+
       if (res.value === 'training') {
         return botui.message.add({ content: 'تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.' });
       } else if (res.value === 'register') {
