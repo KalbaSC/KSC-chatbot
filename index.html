@@ -6,6 +6,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui-theme-default.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font Awesome for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
   <style>
     body {
       background-color: #000;
@@ -69,6 +72,40 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
+    /* Styling for contact icons */
+    .contact-icon {
+      background-color: black;
+      color: white;
+      border-radius: 50%;
+      padding: 10px;
+      font-size: 18px;
+      text-align: center;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    /* Align the user's messages to the left */
+    .botui-message-user .botui-message-content {
+      background-color: #f4e733;
+      color: #000;
+      text-align: right;
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    /* Align the bot's messages to the right */
+    .botui-message-bot .botui-message-content {
+      background-color: #ffffff;
+      color: #000;
+      text-align: left;
+      border-radius: 10px;
+      padding: 10px;
+    }
+
     @media (max-width: 600px) {
       #botui-container {
         width: 75% !important;
@@ -117,7 +154,7 @@
   let userName = '';
 
   function resetChat() {
-    document.getElementById('botui-app').innerHTML = '<bot-ui></bot-ui>';
+    document.getElementById('botui-app').innerHTML = '<bot-ui></botui>';
     botui = new BotUI('botui-app');
     startBot();
   }
