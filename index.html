@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>نادي كلباء الرياضي الثقافي</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui-theme-default.css">
@@ -118,18 +118,6 @@
       gap: 10px;
       justify-content: center;
     }
-
-    .botui-actions-buttons-button i {
-      background-color: black;
-      color: white;
-      border-radius: 50%;
-      padding: 6px;
-      width: 28px;
-      height: 28px;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-    }
   </style>
 </head>
 <body>
@@ -170,11 +158,11 @@
   function showContactOptions() {
     return botui.action.button({
       action: [
-        { html: '<i class="fas fa-phone-alt"></i> اتصل بنا', value: 'call' },
-        { html: '<i class="fab fa-whatsapp"></i> واتساب', value: 'whatsapp' },
-        { html: '<i class="fab fa-instagram"></i> انستغرام', value: 'instagram' },
-        { html: '<i class="fas fa-pencil-alt"></i> اكتب لنا رسالة', value: 'custom' },
-        { html: '<i class="fas fa-undo"></i> رجوع إلى القائمة', value: 'back' }
+        { text: '📞 اتصل بنا', value: 'call' },
+        { text: '💬 واتساب', value: 'whatsapp' },
+        { text: '📷 انستغرام', value: 'instagram' },
+        { text: '✍️ اكتب لنا رسالة', value: 'custom' },
+        { text: '🔁 رجوع إلى القائمة', value: 'back' }
       ]
     }).then(function (res) {
       botui.message.add({ type: 'user', content: res.text });
@@ -196,12 +184,12 @@
   function mainMenu() {
     return botui.action.button({
       action: [
-        { html: '📅 مواعيد التدريبات', value: 'training' },
-        { html: '📝 التسجيل في النادي', value: 'register' },
-        { html: '📌 معلومات عن الفرق', value: 'teams' }
+        { text: '📅 مواعيد التدريبات', value: 'training' },
+        { text: '📝 التسجيل في النادي', value: 'register' },
+        { text: '📌 معلومات عن الفرق', value: 'teams' }
       ]
     }).then(function (res) {
-      botui.message.add({ type: 'user', content: res.html || res.text });
+      botui.message.add({ type: 'user', content: res.text });
 
       if (res.value === 'training') {
         return botui.message.add({ content: 'تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.' });
