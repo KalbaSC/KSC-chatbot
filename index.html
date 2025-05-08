@@ -1,7 +1,8 @@
+<!-- COMPLETE HTML FILE: Kalba Chatbot -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>نادي كلباء الرياضي الثقافي</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui-theme-default.css">
@@ -55,6 +56,26 @@
       gap: 10px;
     }
 
+    .botui-message-user .botui-message-content {
+      background-color: #f4e733;
+      color: #000;
+      border-radius: 10px;
+      padding: 10px;
+      margin-left: 0;
+      margin-right: auto;
+      text-align: right;
+    }
+
+    .botui-message-bot .botui-message-content {
+      background-color: #ffffff;
+      color: #000;
+      border-radius: 10px;
+      padding: 10px;
+      margin-left: auto;
+      margin-right: 0;
+      text-align: left;
+    }
+
     .botui-message-bot .botui-message-content::before,
     .botui-message-user .botui-message-content::before {
       font-family: "Font Awesome 5 Free";
@@ -78,30 +99,10 @@
       content: "\f007"; /* user icon */
     }
 
-    .botui-message-user .botui-message-content {
-      background-color: #f4e733;
-      color: #000;
-      text-align: right;
-      border-radius: 10px;
-      padding: 10px;
-      margin-left: 0;
-      margin-right: auto;
-    }
-
-    .botui-message-bot .botui-message-content {
-      background-color: #ffffff;
-      color: #000;
-      text-align: left;
-      border-radius: 10px;
-      padding: 10px;
-      margin-left: auto;
-      margin-right: 0;
-    }
-
     .botui-actions-buttons {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
       gap: 10px;
       margin-top: 10px;
     }
@@ -116,6 +117,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      justify-content: center;
     }
 
     .botui-actions-buttons-button i {
@@ -129,33 +131,6 @@
       justify-content: center;
       align-items: center;
     }
-
-    @media (max-width: 600px) {
-      #botui-container {
-        width: 75% !important;
-        padding: 25px !important;
-        max-width: 95% !important;
-        min-height: 70vh !important;
-        font-size: 18px !important;
-      }
-
-      .botui-message-content {
-        font-size: 18px !important;
-      }
-
-      .botui-actions-buttons-button {
-        padding: 14px 18px !important;
-        font-size: 17px !important;
-      }
-
-      header h1 {
-        font-size: 22px !important;
-      }
-
-      header img {
-        height: 70px !important;
-      }
-    }
   </style>
 </head>
 <body>
@@ -166,9 +141,7 @@
 </header>
 
 <div id="botui-container">
-  <div id="botui-app">
-    <bot-ui></bot-ui>
-  </div>
+  <div id="botui-app"><bot-ui></bot-ui></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
@@ -178,7 +151,7 @@
   let userName = '';
 
   function resetChat() {
-    document.getElementById('botui-app').innerHTML = '<bot-ui></botui>';
+    document.getElementById('botui-app').innerHTML = '<bot-ui></bot-ui>';
     botui = new BotUI('botui-app');
     startBot();
   }
@@ -242,15 +215,14 @@
   }
 
   function startBot() {
-    botui.message.add({
-      content: 'مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 ما اسمك؟'
-    }).then(function () {
-      return botui.action.text({ action: { placeholder: 'اكتب اسمك هنا' } });
-    }).then(function (res) {
-      userName = res.value;
-      botui.message.add({ type: 'user', content: userName });
-      return botui.message.add({ content: `مرحباً بك ${userName}، كيف يمكننا مساعدتك؟` });
-    }).then(mainMenu);
+    botui.message.add({ content: 'مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 ما اسمك؟' })
+      .then(() => botui.action.text({ action: { placeholder: 'اكتب اسمك هنا' } }))
+      .then((res) => {
+        userName = res.value;
+        botui.message.add({ type: 'user', content: userName });
+        return botui.message.add({ content: `مرحباً بك ${userName}، كيف يمكننا مساعدتك؟` });
+      })
+      .then(mainMenu);
   }
 
   startBot();
