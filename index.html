@@ -12,13 +12,13 @@
   font-style: normal;
 }
 
-body {
+body, .content, .chat-btn {
   font-family: 'NotoKufiArabic', 'Cairo', sans-serif;
 }
 
     body {
       background-color: #000;
-      font-family: 'Cairo', sans-serif;
+      font-family: 'NotoKufiArabic', sans-serif;
       margin: 0;
       padding: 0;
       display: flex;
@@ -208,7 +208,7 @@ body {
     const name = input.value.trim();
     if (name) {
       addMessage(name, true);
-      input.parentElement.remove(); // remove input box
+      input.parentElement.remove(); 
       setTimeout(() => {
         addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
         document.getElementById("main-buttons").style.display = "flex";
@@ -238,7 +238,7 @@ body {
     setTimeout(() => {
       document.getElementById("main-buttons").style.display = "flex";
     }, 800);
-  }, 300); // short delay to simulate natural reply
+  }, 500); 
 }
 
   startChat();
