@@ -16,7 +16,6 @@
       flex-direction: column;
       align-items: center;
     }
-
     header {
       background-color: #f4e733;
       color: black;
@@ -24,19 +23,16 @@
       padding: 20px;
       width: 100%;
     }
-
     header img {
       height: 80px;
       vertical-align: middle;
     }
-
     header h1 {
       display: inline-block;
       margin: 0 10px;
       font-size: 24px;
       vertical-align: middle;
     }
-
     #botui-container {
       background-color: white;
       color: black;
@@ -47,14 +43,12 @@
       max-width: 500px;
       width: 90%;
     }
-
     .botui-message-content {
       font-size: 18px;
       display: flex;
       align-items: center;
       gap: 10px;
     }
-
     .botui-message-bot .botui-message-content::before,
     .botui-message-user .botui-message-content::before {
       font-family: "Font Awesome 5 Free";
@@ -69,43 +63,41 @@
       justify-content: center;
       align-items: center;
     }
-
     .botui-message-bot .botui-message-content::before {
-      content: "\f4bb"; /* bot icon */
+      content: "\f4bb";
     }
-
     .botui-message-user .botui-message-content::before {
-      content: "\f007"; /* user icon */
+      content: "\f007";
     }
-
+    .botui-message-user {
+      justify-content: flex-start;
+    }
+    .botui-message-bot {
+      justify-content: flex-end;
+    }
     .botui-message-user .botui-message-content {
       background-color: #f4e733;
       color: #000;
       border-radius: 10px;
       padding: 10px;
-      margin-left: 0;
-      margin-right: auto;
       text-align: right;
+      margin-right: auto;
     }
-
     .botui-message-bot .botui-message-content {
       background-color: #ffffff;
       color: #000;
       border-radius: 10px;
       padding: 10px;
-      margin-left: auto;
-      margin-right: 0;
       text-align: left;
+      margin-left: auto;
     }
-
     .botui-actions-buttons {
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 10px;
       margin-top: 10px;
     }
-
     .botui-actions-buttons-button {
       background-color: #f4e733;
       color: #000;
@@ -115,8 +107,8 @@
       font-size: 16px;
       display: flex;
       align-items: center;
-      gap: 10px;
       justify-content: center;
+      white-space: nowrap;
     }
   </style>
 </head>
@@ -166,7 +158,6 @@
       ]
     }).then(function (res) {
       botui.message.add({ type: 'user', content: res.text });
-
       if (res.value === 'call') {
         window.open('tel:0503874714', '_blank');
       } else if (res.value === 'whatsapp') {
@@ -190,7 +181,6 @@
       ]
     }).then(function (res) {
       botui.message.add({ type: 'user', content: res.text });
-
       if (res.value === 'training') {
         return botui.message.add({ content: 'تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.' });
       } else if (res.value === 'register') {
