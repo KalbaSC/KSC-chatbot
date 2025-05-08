@@ -184,7 +184,7 @@
       });
     }).then(function (res) {
       userName = res.value;
-      return botui.message.add({ content: مرحباً بك ${userName}، كيف يمكننا مساعدتك؟ });
+      return botui.message.add({ content: `مرحباً بك ${userName}، كيف يمكننا مساعدتك؟` });
     }).then(mainMenu);
   }
 
