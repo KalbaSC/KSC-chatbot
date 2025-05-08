@@ -95,6 +95,39 @@
         height: 70px !important;
       }
     }
+    .botui-message.botui-message-user {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+}
+
+.botui-message.botui-message-user::before {
+  content: '';
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  margin-left: 10px;
+  background-image: url('user-icon.png');
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.botui-message.botui-message-bot {
+  display: flex;
+  align-items: flex-start;
+}
+
+.botui-message.botui-message-bot::before {
+  content: '';
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  margin-right: 10px;
+  background-image: url('bot-icon.png');
+  background-size: cover;
+  border-radius: 50%;
+}
+
   </style>
 </head>
 <body>
