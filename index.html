@@ -1,8 +1,7 @@
-<!-- COMPLETE HTML FILE: Kalba Chatbot -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>نادي كلباء الرياضي الثقافي</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui-theme-default.css">
@@ -56,26 +55,6 @@
       gap: 10px;
     }
 
-    .botui-message-user .botui-message-content {
-      background-color: #f4e733;
-      color: #000;
-      border-radius: 10px;
-      padding: 10px;
-      margin-left: 0;
-      margin-right: auto;
-      text-align: right;
-    }
-
-    .botui-message-bot .botui-message-content {
-      background-color: #ffffff;
-      color: #000;
-      border-radius: 10px;
-      padding: 10px;
-      margin-left: auto;
-      margin-right: 0;
-      text-align: left;
-    }
-
     .botui-message-bot .botui-message-content::before,
     .botui-message-user .botui-message-content::before {
       font-family: "Font Awesome 5 Free";
@@ -97,6 +76,26 @@
 
     .botui-message-user .botui-message-content::before {
       content: "\f007"; /* user icon */
+    }
+
+    .botui-message-user .botui-message-content {
+      background-color: #f4e733;
+      color: #000;
+      border-radius: 10px;
+      padding: 10px;
+      margin-left: 0;
+      margin-right: auto;
+      text-align: right;
+    }
+
+    .botui-message-bot .botui-message-content {
+      background-color: #ffffff;
+      color: #000;
+      border-radius: 10px;
+      padding: 10px;
+      margin-left: auto;
+      margin-right: 0;
+      text-align: left;
     }
 
     .botui-actions-buttons {
@@ -151,7 +150,7 @@
   let userName = '';
 
   function resetChat() {
-    document.getElementById('botui-app').innerHTML = '<bot-ui></bot-ui>';
+    document.getElementById('botui-app').innerHTML = '<bot-ui></botui>';
     botui = new BotUI('botui-app');
     startBot();
   }
@@ -171,11 +170,11 @@
   function showContactOptions() {
     return botui.action.button({
       action: [
-        { text: '<i class="fas fa-phone-alt"></i> اتصل بنا', value: 'call' },
-        { text: '<i class="fab fa-whatsapp"></i> واتساب', value: 'whatsapp' },
-        { text: '<i class="fab fa-instagram"></i> انستغرام', value: 'instagram' },
-        { text: '<i class="fas fa-pencil-alt"></i> اكتب لنا رسالة', value: 'custom' },
-        { text: '<i class="fas fa-undo"></i> رجوع إلى القائمة', value: 'back' }
+        { html: '<i class="fas fa-phone-alt"></i> اتصل بنا', value: 'call' },
+        { html: '<i class="fab fa-whatsapp"></i> واتساب', value: 'whatsapp' },
+        { html: '<i class="fab fa-instagram"></i> انستغرام', value: 'instagram' },
+        { html: '<i class="fas fa-pencil-alt"></i> اكتب لنا رسالة', value: 'custom' },
+        { html: '<i class="fas fa-undo"></i> رجوع إلى القائمة', value: 'back' }
       ]
     }).then(function (res) {
       botui.message.add({ type: 'user', content: res.text });
@@ -197,12 +196,12 @@
   function mainMenu() {
     return botui.action.button({
       action: [
-        { text: '📅 مواعيد التدريبات', value: 'training' },
-        { text: '📝 التسجيل في النادي', value: 'register' },
-        { text: '📌 معلومات عن الفرق', value: 'teams' }
+        { html: '📅 مواعيد التدريبات', value: 'training' },
+        { html: '📝 التسجيل في النادي', value: 'register' },
+        { html: '📌 معلومات عن الفرق', value: 'teams' }
       ]
     }).then(function (res) {
-      botui.message.add({ type: 'user', content: res.text });
+      botui.message.add({ type: 'user', content: res.html || res.text });
 
       if (res.value === 'training') {
         return botui.message.add({ content: 'تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.' });
