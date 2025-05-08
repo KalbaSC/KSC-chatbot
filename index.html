@@ -205,9 +205,17 @@
     }
   }
 
-  function reply(option) {
-    document.getElementById("main-buttons").style.display = "none";
+ function reply(option) {
+  document.getElementById("main-buttons").style.display = "none";
+   
+  let userText = '';
+  if (option === 'training') userText = 'مواعيد التدريبات';
+  else if (option === 'register') userText = 'التسجيل في النادي';
+  else if (option === 'teams') userText = 'معلومات عن الفرق';
 
+  addMessage(userText, true); 
+
+  setTimeout(() => {
     if (option === 'training') {
       addMessage("تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.", false);
     } else if (option === 'register') {
@@ -216,11 +224,11 @@
       addMessage("لدينا فرق في كرة القدم، كرة الطائرة، وكرة اليد.", false);
     }
 
-    // Show restart button again
     setTimeout(() => {
       document.getElementById("main-buttons").style.display = "flex";
-    }, 1000);
-  }
+    }, 800);
+  }, 300); // short delay to simulate natural reply
+}
 
   startChat();
 </script>
