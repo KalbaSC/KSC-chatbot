@@ -226,19 +226,28 @@ body, .content, .chat-btn {
 
   addMessage(userText, true); 
 
-  setTimeout(() => {
-    if (option === 'training') {
-      addMessage("تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.", false);
-    } else if (option === 'register') {
-      addMessage("للتسجيل، يرجى زيارة مقر النادي أو التواصل عبر الهاتف 0503874714.", false);
-    } else if (option === 'teams') {
-      addMessage("لدينا فرق في كرة القدم، كرة الطائرة، وكرة اليد.", false);
-    }
+  addMessage("...", false); // show typing indicator
 
-    setTimeout(() => {
-      document.getElementById("main-buttons").style.display = "flex";
-    }, 800);
-  }, 500); 
+setTimeout(() => {
+  const typingBubbles = document.querySelectorAll('.content');
+  const lastBubble = typingBubbles[typingBubbles.length - 1];
+  if (lastBubble && lastBubble.textContent === "...") {
+    lastBubble.parentElement.remove(); // remove typing bubble
+  }
+
+  if (option === 'training') {
+    addMessage("تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.", false);
+  } else if (option === 'register') {
+    addMessage("للتسجيل، يرجى زيارة مقر النادي أو التواصل عبر الهاتف 0503874714.", false);
+  } else if (option === 'teams') {
+    addMessage("لدينا فرق في كرة القدم، كرة الطائرة، وكرة اليد.", false);
+  }
+
+  setTimeout(() => {
+    document.getElementById("main-buttons").style.display = "flex";
+  }, 800);
+}, 1000);
+
 }
 
   startChat();
