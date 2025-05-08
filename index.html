@@ -55,19 +55,24 @@
       gap: 10px;
     }
 
-    .botui-message-content:before {
+    .botui-message-bot .botui-message-content::before {
+      content: "\f4bb";
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
+      background-color: #000;
+      color: white;
+      border-radius: 50%;
+      padding: 8px;
     }
 
-    .botui-message-bot .botui-message-content:before {
-      content: "\f007"; /* user icon for bot */
-      color: #000;
-    }
-
-    .botui-message-user .botui-message-content:before {
-      content: "\f4ad"; /* reply icon */
-      color: #000;
+    .botui-message-user .botui-message-content::before {
+      content: "\f007";
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      background-color: #000;
+      color: white;
+      border-radius: 50%;
+      padding: 8px;
     }
 
     .botui-message-user .botui-message-content {
@@ -99,15 +104,15 @@
     }
 
     .botui-actions-buttons-button {
-      background-color: #000;
-      color: #fff;
+      background-color: black;
+      color: white;
       border-radius: 50px;
       padding: 12px 20px;
       font-weight: bold;
       font-size: 16px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     @media (max-width: 600px) {
@@ -167,10 +172,7 @@
     botui.action.text({
       action: { placeholder: 'اكتب رسالتك هنا...' }
     }).then(function (res) {
-      botui.message.add({
-        type: 'user',
-        content: res.value
-      });
+      botui.message.add({ type: 'user', content: res.value });
       var subject = encodeURIComponent("رسالة من الزائر");
       var body = encodeURIComponent(res.value);
       window.open("mailto:rawandaldomour@gmail.com?subject=" + subject + "&body=" + body, '_blank');
@@ -181,11 +183,11 @@
   function showContactOptions() {
     return botui.action.button({
       action: [
-        { text: '<i class="fas fa-phone-alt"></i> اتصل بنا', value: 'call' },
-        { text: '<i class="fab fa-whatsapp"></i> واتساب', value: 'whatsapp' },
-        { text: '<i class="fab fa-instagram"></i> انستغرام', value: 'instagram' },
-        { text: '<i class="fas fa-pencil-alt"></i> اكتب لنا رسالة', value: 'custom' },
-        { text: '<i class="fas fa-undo"></i> رجوع إلى القائمة', value: 'back' }
+        { text: '<i class="fas fa-phone-alt"></i>', value: 'call' },
+        { text: '<i class="fab fa-whatsapp"></i>', value: 'whatsapp' },
+        { text: '<i class="fab fa-instagram"></i>', value: 'instagram' },
+        { text: '<i class="fas fa-pencil-alt"></i>', value: 'custom' },
+        { text: '<i class="fas fa-undo"></i>', value: 'back' }
       ]
     }).then(function (res) {
       if (res.value === 'call') {
@@ -210,11 +212,7 @@
         { text: '📌 معلومات عن الفرق', value: 'teams' }
       ]
     }).then(function (res) {
-      botui.message.add({
-        type: 'user',
-        content: res.text
-      });
-
+      botui.message.add({ type: 'user', content: res.text });
       if (res.value === 'training') {
         return botui.message.add({ content: 'تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.' });
       } else if (res.value === 'register') {
@@ -229,9 +227,7 @@
     botui.message.add({
       content: 'مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 ما اسمك؟'
     }).then(function () {
-      return botui.action.text({
-        action: { placeholder: 'اكتب اسمك هنا' }
-      });
+      return botui.action.text({ action: { placeholder: 'اكتب اسمك هنا' } });
     }).then(function (res) {
       userName = res.value;
       botui.message.add({ type: 'user', content: userName });
