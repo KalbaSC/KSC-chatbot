@@ -208,13 +208,7 @@
     btn.innerText = sport.name;
     btn.onclick = () => {
       addMessage(sport.name, true);
-  const allBubbles = document.querySelectorAll('.content');
-  const lastBubble = allBubbles[allBubbles.length - 1];
-  if (lastBubble && lastBubble.innerText.trim() === '') {
-    lastBubble.parentElement.remove();
-  }
       addMessage(sport.info, false);
-      buttonsWrapper.remove();
       document.getElementById("main-buttons").style.display = "flex";
     };
     buttonsWrapper.appendChild(btn);
