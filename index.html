@@ -176,7 +176,7 @@
 </div>
 
 <script>
-  function handleTeamOption(type) {
+ function handleTeamOption(type) {
   addMessage(type === 'individual' ? "🎯 الألعاب الفردية" : "🏃‍♂️ الألعاب الجماعية", true);
   
   const sportsList = (type === "individual") ? [
@@ -208,9 +208,9 @@
     btn.innerText = sport.name;
     btn.onclick = () => {
       addMessage(sport.name, true);
-      addMessage(cat.reply, false);
-  categoryButtons.remove();
-  document.getElementById("main-buttons").style.display = "flex";  
+      addMessage(sport.info, false);
+      buttonsWrapper.remove();
+      document.getElementById("main-buttons").style.display = "flex";
     };
     buttonsWrapper.appendChild(btn);
   });
