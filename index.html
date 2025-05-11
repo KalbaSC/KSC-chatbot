@@ -206,16 +206,24 @@ let userName = '';
     wrapper.scrollIntoView({ behavior: "smooth" });
   }
 
-  function clearChat() {
-    document.getElementById('chat-box').innerHTML = `
-      <div class="button-container" id="main-buttons" style="display: none;">
-        <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
-        <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
-        <button class="chat-btn" onclick="reply('teams')">معلومات عن الرياضات</button>
-        <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
-        <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
-      </div>`;
-  }
+function clearChat() {
+  document.getElementById('chat-box').innerHTML = `
+    <div class="button-container" id="main-buttons" style="display: none;">
+      <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
+      <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
+      <button class="chat-btn" onclick="reply('teams')">معلومات عن الرياضات</button>
+      <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
+      <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
+    </div>
+    <div id="inner-input-bar" style="margin-top: 20px; display: none; align-items: center;">
+      <input id="userMessage" type="text" placeholder="اكتب شيئًا..." 
+        style="flex: 1; padding: 10px; border-radius: 20px; border: 1px solid #ccc; font-size: 16px;">
+      <button onclick="submitUserMessage()" 
+        style="background: #f4e733; border: none; border-radius: 50%; width: 40px; height: 40px; margin-right: 10px; cursor: pointer;">
+        <i class="fas fa-paper-plane" style="font-size: 18px; color: black;"></i>
+      </button>
+    </div>`;
+}
 
   function startChat() {
     clearChat();
@@ -336,18 +344,6 @@ let userName = '';
 
   document.getElementById("main-buttons").style.display = "none";
 }
-
-  function clearChat() {
-    document.getElementById('chat-box').innerHTML = `
-      <div class="button-container" id="main-buttons" style="display: none;">
-        <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
-        <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
-        <button class="chat-btn" onclick="reply('teams')">معلومات عن الرياضات</button>
-        <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
-        <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
-      </div>
-    `;
-  }
 
   function addMessage(content, isUser = false) {
     const wrapper = document.createElement('div');
