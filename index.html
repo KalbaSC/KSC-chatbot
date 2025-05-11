@@ -208,8 +208,9 @@
     btn.innerText = sport.name;
     btn.onclick = () => {
       addMessage(sport.name, true);
-      categoryButtons.remove();
-      handleTeamOption(cat.type);  
+      addMessage(cat.reply, false);
+  categoryButtons.remove();
+  document.getElementById("main-buttons").style.display = "flex";  
     };
     buttonsWrapper.appendChild(btn);
   });
@@ -326,35 +327,37 @@
       } else if (option === 'register') {
         addMessage("للتسجيل، يرجى زيارة مقر النادي أو التواصل عبر الهاتف 0503874714.", false);
       } else if (option === 'teams') {
-  addMessage("معلومات عن الرياضات", true);
+  const replyWithButtons = document.createElement("div");
+  replyWithButtons.innerHTML = `
+    <div style="text-align: center;">
+      <p style="margin-bottom: 10px;">اختر نوع الرياضة:</p>
+      <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
+        <button class="chat-btn" onclick="handleTeamOption('individual')">🎯 الألعاب الفردية</button>
+        <button class="chat-btn" onclick="handleTeamOption('group')">🏃‍♂️ الألعاب الجماعية</button>
+      </div>
+    </div>
+  `;
 
-  const categoryButtons = document.createElement("div");
-  categoryButtons.style.marginTop = "10px";
-  categoryButtons.style.display = "flex";
-  categoryButtons.style.flexWrap = "wrap";
-  categoryButtons.style.justifyContent = "center";
-  categoryButtons.style.gap = "10px";
+  const wrapper = document.createElement("div");
+  wrapper.className = 'message-wrapper bot';
 
-  const categories = [
-    { label: "🎯 الألعاب الفردية", type: "individual" },
-    { label: "🏃‍♂️ الألعاب الجماعية", type: "group" }
-  ];
+  const avatar = document.createElement("div");
+  avatar.className = 'avatar';
+  avatar.style.backgroundImage = "url('bot-icon.png')";
 
-  categories.forEach(cat => {
-    const btn = document.createElement("button");
-    btn.className = "chat-btn";
-    btn.innerText = cat.label;
-    btn.onclick = () => {
-      addMessage(cat.label, true);         // show what user clicked
-      categoryButtons.remove();            // remove buttons
-      handleTeamOption(cat.type);          // load sport buttons
-    };
-    categoryButtons.appendChild(btn);
-  });
+  const bubble = document.createElement("div");
+  bubble.className = 'content';
+  bubble.appendChild(replyWithButtons);
 
-  document.getElementById("chat-box").insertBefore(categoryButtons, document.getElementById("main-buttons"));
+  wrapper.appendChild(avatar);
+  wrapper.appendChild(bubble);
+
+  const chatBox = document.getElementById('chat-box');
+  chatBox.insertBefore(wrapper, document.getElementById('main-buttons'));
+  wrapper.scrollIntoView({ behavior: "smooth" });
+
+  document.getElementById("main-buttons").style.display = "none";
 }
-
 
       setTimeout(() => {
         document.getElementById("main-buttons").style.display = "flex";
