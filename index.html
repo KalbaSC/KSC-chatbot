@@ -4,41 +4,40 @@
   <meta charset="UTF-8">
   <title>نادي كلباء الرياضي الثقافي</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <style>
-    
     .typing-dots span {
-  animation: blink 1s infinite;
-  font-weight: bold;
-  font-size: 24px;
-  margin: 0 1px;
-}
+      animation: blink 1s infinite;
+      font-weight: bold;
+      font-size: 24px;
+      margin: 0 1px;
+    }
 
-.typing-dots span:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.typing-dots span:nth-child(3) {
-  animation-delay: 0.4s;
-}
+    .typing-dots span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .typing-dots span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
 
-@keyframes blink {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 1; }
-}
+    @keyframes blink {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
 
-  @font-face {
-  font-family: 'NotoKufiArabic';
-  src: url('NotoKufiArabic.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
+    @font-face {
+      font-family: 'NotoKufiArabic';
+      src: url('NotoKufiArabic.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
 
-body, .content, .chat-btn {
-  font-family: 'NotoKufiArabic', 'Cairo', sans-serif;
-}
+    body, .content, .chat-btn {
+      font-family: 'NotoKufiArabic', 'Cairo', sans-serif;
+    }
 
     body {
       background-color: #000;
-      font-family: 'NotoKufiArabic', sans-serif;
       margin: 0;
       padding: 0;
       display: flex;
@@ -67,21 +66,20 @@ body, .content, .chat-btn {
     }
 
     #chat-box {
-  background-color: white;
-  color: black;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  padding: 20px;
-  margin: 30px auto;
-  max-width: 500px;
-  width: 90%;
-  min-height: 300px;
+      background-color: white;
+      color: black;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      margin: 30px auto;
+      max-width: 500px;
+      width: 90%;
+      min-height: 300px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1.5s ease, transform 1.5s ease;
+    }
 
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 1.5s ease, transform 1.5s ease;
-}
-    
     .message-wrapper {
       display: flex;
       align-items: flex-start;
@@ -174,6 +172,7 @@ body, .content, .chat-btn {
     <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
     <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
     <button class="chat-btn" onclick="reply('teams')">معلومات عن الفرق</button>
+    <button class="chat-btn" onclick="showContactOptions()">تواصل مع السكرتير</button>
     <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
   </div>
 </div>
@@ -185,6 +184,7 @@ body, .content, .chat-btn {
         <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
         <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
         <button class="chat-btn" onclick="reply('teams')">معلومات عن الفرق</button>
+        <button class="chat-btn" onclick="showContactOptions()">تواصل مع السكرتير</button>
         <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
       </div>
     `;
@@ -209,12 +209,12 @@ body, .content, .chat-btn {
     chatBox.insertBefore(wrapper, document.getElementById('main-buttons'));
     wrapper.scrollIntoView({ behavior: "smooth" });
   }
-  
-window.addEventListener('load', () => {
-  const chatBox = document.getElementById('chat-box');
-  chatBox.style.opacity = '1';
-  chatBox.style.transform = 'translateY(0)';
-});
+
+  window.addEventListener('load', () => {
+    const chatBox = document.getElementById('chat-box');
+    chatBox.style.opacity = '1';
+    chatBox.style.transform = 'translateY(0)';
+  });
 
   function startChat() {
     clearChat();
@@ -246,39 +246,67 @@ window.addEventListener('load', () => {
     }
   }
 
- function reply(option) {
-  document.getElementById("main-buttons").style.display = "none";
-   
-  let userText = '';
-  if (option === 'training') userText = 'مواعيد التدريبات';
-  else if (option === 'register') userText = 'التسجيل في النادي';
-  else if (option === 'teams') userText = 'معلومات عن الفرق';
+  function reply(option) {
+    document.getElementById("main-buttons").style.display = "none";
 
-  addMessage(userText, true); 
+    let userText = '';
+    if (option === 'training') userText = 'مواعيد التدريبات';
+    else if (option === 'register') userText = 'التسجيل في النادي';
+    else if (option === 'teams') userText = 'معلومات عن الفرق';
 
-  addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
+    addMessage(userText, true); 
+    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
 
-setTimeout(() => {
-  const typingBubbles = document.querySelectorAll('.content');
-  const lastBubble = typingBubbles[typingBubbles.length - 1];
-  if (lastBubble && lastBubble.textContent === "...") {
-    lastBubble.parentElement.remove(); // remove typing bubble
+    setTimeout(() => {
+      const typingBubbles = document.querySelectorAll('.content');
+      const lastBubble = typingBubbles[typingBubbles.length - 1];
+      if (lastBubble && lastBubble.textContent === "...") {
+        lastBubble.parentElement.remove();
+      }
+
+      if (option === 'training') {
+        addMessage("تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.", false);
+      } else if (option === 'register') {
+        addMessage("للتسجيل، يرجى زيارة مقر النادي أو التواصل عبر الهاتف 0503874714.", false);
+      } else if (option === 'teams') {
+        addMessage("لدينا فرق في كرة القدم، كرة الطائرة، وكرة اليد.", false);
+      }
+
+      setTimeout(() => {
+        document.getElementById("main-buttons").style.display = "flex";
+      }, 800);
+    }, 1000);
   }
 
-  if (option === 'training') {
-    addMessage("تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.", false);
-  } else if (option === 'register') {
-    addMessage("للتسجيل، يرجى زيارة مقر النادي أو التواصل عبر الهاتف 0503874714.", false);
-  } else if (option === 'teams') {
-    addMessage("لدينا فرق في كرة القدم، كرة الطائرة، وكرة اليد.", false);
+  function showContactOptions() {
+    addMessage("تواصل مع السكرتير", true);
+    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
+
+    setTimeout(() => {
+      const typingBubbles = document.querySelectorAll('.content');
+      const lastBubble = typingBubbles[typingBubbles.length - 1];
+      if (lastBubble && lastBubble.textContent === "...") {
+        lastBubble.parentElement.remove();
+      }
+
+      addMessage(`يرجى زيارة بطاقة السكرتير عبر <a href="https://kalbasc.github.io/sameh/Business%20E-Card.html" target="_blank" style="color:blue;">هذا الرابط</a>.`, false);
+
+      const socialHTML = `
+        <div style="margin-top: 15px; text-align: center;">
+          <a href="https://www.facebook.com/Kalbasc1" target="_blank" style="margin: 5px; display: inline-block; background: #3b5998; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://x.com/Kalba_sc?mx=2" target="_blank" style="margin: 5px; display: inline-block; background: #000; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://www.instagram.com/kalbasc/" target="_blank" style="margin: 5px; display: inline-block; background: #e1306c; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.youtube.com/@kalbasc" target="_blank" style="margin: 5px; display: inline-block; background: #ff0000; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.tiktok.com/@kalbasc" target="_blank" style="margin: 5px; display: inline-block; background: #000; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;"><i class="fab fa-tiktok"></i></a>
+        </div>
+      `;
+      addMessage(socialHTML, false);
+
+      setTimeout(() => {
+        document.getElementById("main-buttons").style.display = "flex";
+      }, 800);
+    }, 1000);
   }
-
-  setTimeout(() => {
-    document.getElementById("main-buttons").style.display = "flex";
-  }, 800);
-}, 1000);
-
-}
 
   startChat();
 </script>
