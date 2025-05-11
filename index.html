@@ -267,8 +267,41 @@
       } else if (option === 'register') {
         addMessage("للتسجيل، يرجى زيارة مقر النادي أو التواصل عبر الهاتف 0503874714.", false);
       } else if (option === 'teams') {
-        addMessage("لدينا فرق في كرة القدم، كرة الطائرة، وكرة اليد.", false);
-      }
+  addMessage("هل ترغب في استعراض الألعاب الفردية أم الجماعية؟", false);
+
+  const categoryButtons = document.createElement("div");
+  categoryButtons.style.marginTop = "10px";
+  categoryButtons.style.display = "flex";
+  categoryButtons.style.flexWrap = "wrap";
+  categoryButtons.style.justifyContent = "center";
+  categoryButtons.style.gap = "10px";
+
+  const categories = [
+    {
+      label: "🎯 الألعاب الفردية",
+      reply: "تشمل الألعاب الفردية مثل ألعاب القوى، التايكواندو، السباحة، والتنس."
+    },
+    {
+      label: "🤾‍♂️ الألعاب الجماعية",
+      reply: "تشمل الألعاب الجماعية مثل كرة القدم، كرة اليد، كرة السلة، والكرة الطائرة."
+    }
+  ];
+
+  categories.forEach(cat => {
+    const btn = document.createElement("button");
+    btn.className = "chat-btn";
+    btn.innerText = cat.label;
+    btn.onclick = () => {
+      addMessage(cat.label, true);
+      addMessage(cat.reply, false);
+      categoryButtons.remove();
+      document.getElementById("main-buttons").style.display = "flex";
+    };
+    categoryButtons.appendChild(btn);
+  });
+
+  document.getElementById("chat-box").insertBefore(categoryButtons, document.getElementById("main-buttons"));
+}
 
       setTimeout(() => {
         document.getElementById("main-buttons").style.display = "flex";
