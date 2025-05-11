@@ -176,6 +176,18 @@
 </div>
 
 <script>
+  function handleTeamOption(type) {
+  if (type === 'individual') {
+    addMessage("🎯 الألعاب الفردية", true);
+    addMessage("تشمل الألعاب الفردية مثل ألعاب القوى، التايكواندو، السباحة، والتنس.", false);
+  } else {
+    addMessage("🏃‍♂️ الألعاب الجماعية", true);
+    addMessage("تشمل الألعاب الجماعية مثل كرة القدم، كرة اليد، كرة السلة، والكرة الطائرة.", false);
+  }
+
+  document.getElementById("main-buttons").style.display = "flex";
+}
+
   function clearChat() {
     document.getElementById('chat-box').innerHTML = `
       <div class="button-container" id="main-buttons" style="display: none;">
