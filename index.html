@@ -173,9 +173,111 @@
     <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
     <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
   </div>
+  <div id="inner-input-bar" style="display: none; margin-top: 20px; display: flex; align-items: center;">
+    <input id="userMessage" type="text" placeholder="اكتب شيئًا..." 
+      style="flex: 1; padding: 10px; border-radius: 20px; border: 1px solid #ccc; font-size: 16px;">
+    <button onclick="submitUserMessage()" 
+      style="background: #f4e733; border: none; border-radius: 50%; width: 40px; height: 40px; margin-right: 10px; cursor: pointer;">
+      <i class="fas fa-paper-plane" style="font-size: 18px; color: black;"></i>
+    </button>
+  </div>
 </div>
 
 <script>
+let userName = '';
+
+  function addMessage(content, isUser = false) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'message-wrapper ' + (isUser ? 'user' : 'bot');
+
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar';
+    avatar.style.backgroundImage = `url('${isUser ? 'user-icon.png' : 'bot-icon.png'}')`;
+
+    const bubble = document.createElement('div');
+    bubble.className = 'content';
+    bubble.innerHTML = content;
+
+    wrapper.appendChild(avatar);
+    wrapper.appendChild(bubble);
+
+    const chatBox = document.getElementById('chat-box');
+    chatBox.insertBefore(wrapper, document.getElementById('main-buttons'));
+    wrapper.scrollIntoView({ behavior: "smooth" });
+  }
+
+  function clearChat() {
+    document.getElementById('chat-box').innerHTML = `
+      <div class="button-container" id="main-buttons" style="display: none;">
+        <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
+        <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
+        <button class="chat-btn" onclick="reply('teams')">معلومات عن الرياضات</button>
+        <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
+        <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
+      </div>`;
+  }
+
+  function startChat() {
+    clearChat();
+    addMessage("مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 ما اسمك؟", false);
+
+    const inputDiv = document.createElement("div");
+    inputDiv.style.marginTop = "10px";
+    inputDiv.innerHTML = `
+      <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." 
+             style="padding:10px; font-size:16px; width:70%; border-radius:5px; border:1px solid #ccc;">
+      <button onclick="submitName()" 
+              style="padding:10px 15px; margin-right:10px; background:#f4e733; font-weight:bold; border:none; border-radius:5px;">
+        إرسال
+      </button>`;
+    document.getElementById("chat-box").insertBefore(inputDiv, document.getElementById('main-buttons'));
+  }
+
+  function submitName() {
+    const input = document.getElementById("nameInput");
+    const name = input.value.trim();
+    if (name) {
+      addMessage(name, true);
+      userName = name;
+      input.parentElement.remove();
+      setTimeout(() => {
+        addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
+        document.getElementById("main-buttons").style.display = "flex";
+        document.getElementById("inner-input-bar").style.display = "flex";
+      }, 500);
+    }
+  }
+
+  function submitUserMessage() {
+    const input = document.getElementById("userMessage");
+    const msg = input.value.trim();
+    if (msg) {
+      addMessage(msg, true);
+
+      fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec', {
+        method: 'POST',
+        body: JSON.stringify({ name: userName, message: msg }),
+        headers: { 'Content-Type': 'application/json' }
+      }).then(res => {
+        if (res.ok) {
+          addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
+        } else {
+          addMessage("حدث خطأ أثناء إرسال الرسالة. حاول مرة أخرى لاحقاً.", false);
+        }
+      }).catch(() => {
+        addMessage("تعذر الاتصال بالخادم. تأكد من الاتصال بالإنترنت.", false);
+      });
+
+      input.value = '';
+    }
+  }
+
+  window.addEventListener('load', () => {
+    const chatBox = document.getElementById('chat-box');
+    chatBox.style.opacity = '1';
+    chatBox.style.transform = 'translateY(0)';
+  });
+  
  function handleTeamOption(type) {
   addMessage(type === 'individual' ? "🎯 الألعاب الفردية" : "🏃‍♂️ الألعاب الجماعية", true);
   
