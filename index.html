@@ -177,15 +177,63 @@
 
 <script>
   function handleTeamOption(type) {
-  if (type === 'individual') {
-    addMessage("🎯 الألعاب الفردية", true);
-    addMessage("تشمل الألعاب الفردية مثل ألعاب القوى، التايكواندو، السباحة، والتنس.", false);
-  } else {
-    addMessage("🏃‍♂️ الألعاب الجماعية", true);
-    addMessage("تشمل الألعاب الجماعية مثل كرة القدم، كرة اليد، كرة السلة، والكرة الطائرة.", false);
-  }
+  addMessage(type === 'individual' ? "🎯 الألعاب الفردية" : "🏃‍♂️ الألعاب الجماعية", true);
+  
+  const sportsList = (type === "individual") ? [
+    { name: "الشطرنج", info: "رياضة ذهنية تساعد على التركيز والتخطيط." },
+    { name: "الجودو", info: "فن قتالي ياباني يعتمد على التوازن والرمي." },
+    { name: "الكاراتيه", info: "فن قتالي يركز على الضربات واللياقة." },
+    { name: "التايكوندو", info: "رياضة كورية تعتمد على الركلات العالية." },
+    { name: "الدراجات", info: "رياضة تعتمد على التحمل والسرعة." },
+    { name: "ألعاب القوى", info: "تضم الجري، الرمي، الوثب، والمشي." },
+    { name: "الخماسي الحديث", info: "تشمل السباحة، الرماية، الفروسية، الجري، والمبارزة." },
+    { name: "الريشة الطائرة", info: "رياضة سريعة تتطلب رد فعل سريع ومهارة." }
+  ] : [
+    { name: "كرة الطائرة", info: "لعبة جماعية تعتمد على التمريرات والضربات الساحقة." },
+    { name: "كرة السلة", info: "رياضة تتطلب دقة تصويب وسرعة حركة." },
+    { name: "كرة اليد", info: "رياضة جماعية تتميز بالسرعة والتعاون." },
+    { name: "كرة قدم الصالات", info: "نسخة داخلية من كرة القدم تُلعب في صالات مغلقة." }
+  ];
 
-  document.getElementById("main-buttons").style.display = "flex";
+  const buttonsWrapper = document.createElement("div");
+  buttonsWrapper.style.display = "flex";
+  buttonsWrapper.style.flexWrap = "wrap";
+  buttonsWrapper.style.justifyContent = "center";
+  buttonsWrapper.style.gap = "10px";
+  buttonsWrapper.style.marginTop = "10px";
+
+  sportsList.forEach(sport => {
+    const btn = document.createElement("button");
+    btn.className = "chat-btn";
+    btn.innerText = sport.name;
+    btn.onclick = () => {
+      addMessage(sport.name, true);
+      addMessage(sport.info, false);
+      buttonsWrapper.remove();
+      document.getElementById("main-buttons").style.display = "flex";
+    };
+    buttonsWrapper.appendChild(btn);
+  });
+
+  const wrapper = document.createElement("div");
+  wrapper.className = 'message-wrapper bot';
+
+  const avatar = document.createElement("div");
+  avatar.className = 'avatar';
+  avatar.style.backgroundImage = "url('bot-icon.png')";
+
+  const bubble = document.createElement("div");
+  bubble.className = 'content';
+  bubble.appendChild(buttonsWrapper);
+
+  wrapper.appendChild(avatar);
+  wrapper.appendChild(bubble);
+
+  const chatBox = document.getElementById("chat-box");
+  chatBox.insertBefore(wrapper, document.getElementById("main-buttons"));
+  wrapper.scrollIntoView({ behavior: "smooth" });
+
+  document.getElementById("main-buttons").style.display = "none";
 }
 
   function clearChat() {
