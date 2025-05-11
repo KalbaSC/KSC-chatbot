@@ -173,6 +173,15 @@
     <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
     <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
   </div>
+
+  <div id="inner-input-bar" style="display: none; margin-top: 20px; display: flex; align-items: center;">
+    <input id="userMessage" type="text" placeholder="اكتب شيئًا..." 
+      style="flex: 1; padding: 10px; border-radius: 20px; border: 1px solid #ccc; font-size: 16px;">
+    <button onclick="submitUserMessage()" 
+      style="background: #f4e733; border: none; border-radius: 50%; width: 40px; height: 40px; margin-right: 10px; cursor: pointer;">
+      <i class="fas fa-paper-plane" style="font-size: 18px; color: black;"></i>
+    </button>
+  </div>
 </div>
 
 <script>
@@ -237,7 +246,7 @@
 }
 
   function clearChat() {
-    document.getElementById('chat-box').innerHTML = `
+    document.getElementById('chat-box').innerHTML = 
       <div class="button-container" id="main-buttons" style="display: none;">
         <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
         <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
@@ -245,7 +254,7 @@
         <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
         <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
       </div>
-    `;
+    ;
   }
 
   function addMessage(content, isUser = false) {
@@ -254,7 +263,7 @@
 
     const avatar = document.createElement('div');
     avatar.className = 'avatar';
-    avatar.style.backgroundImage = `url('${isUser ? 'user-icon.png' : 'bot-icon.png'}')`;
+    avatar.style.backgroundImage = url('${isUser ? 'user-icon.png' : 'bot-icon.png'}');
 
     const bubble = document.createElement('div');
     bubble.className = 'content';
@@ -280,14 +289,14 @@
 
     const inputDiv = document.createElement("div");
     inputDiv.style.marginTop = "10px";
-    inputDiv.innerHTML = `
+    inputDiv.innerHTML = 
       <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." 
              style="padding:10px; font-size:16px; width:70%; border-radius:5px; border:1px solid #ccc;">
       <button onclick="submitName()" 
               style="padding:10px 15px; margin-right:10px; background:#f4e733; font-weight:bold; border:none; border-radius:5px;">
         إرسال
       </button>
-    `;
+    ;
     document.getElementById("chat-box").insertBefore(inputDiv, document.getElementById('main-buttons'));
   }
 
@@ -299,9 +308,9 @@
       userName = name;
       input.parentElement.remove(); 
       setTimeout(() => {
-        addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
+        addMessage(مرحباً بك ${name}، كيف يمكننا مساعدتك؟, false);
         document.getElementById("main-buttons").style.display = "flex";
-        document.getElementById("floating-input").style.display = "block";
+        document.getElementById("inner-input-bar").style.display = "flex";
       }, 500);
     }
   }
@@ -315,7 +324,7 @@
     else if (option === 'teams') userText = 'معلومات عن الرياضات';
 
     addMessage(userText, true); 
-    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
+    addMessage(<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>, false);
 
     setTimeout(() => {
       const typingBubbles = document.querySelectorAll('.content');
@@ -330,7 +339,7 @@
         addMessage("للتسجيل، يرجى زيارة مقر النادي أو التواصل عبر الهاتف 0503874714.", false);
       } else if (option === 'teams') {
   const replyWithButtons = document.createElement("div");
-  replyWithButtons.innerHTML = `
+  replyWithButtons.innerHTML = 
     <div style="text-align: center;">
       <p style="margin-bottom: 10px;">اختر نوع الرياضة:</p>
       <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
@@ -338,7 +347,7 @@
         <button class="chat-btn" onclick="handleTeamOption('group')">🏃‍♂️ الألعاب الجماعية</button>
       </div>
     </div>
-  `;
+  ;
 
   const wrapper = document.createElement("div");
   wrapper.className = 'message-wrapper bot';
@@ -369,7 +378,7 @@
 
   function showContactMain() {
     addMessage("تواصل معنا", true);
-    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
+    addMessage(<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>, false);
 
     setTimeout(() => {
       const typingBubbles = document.querySelectorAll('.content');
@@ -378,7 +387,7 @@
         lastBubble.parentElement.remove();
       }
 
-      addMessage(`
+      addMessage(
         يمكنك التواصل معنا عبر البريد الإلكتروني: <a href="mailto:info@ksc.shj.ae" style="color:blue;">info@ksc.shj.ae</a><br><br>
         أو استخدام أي من وسائل التواصل الاجتماعي التالية:
         <div style="margin-top: 15px; text-align: center;">
@@ -405,7 +414,7 @@
 <button onclick="showContactOptions()" 
   style="margin-top:5px; padding:16px 28px; font-size:18px; background:#f4e733; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
   تواصل مع السكرتير
-      `, false);
+      , false);
 
       setTimeout(() => {
         document.getElementById("main-buttons").style.display = "flex";
@@ -415,7 +424,7 @@
 
   function showContactOptions() {
     addMessage("تواصل مع السكرتير", true);
-    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
+    addMessage(<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>, false);
 
     setTimeout(() => {
       const typingBubbles = document.querySelectorAll('.content');
@@ -424,7 +433,7 @@
         lastBubble.parentElement.remove();
       }
 
-      addMessage(`يرجى زيارة بطاقة السكرتير عبر <a href="https://kalbasc.github.io/sameh/Business%20E-Card.html" target="_blank" style="color:blue;">هذا الرابط</a>.`, false);
+      addMessage(يرجى زيارة بطاقة السكرتير عبر <a href="https://kalbasc.github.io/sameh/Business%20E-Card.html" target="_blank" style="color:blue;">هذا الرابط</a>., false);
 
       setTimeout(() => {
         document.getElementById("main-buttons").style.display = "flex";
@@ -460,26 +469,6 @@ function submitUserMessage() {
 
   startChat();
 </script>
-<div id="floating-input" style="
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #fff;
-  border-top: 1px solid #ccc;
-  display: none;
-  padding: 10px;
-  box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
-  z-index: 1000;
-">
-  <div style="max-width: 500px; margin: auto; display: flex; align-items: center;">
-    <input id="userMessage" type="text" placeholder="اكتب شيئًا..." 
-      style="flex: 1; padding: 10px; border-radius: 20px; border: 1px solid #ccc; font-size: 16px;">
-    <button onclick="submitUserMessage()" 
-      style="background: none; border: none; margin-right: 10px; cursor: pointer;">
-      <i class="fas fa-paper-plane" style="font-size: 20px; color: #f4e733;"></i>
-    </button>
-  </div>
-</div>
+
 </body>
 </html>
