@@ -177,7 +177,7 @@
 
 <script>
   function clearChat() {
-    document.getElementById('chat-box').innerHTML = 
+    document.getElementById('chat-box').innerHTML = `
       <div class="button-container" id="main-buttons" style="display: none;">
         <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
         <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
@@ -185,7 +185,7 @@
         <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
         <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
       </div>
-    ;
+    `;
   }
 
   function addMessage(content, isUser = false) {
@@ -194,7 +194,7 @@
 
     const avatar = document.createElement('div');
     avatar.className = 'avatar';
-    avatar.style.backgroundImage = url('${isUser ? 'user-icon.png' : 'bot-icon.png'}');
+    avatar.style.backgroundImage = `url('${isUser ? 'user-icon.png' : 'bot-icon.png'}')`;
 
     const bubble = document.createElement('div');
     bubble.className = 'content';
@@ -220,14 +220,14 @@
 
     const inputDiv = document.createElement("div");
     inputDiv.style.marginTop = "10px";
-    inputDiv.innerHTML = 
+    inputDiv.innerHTML = `
       <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." 
              style="padding:10px; font-size:16px; width:70%; border-radius:5px; border:1px solid #ccc;">
       <button onclick="submitName()" 
               style="padding:10px 15px; margin-right:10px; background:#f4e733; font-weight:bold; border:none; border-radius:5px;">
         إرسال
       </button>
-    ;
+    `;
     document.getElementById("chat-box").insertBefore(inputDiv, document.getElementById('main-buttons'));
   }
 
@@ -238,7 +238,7 @@
       addMessage(name, true);
       input.parentElement.remove(); 
       setTimeout(() => {
-        addMessage(مرحباً بك ${name}، كيف يمكننا مساعدتك؟, false);
+        addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
         document.getElementById("main-buttons").style.display = "flex";
       }, 500);
     }
@@ -253,7 +253,7 @@
     else if (option === 'teams') userText = 'معلومات عن الفرق';
 
     addMessage(userText, true); 
-    addMessage(<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>, false);
+    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
 
     setTimeout(() => {
       const typingBubbles = document.querySelectorAll('.content');
@@ -278,7 +278,7 @@
 
   function showContactMain() {
     addMessage("تواصل معنا", true);
-    addMessage(<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>, false);
+    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
 
     setTimeout(() => {
       const typingBubbles = document.querySelectorAll('.content');
@@ -287,29 +287,37 @@
         lastBubble.parentElement.remove();
       }
 
-      addMessage(
+      addMessage(`
         يمكنك التواصل معنا عبر البريد الإلكتروني: <a href="mailto:info@ksc.shj.ae" style="color:blue;">info@ksc.shj.ae</a><br><br>
         أو استخدام أي من وسائل التواصل الاجتماعي التالية:
         <div style="margin-top: 15px; text-align: center;">
-  <a href="https://www.facebook.com/Kalbasc1" target="_blank" style="margin: 5px; display: inline-block; background: #3b5998; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;">
-    <i class="fab fa-facebook-f"></i>
+  <a href="https://www.facebook.com/Kalbasc1" target="_blank" style="margin: 5px; display: inline-block; border-radius: 50%; width: 36px; height: 36px;">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" style="width: 100%; height: 100%; background: #f4e733; border-radius: 50%; padding: 5px;">
   </a>
-  <a href="https://x.com/Kalba_sc?mx=2" target="_blank" style="margin: 5px; display: inline-block; background: #000; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;">
-    <i class="fab fa-x-twitter"></i>
+  <a href="https://x.com/Kalba_sc?mx=2" target="_blank" style="margin: 5px; display: inline-block; border-radius: 50%; width: 36px; height: 36px;">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X" style="width: 100%; height: 100%; background: #f4e733; border-radius: 50%; padding: 5px;">
   </a>
-  <a href="https://www.instagram.com/kalbasc/" target="_blank" style="margin: 5px; display: inline-block; background: #e1306c; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;">
-    <i class="fab fa-instagram"></i>
+  <a href="https://www.instagram.com/kalbasc/" target="_blank" style="margin: 5px; display: inline-block; border-radius: 50%; width: 36px; height: 36px;">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" style="width: 100%; height: 100%; background: #f4e733; border-radius: 50%; padding: 5px;">
   </a>
-  <a href="https://www.youtube.com/@kalbasc" target="_blank" style="margin: 5px; display: inline-block; background: #ff0000; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;">
-    <i class="fab fa-youtube"></i>
+  <a href="https://www.youtube.com/@kalbasc" target="_blank" style="margin: 5px; display: inline-block; border-radius: 50%; width: 36px; height: 36px;">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" style="width: 100%; height: 100%; background: #f4e733; border-radius: 50%; padding: 5px;">
   </a>
-  <a href="https://www.tiktok.com/@kalbasc" target="_blank" style="margin: 5px; display: inline-block; background: #000; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;">
-    <i class="fab fa-tiktok"></i>
+  <a href="https://www.tiktok.com/@kalbasc" target="_blank" style="margin: 5px; display: inline-block; border-radius: 50%; width: 36px; height: 36px;">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" style="width: 100%; height: 100%; background: #f4e733; border-radius: 50%; padding: 5px;">
   </a>
 </div>
         <br>
-        <button onclick="showContactOptions()" style="margin-top:10px; padding:10px 16px; background:#f4e733; border:none; border-radius:5px; font-weight:bold;">تواصل مع السكرتير</button>
-      , false);
+<p style="font-size: 16px; font-weight: bold; margin-bottom: 10px;">
+  إذا كنت بحاجة إلى مساعدة مباشرة، يمكنك التواصل مع السكرتير:
+</p>
+<button onclick="showContactOptions()" 
+  style="margin-top:5px; padding:16px 28px; font-size:18px; background:#f4e733; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
+  تواصل مع السكرتير
+</button>
+  تواصل مع السكرتير
+</button>
+      `, false);
 
       setTimeout(() => {
         document.getElementById("main-buttons").style.display = "flex";
@@ -319,7 +327,7 @@
 
   function showContactOptions() {
     addMessage("تواصل مع السكرتير", true);
-    addMessage(<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>, false);
+    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
 
     setTimeout(() => {
       const typingBubbles = document.querySelectorAll('.content');
@@ -328,7 +336,7 @@
         lastBubble.parentElement.remove();
       }
 
-      addMessage(يرجى زيارة بطاقة السكرتير عبر <a href="https://kalbasc.github.io/sameh/Business%20E-Card.html" target="_blank" style="color:blue;">هذا الرابط</a>., false);
+      addMessage(`يرجى زيارة بطاقة السكرتير عبر <a href="https://kalbasc.github.io/sameh/Business%20E-Card.html" target="_blank" style="color:blue;">هذا الرابط</a>.`, false);
 
       setTimeout(() => {
         document.getElementById("main-buttons").style.display = "flex";
