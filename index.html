@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>نادي كلباء الرياضي الثقافي</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Fo3rlrZj/kTcS8hC6T+2Xw2B/y0v9U6+V0AXdR+fYUwFz2YdrWY6v+lmMS5U1Y05qDYI5L3zYbFqCPGKcf3Vw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     .typing-dots span {
       animation: blink 1s infinite;
@@ -12,39 +12,21 @@
       font-size: 24px;
       margin: 0 1px;
     }
-
-    .typing-dots span:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-    .typing-dots span:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
     @keyframes blink {
       0%, 100% { opacity: 0.2; }
       50% { opacity: 1; }
     }
-
-    @font-face {
-      font-family: 'NotoKufiArabic';
-      src: url('NotoKufiArabic.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
-    }
-
-    body, .content, .chat-btn {
-      font-family: 'NotoKufiArabic', 'Cairo', sans-serif;
-    }
-
     body {
       background-color: #000;
+      font-family: 'NotoKufiArabic', 'Cairo', sans-serif;
       margin: 0;
       padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-
     header {
       background-color: #f4e733;
       color: black;
@@ -52,19 +34,14 @@
       padding: 20px;
       width: 100%;
     }
-
     header img {
       height: 80px;
-      vertical-align: middle;
     }
-
     header h1 {
       display: inline-block;
       margin: 0 10px;
       font-size: 24px;
-      vertical-align: middle;
     }
-
     #chat-box {
       background-color: white;
       color: black;
@@ -79,17 +56,14 @@
       transform: translateY(30px);
       transition: opacity 1.5s ease, transform 1.5s ease;
     }
-
     .message-wrapper {
       display: flex;
       align-items: flex-start;
       margin: 10px 0;
     }
-
     .message-wrapper.user {
       flex-direction: row-reverse;
     }
-
     .avatar {
       width: 36px;
       height: 36px;
@@ -98,7 +72,6 @@
       background-position: center;
       margin: 0 10px;
     }
-
     .content {
       background-color: #f4e733;
       padding: 10px;
@@ -106,11 +79,7 @@
       max-width: 75%;
       font-size: 18px;
     }
-
-    .message-wrapper.bot .content {
-      background-color: #eee;
-    }
-
+    .message-wrapper.bot .content { background-color: #eee; }
     .button-container {
       display: flex;
       flex-wrap: wrap;
@@ -118,7 +87,6 @@
       gap: 10px;
       margin-top: 20px;
     }
-
     .chat-btn {
       background-color: #f4e733;
       color: #000;
@@ -129,220 +97,113 @@
       cursor: pointer;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
-
-    @media (max-width: 600px) {
-      #chat-box {
-        width: 75% !important;
-        padding: 25px !important;
-        max-width: 95% !important;
-        min-height: 70vh !important;
-        font-size: 18px !important;
-      }
-
-      .content {
-        font-size: 18px !important;
-      }
-
-      .chat-btn {
-        padding: 14px 18px !important;
-        font-size: 17px !important;
-      }
-
-      header h1 {
-        font-size: 22px !important;
-      }
-
-      header img {
-        height: 70px !important;
-      }
-    }
   </style>
 </head>
 <body>
+  <header>
+    <img src="logo.png" alt="شعار نادي كلباء">
+    <h1>نادي كلباء الرياضي الثقافي</h1>
+  </header>
 
-<header>
-  <img src="logo.png" alt="شعار نادي كلباء">
-  <h1>نادي كلباء الرياضي الثقافي</h1>
-</header>
-
-<div id="chat-box">
-  <div class="button-container" id="main-buttons" style="display: none;">
-    <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
-    <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
-    <button class="chat-btn" onclick="reply('teams')">معلومات عن الفرق</button>
-    <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
-    <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
+  <div id="chat-box">
+    <div class="button-container" id="main-buttons" style="display: none;">
+      <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
+      <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
+      <button class="chat-btn" onclick="reply('teams')">معلومات عن الفرق</button>
+      <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
+      <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
+    </div>
   </div>
-</div>
 
-<script>
-  function clearChat() {
-    document.getElementById('chat-box').innerHTML = `
-      <div class="button-container" id="main-buttons" style="display: none;">
-        <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
-        <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
-        <button class="chat-btn" onclick="reply('teams')">معلومات عن الفرق</button>
-        <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
-        <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
-      </div>
-    `;
-  }
-
-  function addMessage(content, isUser = false) {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'message-wrapper ' + (isUser ? 'user' : 'bot');
-
-    const avatar = document.createElement('div');
-    avatar.className = 'avatar';
-    avatar.style.backgroundImage = `url('${isUser ? 'user-icon.png' : 'bot-icon.png'}')`;
-
-    const bubble = document.createElement('div');
-    bubble.className = 'content';
-    bubble.innerHTML = content;
-
-    wrapper.appendChild(avatar);
-    wrapper.appendChild(bubble);
-
-    const chatBox = document.getElementById('chat-box');
-    chatBox.insertBefore(wrapper, document.getElementById('main-buttons'));
-    wrapper.scrollIntoView({ behavior: "smooth" });
-  }
-
-  window.addEventListener('load', () => {
-    const chatBox = document.getElementById('chat-box');
-    chatBox.style.opacity = '1';
-    chatBox.style.transform = 'translateY(0)';
-  });
-
-  function startChat() {
-    clearChat();
-    addMessage("مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 ما اسمك؟", false);
-
-    const inputDiv = document.createElement("div");
-    inputDiv.style.marginTop = "10px";
-    inputDiv.innerHTML = `
-      <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." 
-             style="padding:10px; font-size:16px; width:70%; border-radius:5px; border:1px solid #ccc;">
-      <button onclick="submitName()" 
-              style="padding:10px 15px; margin-right:10px; background:#f4e733; font-weight:bold; border:none; border-radius:5px;">
-        إرسال
-      </button>
-    `;
-    document.getElementById("chat-box").insertBefore(inputDiv, document.getElementById('main-buttons'));
-  }
-
-  function submitName() {
-    const input = document.getElementById("nameInput");
-    const name = input.value.trim();
-    if (name) {
-      addMessage(name, true);
-      input.parentElement.remove(); 
-      setTimeout(() => {
-        addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
-        document.getElementById("main-buttons").style.display = "flex";
-      }, 500);
+  <script>
+    function clearChat() {
+      document.getElementById('chat-box').innerHTML = document.querySelector('#main-buttons').outerHTML;
     }
-  }
 
-  function reply(option) {
-    document.getElementById("main-buttons").style.display = "none";
+    function addMessage(content, isUser = false) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'message-wrapper ' + (isUser ? 'user' : 'bot');
 
-    let userText = '';
-    if (option === 'training') userText = 'مواعيد التدريبات';
-    else if (option === 'register') userText = 'التسجيل في النادي';
-    else if (option === 'teams') userText = 'معلومات عن الفرق';
+      const avatar = document.createElement('div');
+      avatar.className = 'avatar';
+      avatar.style.backgroundImage = `url('${isUser ? 'user-icon.png' : 'bot-icon.png'}')`;
 
-    addMessage(userText, true); 
-    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
+      const bubble = document.createElement('div');
+      bubble.className = 'content';
+      bubble.innerHTML = content;
 
-    setTimeout(() => {
-      const typingBubbles = document.querySelectorAll('.content');
-      const lastBubble = typingBubbles[typingBubbles.length - 1];
-      if (lastBubble && lastBubble.textContent === "...") {
-        lastBubble.parentElement.remove();
+      wrapper.appendChild(avatar);
+      wrapper.appendChild(bubble);
+
+      const chatBox = document.getElementById('chat-box');
+      chatBox.insertBefore(wrapper, document.getElementById('main-buttons'));
+      wrapper.scrollIntoView({ behavior: "smooth" });
+    }
+
+    window.addEventListener('load', () => {
+      const chatBox = document.getElementById('chat-box');
+      chatBox.style.opacity = '1';
+      chatBox.style.transform = 'translateY(0)';
+      startChat();
+    });
+
+    function startChat() {
+      clearChat();
+      addMessage("مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 ما اسمك؟", false);
+    }
+
+    function reply(option) {
+      document.getElementById("main-buttons").style.display = "none";
+      let userText = '';
+      if (option === 'training') userText = 'مواعيد التدريبات';
+      else if (option === 'register') userText = 'التسجيل في النادي';
+      else if (option === 'teams') userText = 'معلومات عن الفرق';
+
+      addMessage(userText, true);
+
+      if (option === 'teams') {
+        addMessage("اختر نوع الرياضة:", false);
+        setTimeout(() => {
+          const btnContainer = document.createElement("div");
+          btnContainer.style.display = "flex";
+          btnContainer.style.flexWrap = "wrap";
+          btnContainer.style.justifyContent = "center";
+          btnContainer.style.gap = "10px";
+          btnContainer.innerHTML = `
+            <button class="chat-btn" onclick="showTeamSports()">الألعاب الجماعية</button>
+            <button class="chat-btn" onclick="showIndividualSports()">الألعاب الفردية</button>
+          `;
+          document.getElementById("chat-box").insertBefore(btnContainer, document.getElementById("main-buttons"));
+        }, 500);
       }
+    }
 
-      if (option === 'training') {
-        addMessage("تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.", false);
-      } else if (option === 'register') {
-        addMessage("للتسجيل، يرجى زيارة مقر النادي أو التواصل عبر الهاتف 0503874714.", false);
-      } else if (option === 'teams') {
-        addMessage("لدينا فرق في كرة القدم، كرة الطائرة، وكرة اليد.", false);
-      }
+    function showIndividualSports() {
+      addMessage("الألعاب الفردية", true);
+      const sports = ["الشطرنج", "الجودو", "الكاراتيه", "التايكوندو", "الدراجات", "ألعاب القوى", "الخماسي الحديث", "الريشة الطائرة"];
+      let html = 'الرياضات الفردية (8 رياضات):<br><div style="display: flex; flex-direction: column; gap: 8px;">';
+      sports.forEach(sport => {
+        html += `<button class="chat-btn" onclick="handleSportClick('${sport}')">${sport}</button>`;
+      });
+      html += '</div>';
+      addMessage(html, false);
+    }
 
-      setTimeout(() => {
-        document.getElementById("main-buttons").style.display = "flex";
-      }, 800);
-    }, 1000);
-  }
+    function showTeamSports() {
+      addMessage("الألعاب الجماعية", true);
+      const sports = ["كرة الطائرة", "كرة السلة", "كرة اليد", "كرة قدم الصالات"];
+      let html = 'الرياضات الجماعية (4 رياضات):<br><div style="display: flex; flex-direction: column; gap: 8px;">';
+      sports.forEach(sport => {
+        html += `<button class="chat-btn" onclick="handleSportClick('${sport}')">${sport}</button>`;
+      });
+      html += '</div>';
+      addMessage(html, false);
+    }
 
-  function showContactMain() {
-    addMessage("تواصل معنا", true);
-    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
-
-    setTimeout(() => {
-      const typingBubbles = document.querySelectorAll('.content');
-      const lastBubble = typingBubbles[typingBubbles.length - 1];
-      if (lastBubble && lastBubble.textContent === "...") {
-        lastBubble.parentElement.remove();
-      }
-
-      addMessage(`
-        يمكنك التواصل معنا عبر البريد الإلكتروني: <a href="mailto:info@ksc.shj.ae" style="color:blue;">info@ksc.shj.ae</a><br><br>
-        أو استخدام أي من وسائل التواصل الاجتماعي التالية:
-        <div style="margin-top: 15px; text-align: center;">
-  <a href="https://www.facebook.com/Kalbasc1" target="_blank" style="margin: 5px; display: inline-block; border-radius: 50%; width: 36px; height: 36px;">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" style="width: 100%; height: 100%; background: #f4e733; border-radius: 50%; padding: 5px;">
-  </a>
-  <a href="https://x.com/Kalba_sc?mx=2" target="_blank" style="margin: 5px; display: inline-block; border-radius: 50%; width: 36px; height: 36px;">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X" style="width: 100%; height: 100%; background: #f4e733; border-radius: 50%; padding: 5px;">
-  </a>
-  <a href="https://www.instagram.com/kalbasc/" target="_blank" style="margin: 5px; display: inline-block; border-radius: 50%; width: 36px; height: 36px;">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" style="width: 100%; height: 100%; background: #f4e733; border-radius: 50%; padding: 5px;">
-  </a>
-  <a href="https://www.youtube.com/@kalbasc" target="_blank" style="margin: 5px; display: inline-block; border-radius: 50%; width: 36px; height: 36px;">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" style="width: 100%; height: 100%; background: #f4e733; border-radius: 50%; padding: 5px;">
-  </a>
-  <a href="https://www.tiktok.com/@kalbasc" target="_blank" style="margin: 5px; display: inline-block; border-radius: 50%; width: 36px; height: 36px;">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" style="width: 100%; height: 100%; background: #f4e733; border-radius: 50%; padding: 5px;">
-  </a>
-</div>
-        <br>
-<p style="font-size: 16px; font-weight: bold; margin-bottom: 10px;">
-  إذا كنت بحاجة إلى مساعدة مباشرة، يمكنك التواصل مع السكرتير:
-</p>
-<button onclick="showContactOptions()" 
-  style="margin-top:5px; padding:16px 28px; font-size:18px; background:#f4e733; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
-  تواصل مع السكرتير
-      `, false);
-
-      setTimeout(() => {
-        document.getElementById("main-buttons").style.display = "flex";
-      }, 800);
-    }, 1000);
-  }
-
-  function showContactOptions() {
-    addMessage("تواصل مع السكرتير", true);
-    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
-
-    setTimeout(() => {
-      const typingBubbles = document.querySelectorAll('.content');
-      const lastBubble = typingBubbles[typingBubbles.length - 1];
-      if (lastBubble && lastBubble.textContent === "...") {
-        lastBubble.parentElement.remove();
-      }
-
-      addMessage(`يرجى زيارة بطاقة السكرتير عبر <a href="https://kalbasc.github.io/sameh/Business%20E-Card.html" target="_blank" style="color:blue;">هذا الرابط</a>.`, false);
-
-      setTimeout(() => {
-        document.getElementById("main-buttons").style.display = "flex";
-      }, 800);
-    }, 1000);
-  }
-
-  startChat();
-</script>
-
+    function handleSportClick(sportName) {
+      addMessage(sportName, true);
+      addMessage(`\u{1F4CC} سيتم إضافة معلومات عن "${sportName}" لاحقاً.`, false);
+    }
+  </script>
 </body>
 </html>
