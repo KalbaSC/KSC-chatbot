@@ -166,13 +166,11 @@
 </header>
 
 <div id="chat-box">
-  <!-- messages will be added here -->
-
   <div class="button-container" id="main-buttons" style="display: none;">
     <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
     <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
     <button class="chat-btn" onclick="reply('teams')">معلومات عن الفرق</button>
-    <button class="chat-btn" onclick="showContactOptions()">تواصل مع السكرتير</button>
+    <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
     <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
   </div>
 </div>
@@ -184,7 +182,7 @@
         <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
         <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
         <button class="chat-btn" onclick="reply('teams')">معلومات عن الفرق</button>
-        <button class="chat-btn" onclick="showContactOptions()">تواصل مع السكرتير</button>
+        <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
         <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
       </div>
     `;
@@ -278,6 +276,37 @@
     }, 1000);
   }
 
+  function showContactMain() {
+    addMessage("تواصل معنا", true);
+    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
+
+    setTimeout(() => {
+      const typingBubbles = document.querySelectorAll('.content');
+      const lastBubble = typingBubbles[typingBubbles.length - 1];
+      if (lastBubble && lastBubble.textContent === "...") {
+        lastBubble.parentElement.remove();
+      }
+
+      addMessage(`
+        يمكنك التواصل معنا عبر البريد الإلكتروني: <a href="mailto:info@ksc.shj.ae" style="color:blue;">info@ksc.shj.ae</a><br><br>
+        أو استخدام أي من وسائل التواصل الاجتماعي التالية:
+        <div style="margin-top: 10px; text-align: center;">
+          <a href="https://www.facebook.com/Kalbasc1" target="_blank" style="margin: 5px; display: inline-block; background: #3b5998; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://x.com/Kalba_sc?mx=2" target="_blank" style="margin: 5px; display: inline-block; background: #000; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://www.instagram.com/kalbasc/" target="_blank" style="margin: 5px; display: inline-block; background: #e1306c; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.youtube.com/@kalbasc" target="_blank" style="margin: 5px; display: inline-block; background: #ff0000; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.tiktok.com/@kalbasc" target="_blank" style="margin: 5px; display: inline-block; background: #000; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <br>
+        <button onclick="showContactOptions()" style="margin-top:10px; padding:10px 16px; background:#f4e733; border:none; border-radius:5px; font-weight:bold;">تواصل مع السكرتير</button>
+      `, false);
+
+      setTimeout(() => {
+        document.getElementById("main-buttons").style.display = "flex";
+      }, 800);
+    }, 1000);
+  }
+
   function showContactOptions() {
     addMessage("تواصل مع السكرتير", true);
     addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
@@ -290,17 +319,6 @@
       }
 
       addMessage(`يرجى زيارة بطاقة السكرتير عبر <a href="https://kalbasc.github.io/sameh/Business%20E-Card.html" target="_blank" style="color:blue;">هذا الرابط</a>.`, false);
-
-      const socialHTML = `
-        <div style="margin-top: 15px; text-align: center;">
-          <a href="https://www.facebook.com/Kalbasc1" target="_blank" style="margin: 5px; display: inline-block; background: #3b5998; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://x.com/Kalba_sc?mx=2" target="_blank" style="margin: 5px; display: inline-block; background: #000; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;"><i class="fab fa-x-twitter"></i></a>
-          <a href="https://www.instagram.com/kalbasc/" target="_blank" style="margin: 5px; display: inline-block; background: #e1306c; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;"><i class="fab fa-instagram"></i></a>
-          <a href="https://www.youtube.com/@kalbasc" target="_blank" style="margin: 5px; display: inline-block; background: #ff0000; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;"><i class="fab fa-youtube"></i></a>
-          <a href="https://www.tiktok.com/@kalbasc" target="_blank" style="margin: 5px; display: inline-block; background: #000; color: white; border-radius: 50%; width: 32px; height: 32px; line-height: 32px; text-align: center;"><i class="fab fa-tiktok"></i></a>
-        </div>
-      `;
-      addMessage(socialHTML, false);
 
       setTimeout(() => {
         document.getElementById("main-buttons").style.display = "flex";
