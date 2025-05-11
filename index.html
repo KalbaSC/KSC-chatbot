@@ -375,36 +375,6 @@ let userName = '';
     chatBox.style.transform = 'translateY(0)';
   });
 
-  function startChat() {
-    clearChat();
-    addMessage("مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 ما اسمك؟", false);
-
-    const inputDiv = document.createElement("div");
-    inputDiv.style.marginTop = "10px";
-    inputDiv.innerHTML = `
-      <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." 
-             style="padding:10px; font-size:16px; width:70%; border-radius:5px; border:1px solid #ccc;">
-      <button onclick="submitName()" 
-              style="padding:10px 15px; margin-right:10px; background:#f4e733; font-weight:bold; border:none; border-radius:5px;">
-        إرسال
-      </button>
-    `;
-    document.getElementById("chat-box").insertBefore(inputDiv, document.getElementById('main-buttons'));
-  }
-
-  function submitName() {
-    const input = document.getElementById("nameInput");
-    const name = input.value.trim();
-    if (name) {
-      addMessage(name, true);
-      input.parentElement.remove(); 
-      setTimeout(() => {
-        addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
-        document.getElementById("main-buttons").style.display = "flex";
-      }, 500);
-    }
-  }
-
   function reply(option) {
     document.getElementById("main-buttons").style.display = "none";
 
