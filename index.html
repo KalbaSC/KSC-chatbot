@@ -169,7 +169,7 @@
   <div class="button-container" id="main-buttons" style="display: none;">
     <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
     <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
-    <button class="chat-btn" onclick="reply('teams')">معلومات عن الفرق</button>
+    <button class="chat-btn" onclick="reply('teams')">معلومات عن الرياضات</button>
     <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
     <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
   </div>
@@ -181,7 +181,7 @@
       <div class="button-container" id="main-buttons" style="display: none;">
         <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
         <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
-        <button class="chat-btn" onclick="reply('teams')">معلومات عن الفرق</button>
+        <button class="chat-btn" onclick="reply('teams')">معلومات عن الرياضات</button>
         <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
         <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
       </div>
@@ -250,7 +250,7 @@
     let userText = '';
     if (option === 'training') userText = 'مواعيد التدريبات';
     else if (option === 'register') userText = 'التسجيل في النادي';
-    else if (option === 'teams') userText = 'معلومات عن الفرق';
+    else if (option === 'teams') userText = 'معلومات عن الرياضات';
 
     addMessage(userText, true); 
     addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
