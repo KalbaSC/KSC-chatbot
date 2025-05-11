@@ -4,66 +4,63 @@
   <meta charset="UTF-8">
   <title>نادي كلباء الرياضي الثقافي</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
-    .typing-dots span {
-      animation: blink 1s infinite;
-      font-weight: bold;
-      font-size: 24px;
-      margin: 0 1px;
-    }
-    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes blink {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 1; }
-    }
     body {
       background-color: #000;
-      font-family: 'NotoKufiArabic', 'Cairo', sans-serif;
+      font-family: 'Cairo', sans-serif;
       margin: 0;
       padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
+
     header {
       background-color: #f4e733;
       color: black;
       text-align: center;
       padding: 20px;
       width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
     }
+
     header img {
-      height: 80px;
+      height: 60px;
     }
+
     header h1 {
-      display: inline-block;
-      margin: 0 10px;
       font-size: 24px;
+      margin: 0;
     }
+
     #chat-box {
       background-color: white;
       color: black;
-      border-radius: 12px;
+      border-radius: 16px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
       padding: 20px;
       margin: 30px auto;
-      max-width: 500px;
+      max-width: 640px;
       width: 90%;
       min-height: 300px;
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 1.5s ease, transform 1.5s ease;
     }
+
     .message-wrapper {
       display: flex;
       align-items: flex-start;
       margin: 10px 0;
     }
+
     .message-wrapper.user {
       flex-direction: row-reverse;
     }
+
     .avatar {
       width: 36px;
       height: 36px;
@@ -72,14 +69,19 @@
       background-position: center;
       margin: 0 10px;
     }
+
     .content {
-      background-color: #f4e733;
+      background-color: #eee;
       padding: 10px;
       border-radius: 10px;
       max-width: 75%;
       font-size: 18px;
     }
-    .message-wrapper.bot .content { background-color: #eee; }
+
+    .message-wrapper.user .content {
+      background-color: #f4e733;
+    }
+
     .button-container {
       display: flex;
       flex-wrap: wrap;
@@ -87,6 +89,7 @@
       gap: 10px;
       margin-top: 20px;
     }
+
     .chat-btn {
       background-color: #f4e733;
       color: #000;
@@ -101,8 +104,8 @@
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="شعار نادي كلباء">
     <h1>نادي كلباء الرياضي الثقافي</h1>
+    <img src="logo.png" alt="شعار نادي كلباء">
   </header>
 
   <div id="chat-box">
@@ -110,7 +113,6 @@
       <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
       <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
       <button class="chat-btn" onclick="reply('teams')">معلومات عن الفرق</button>
-      <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
       <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
     </div>
   </div>
@@ -126,7 +128,7 @@
 
       const avatar = document.createElement('div');
       avatar.className = 'avatar';
-      avatar.style.backgroundImage = `url('${isUser ? 'user-icon.png' : 'bot-icon.png'}')`;
+      avatar.style.backgroundImage = `url('${isUser ? 'user-icon.png' : 'logo.png'}')`;
 
       const bubble = document.createElement('div');
       bubble.className = 'content';
@@ -165,10 +167,7 @@
         addMessage("اختر نوع الرياضة:", false);
         setTimeout(() => {
           const btnContainer = document.createElement("div");
-          btnContainer.style.display = "flex";
-          btnContainer.style.flexWrap = "wrap";
-          btnContainer.style.justifyContent = "center";
-          btnContainer.style.gap = "10px";
+          btnContainer.className = 'button-container';
           btnContainer.innerHTML = `
             <button class="chat-btn" onclick="showTeamSports()">الألعاب الجماعية</button>
             <button class="chat-btn" onclick="showIndividualSports()">الألعاب الفردية</button>
@@ -202,7 +201,7 @@
 
     function handleSportClick(sportName) {
       addMessage(sportName, true);
-      addMessage(`\u{1F4CC} سيتم إضافة معلومات عن "${sportName}" لاحقاً.`, false);
+      addMessage(`📌 سيتم إضافة معلومات عن "${sportName}" لاحقاً.`, false);
     }
   </script>
 </body>
