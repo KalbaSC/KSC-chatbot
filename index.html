@@ -345,26 +345,6 @@ function clearChat() {
   document.getElementById("main-buttons").style.display = "none";
 }
 
-  function addMessage(content, isUser = false) {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'message-wrapper ' + (isUser ? 'user' : 'bot');
-
-    const avatar = document.createElement('div');
-    avatar.className = 'avatar';
-    avatar.style.backgroundImage = `url('${isUser ? 'user-icon.png' : 'bot-icon.png'}')`;
-
-    const bubble = document.createElement('div');
-    bubble.className = 'content';
-    bubble.innerHTML = content;
-
-    wrapper.appendChild(avatar);
-    wrapper.appendChild(bubble);
-
-    const chatBox = document.getElementById('chat-box');
-    chatBox.insertBefore(wrapper, document.getElementById('main-buttons'));
-    wrapper.scrollIntoView({ behavior: "smooth" });
-  }
-
   window.addEventListener('load', () => {
     const chatBox = document.getElementById('chat-box');
     chatBox.style.opacity = '1';
