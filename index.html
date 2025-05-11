@@ -176,6 +176,7 @@
 </div>
 
 <script>
+  let userName = '';
  function handleTeamOption(type) {
   addMessage(type === 'individual' ? "🎯 الألعاب الفردية" : "🏃‍♂️ الألعاب الجماعية", true);
   
@@ -295,10 +296,12 @@
     const name = input.value.trim();
     if (name) {
       addMessage(name, true);
+      userName = name;
       input.parentElement.remove(); 
       setTimeout(() => {
         addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
         document.getElementById("main-buttons").style.display = "flex";
+        document.getElementById("floating-input").style.display = "block";
       }, 500);
     }
   }
@@ -428,9 +431,55 @@
       }, 800);
     }, 1000);
   }
+function submitUserMessage() {
+  const input = document.getElementById("userMessage");
+  const msg = input.value.trim();
+  if (msg) {
+    addMessage(msg, true);
+
+    // Send to Google Sheet
+    fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec', {
+      method: 'POST',
+      body: JSON.stringify({ name: userName, message: msg }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(res => {
+      if (res.ok) {
+        addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
+      } else {
+        addMessage("حدث خطأ أثناء إرسال الرسالة. حاول مرة أخرى لاحقاً.", false);
+      }
+    }).catch(() => {
+      addMessage("تعذر الاتصال بالخادم. تأكد من الاتصال بالإنترنت.", false);
+    });
+
+    input.value = '';
+  }
+}
 
   startChat();
 </script>
-
+<div id="floating-input" style="
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid #ccc;
+  display: none;
+  padding: 10px;
+  box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
+  z-index: 1000;
+">
+  <div style="max-width: 500px; margin: auto; display: flex; align-items: center;">
+    <input id="userMessage" type="text" placeholder="اكتب شيئًا..." 
+      style="flex: 1; padding: 10px; border-radius: 20px; border: 1px solid #ccc; font-size: 16px;">
+    <button onclick="submitUserMessage()" 
+      style="background: none; border: none; margin-right: 10px; cursor: pointer;">
+      <i class="fas fa-paper-plane" style="font-size: 20px; color: #f4e733;"></i>
+    </button>
+  </div>
+</div>
 </body>
 </html>
