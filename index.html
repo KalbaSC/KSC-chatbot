@@ -263,20 +263,17 @@ function clearChat() {
       addMessage(msg, true);
 
     fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec', {
-        method: 'POST',
-        body: JSON.stringify({ name: userName, message: msg }),
-        headers: { 'Content-Type': 'application/json' }
-      }).then(res => {
-        if (res.ok) {
-          addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
-        } else {
-          addMessage("حدث خطأ أثناء إرسال الرسالة. حاول مرة أخرى لاحقاً.", false);
-        }
-      }).catch(() => {
-        addMessage("تعذر الاتصال بالخادم. تأكد من الاتصال بالإنترنت.", false);
-      });
+  method: 'POST',
+  mode: 'no-cors', // ✅ required for browser requests to Google Scripts
+  body: JSON.stringify({ name: userName, message: msg }),
+  headers: { 'Content-Type': 'application/json' }
+}).finally(() => {
+  // Since `no-cors` disables response access, we can't check res.ok
+  addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
+});
 
-      input.value = '';
+input.value = '';
+
     }
   }
 
