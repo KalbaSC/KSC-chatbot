@@ -275,20 +275,24 @@ inputDiv.innerHTML = `
     addMessage(msg, true);
     console.log("📞 Sending phone number:", userPhone);
 
-    const url = `https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpC1TZZAE_w/exec?name=${encodeURIComponent(userName)}&phone=${encodeURIComponent(userPhone)}&message=${encodeURIComponent(msg)}`;
-
-    fetch(url)
-      .then(() => {
-        addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
+    fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpC1TZZAE_w/exec', {
+      method: 'POST',
+      mode: 'no-cors', // ✅ bypass CORS but won't return response
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: userName,
+        phone: userPhone,
+        message: msg
       })
-      .catch((err) => {
-        console.error("Failed to send:", err);
-        addMessage("حدث خطأ أثناء الإرسال.", false);
-      });
+    });
 
     input.value = '';
+    addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
   }
 }
+
 
 
   window.addEventListener('load', () => {
