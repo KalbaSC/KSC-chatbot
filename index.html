@@ -275,20 +275,21 @@ inputDiv.innerHTML = `
     addMessage(msg, true);
     console.log("📞 Sending phone number:", userPhone);
 
-    const form = new FormData();
-    form.append("name", userName);
-    form.append("phone", userPhone);
-    form.append("message", msg);
+    const url = `https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpC1TZZAE_w/exec?name=${encodeURIComponent(userName)}&phone=${encodeURIComponent(userPhone)}&message=${encodeURIComponent(msg)}`;
 
-    fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec', {
-      method: 'POST',
-      body: form
-    });
+    fetch(url)
+      .then(() => {
+        addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
+      })
+      .catch((err) => {
+        console.error("Failed to send:", err);
+        addMessage("حدث خطأ أثناء الإرسال.", false);
+      });
 
     input.value = '';
-    addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
   }
 }
+
 
   window.addEventListener('load', () => {
     const chatBox = document.getElementById('chat-box');
