@@ -273,14 +273,12 @@ inputDiv.innerHTML = `
     if (msg) {
       addMessage(msg, true);
       console.log("📞 Sending phone number:", userPhone);
-      
-console.log("Sending phone:", userPhone);
 
-    fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec', {
+ fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec', {
   method: 'POST',
   mode: 'no-cors',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ name: userName, phone: userPhone, message: msg })
+  body: JSON.stringify({ full: `${userName}|${userPhone}|${msg}` })
 })
 .finally(() => {
   addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
