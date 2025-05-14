@@ -258,7 +258,7 @@ inputDiv.innerHTML = `
     input.parentElement.remove();
 
     setTimeout(() => {
-      addMessage(مرحباً بك ${name}، كيف يمكننا مساعدتك؟, false);
+      addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
       document.getElementById("main-buttons").style.display = "flex";
       document.getElementById("inner-input-bar").style.display = "flex";
     }, 500);
@@ -354,6 +354,7 @@ input.value = '';
     const chatBox = document.getElementById('chat-box');
     chatBox.style.opacity = '1';
     chatBox.style.transform = 'translateY(0)';
+    startChat();
   });
 
   function reply(option) {
@@ -455,6 +456,7 @@ input.value = '';
 <button onclick="showContactOptions()" 
   style="margin-top:5px; padding:16px 28px; font-size:18px; background:#f4e733; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
   تواصل مع السكرتير
+  </button>
       `, false);
 
       setTimeout(() => {
@@ -482,7 +484,6 @@ input.value = '';
     }, 1000);
   }
 
-  startChat();
 </script>
 
 </body>
