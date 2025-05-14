@@ -185,7 +185,6 @@
 
 <script>
 let userName = '';
-let userPhone = '';
 
   function addMessage(content, isUser = false) {
     const wrapper = document.createElement('div');
@@ -235,8 +234,6 @@ inputDiv.style.marginTop = "10px";
 inputDiv.innerHTML = `
   <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." 
          style="padding:10px; font-size:16px; width:70%; border-radius:5px; border:1px solid #ccc;"><br><br>
-  <input id="phoneInput" type="text" placeholder="رقم الهاتف..." 
-         style="padding:10px; font-size:16px; width:70%; border-radius:5px; border:1px solid #ccc;"><br><br>
   <button onclick="submitName()" 
           style="padding:10px 15px; background:#f4e733; font-weight:bold; border:none; border-radius:5px;">
     إرسال
@@ -246,15 +243,12 @@ inputDiv.innerHTML = `
 
  function submitName() {
   const input = document.getElementById("nameInput");
-  const phoneInput = document.getElementById("phoneInput");
 
   const name = input.value.trim();
-  const phone = phoneInput.value.trim();
 
-  if (name && phone) {
-    addMessage(`${name} - ${phone}`, true);
+  if (name) {
+    addMessage(`${name}`, true);
     userName = name;
-    userPhone = phone; // ✅ save phone globally
     input.parentElement.remove();
 
     setTimeout(() => {
@@ -272,7 +266,6 @@ inputDiv.innerHTML = `
     const msg = input.value.trim();
     if (msg) {
       addMessage(msg, true);
-      console.log("📞 Sending phone number:", userPhone);
       
 const query = new URLSearchParams({
   name: userName,
