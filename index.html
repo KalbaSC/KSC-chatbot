@@ -274,17 +274,13 @@ inputDiv.innerHTML = `
       addMessage(msg, true);
       console.log("📞 Sending phone number:", userPhone);
       
-    console.log("🟡 Sending values:", {
-  name: userName,
-  phone: userPhone,
-  message: msg
-});
-  
 const query = new URLSearchParams({
   name: userName,
   phone: userPhone,
   message: msg
 }).toString();
+console.log("🚀 Full URL sent to Apps Script:", 
+  'https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec?' + query);
 
 fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec?' + query, {
   method: 'GET',
