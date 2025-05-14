@@ -225,67 +225,66 @@ function clearChat() {
     </div>`;
 }
 
-function startChat() {
+  function startChat() {
     clearChat();
     addMessage("مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 ما اسمك؟", false);
 
     const inputDiv = document.createElement("div");
-inputDiv.style.marginTop = "10px";
-inputDiv.innerHTML = `
-  <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." 
-         style="padding:10px; font-size:16px; width:70%; border-radius:5px; border:1px solid #ccc;"><br><br>
-  <button onclick="submitName()" 
-          style="padding:10px 15px; background:#f4e733; font-weight:bold; border:none; border-radius:5px;">
-    إرسال
-  </button>`;
+    inputDiv.style.marginTop = "10px";
+    inputDiv.innerHTML = `
+      <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." 
+             style="padding:10px; font-size:16px; width:70%; border-radius:5px; border:1px solid #ccc;">
+      <button onclick="submitName()" 
+              style="padding:10px 15px; margin-right:10px; background:#f4e733; font-weight:bold; border:none; border-radius:5px;">
+        إرسال
+      </button>`;
     document.getElementById("chat-box").insertBefore(inputDiv, document.getElementById('main-buttons'));
   }
 
- function submitName() {
-  const input = document.getElementById("nameInput");
+  function submitName() {
+    const input = document.getElementById("nameInput");
+    const name = input.value.trim();
+    if (name) {
+      addMessage(name, true);
+      userName = name;
+      input.parentElement.remove();
+      setTimeout(() => {
+        addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
+        document.getElementById("main-buttons").style.display = "flex";
+        document.getElementById("inner-input-bar").style.display = "flex";
+      }, 500);
+    }
+  }
 
-  const name = input.value.trim();
-
-  if (name) {
-    addMessage(`${name}`, true);
-    userName = name;
-    input.parentElement.remove();
-
-    setTimeout(() => {
-      addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
-      document.getElementById("main-buttons").style.display = "flex";
-      document.getElementById("inner-input-bar").style.display = "flex";
-    }, 500);
-  } 
-}
-
-function submitUserMessage() {
-  const input = document.getElementById("userMessage");
-  const msg = input.value.trim();
-  if (msg) {
-    addMessage(msg, true);
+  function submitUserMessage() {
+    const input = document.getElementById("userMessage");
+    const msg = input.value.trim();
+    if (msg) {
+      addMessage(msg, true);
 
     fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: userName,
-        message: msg
-      })
-    })
-    .then(() => {
-      addMessage("شكراً على تواصلك، تم الإرسال.", false);
-    })
-    .catch((err) => {
-      console.error("❌ Send failed:", err);
-      addMessage("حدث خطأ أثناء الإرسال.", false);
-    });
+        method: 'POST',
+        body: JSON.stringify({ name: userName, message: msg }),
+        headers: { 'Content-Type': 'application/json' }
+      }).then(res => {
+        if (res.ok) {
+          addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
+        } else {
+          addMessage("حدث خطأ أثناء إرسال الرسالة. حاول مرة أخرى لاحقاً.", false);
+        }
+      }).catch(() => {
+        addMessage("تعذر الاتصال بالخادم. تأكد من الاتصال بالإنترنت.", false);
+      });
 
-    input.value = '';
+      input.value = '';
+    }
   }
-}
+
+  window.addEventListener('load', () => {
+    const chatBox = document.getElementById('chat-box');
+    chatBox.style.opacity = '1';
+    chatBox.style.transform = 'translateY(0)';
+  });
   
  function handleTeamOption(type) {
   addMessage(type === 'individual' ? "🎯 الألعاب الفردية" : "🏃‍♂️ الألعاب الجماعية", true);
@@ -350,7 +349,6 @@ function submitUserMessage() {
     const chatBox = document.getElementById('chat-box');
     chatBox.style.opacity = '1';
     chatBox.style.transform = 'translateY(0)';
-    startChat();
   });
 
   function reply(option) {
@@ -452,7 +450,6 @@ function submitUserMessage() {
 <button onclick="showContactOptions()" 
   style="margin-top:5px; padding:16px 28px; font-size:18px; background:#f4e733; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
   تواصل مع السكرتير
-  </button>
       `, false);
 
       setTimeout(() => {
@@ -480,6 +477,7 @@ function submitUserMessage() {
     }, 1000);
   }
 
+  startChat();
 </script>
 
 </body>
