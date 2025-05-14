@@ -261,26 +261,29 @@ inputDiv.innerHTML = `
   }
 }
 
-  function submitUserMessage() {
-    const input = document.getElementById("userMessage");
-    const msg = input.value.trim();
-    if (msg) {
-      addMessage(msg, true);
-      
-const query = new URLSearchParams({
-  name: userName,
-  message: msg
-}).toString();
+function submitUserMessage() {
+  const input = document.getElementById("userMessage");
+  const msg = input.value.trim();
+  if (msg) {
+    addMessage(msg, true);
 
-fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec')
-  .finally(() => {
-    addMessage("شكراً على تواصلك، تم الإرسال.", false);
-  });
+    const query = new URLSearchParams({
+      name: userName,
+      message: msg
+    }).toString();
 
-input.value = '';
+    fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec?' + query, {
+      method: 'GET',
+      mode: 'no-cors'
+    })
+    .finally(() => {
+      addMessage("شكراً على تواصلك، تم الإرسال.", false);
+    });
 
-    }
+    input.value = '';
   }
+}
+
   
  function handleTeamOption(type) {
   addMessage(type === 'individual' ? "🎯 الألعاب الفردية" : "🏃‍♂️ الألعاب الجماعية", true);
