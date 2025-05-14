@@ -282,16 +282,16 @@ inputDiv.innerHTML = `
   
 fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec', {
   method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
+  mode: 'no-cors', // ✅ Needed for GitHub Pages
+  headers: {
+    'Content-Type': 'application/json'
+  },
   body: JSON.stringify({
     name: userName,
     phone: userPhone,
     message: msg
   })
 })
-.then(res => res.text())
-.then(console.log)
-.catch(console.error)
 .finally(() => {
   addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
 });
