@@ -185,6 +185,7 @@
 
 <script>
 let userName = '';
+let userPhone = '';
 
   function addMessage(content, isUser = false) {
     const wrapper = document.createElement('div');
@@ -225,65 +226,70 @@ function clearChat() {
     </div>`;
 }
 
-  function startChat() {
+function startChat() {
     clearChat();
     addMessage("مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 ما اسمك؟", false);
 
     const inputDiv = document.createElement("div");
-    inputDiv.style.marginTop = "10px";
-    inputDiv.innerHTML = `
-      <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." 
-             style="padding:10px; font-size:16px; width:70%; border-radius:5px; border:1px solid #ccc;">
-      <button onclick="submitName()" 
-              style="padding:10px 15px; margin-right:10px; background:#f4e733; font-weight:bold; border:none; border-radius:5px;">
-        إرسال
-      </button>`;
+inputDiv.style.marginTop = "10px";
+inputDiv.innerHTML = `
+  <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." 
+         style="padding:10px; font-size:16px; width:70%; border-radius:5px; border:1px solid #ccc;"><br><br>
+  <input id="phoneInput" type="text" placeholder="رقم الهاتف..." 
+         style="padding:10px; font-size:16px; width:70%; border-radius:5px; border:1px solid #ccc;"><br><br>
+  <button onclick="submitName()" 
+          style="padding:10px 15px; background:#f4e733; font-weight:bold; border:none; border-radius:5px;">
+    إرسال
+  </button>`;
     document.getElementById("chat-box").insertBefore(inputDiv, document.getElementById('main-buttons'));
   }
 
-  function submitName() {
-    const input = document.getElementById("nameInput");
-    const name = input.value.trim();
-    if (name) {
-      addMessage(name, true);
-      userName = name;
-      input.parentElement.remove();
-      setTimeout(() => {
-        addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
-        document.getElementById("main-buttons").style.display = "flex";
-        document.getElementById("inner-input-bar").style.display = "flex";
-      }, 500);
-    }
+ function submitName() {
+  const input = document.getElementById("nameInput");
+  const phoneInput = document.getElementById("phoneInput");
+
+  const name = input.value.trim();
+  const phone = phoneInput.value.trim();
+
+  if (name && phone) {
+    addMessage(`${name} - ${phone}`, true);
+    userName = name;
+    userPhone = phone; // ✅ save phone globally
+    input.parentElement.remove();
+
+    setTimeout(() => {
+      addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
+      document.getElementById("main-buttons").style.display = "flex";
+      document.getElementById("inner-input-bar").style.display = "flex";
+    }, 500);
+  } else {
+    alert("يرجى إدخال الاسم ورقم الهاتف."); // Optional error alert
   }
+}
 
   function submitUserMessage() {
     const input = document.getElementById("userMessage");
     const msg = input.value.trim();
     if (msg) {
       addMessage(msg, true);
+      console.log("📞 Sending phone number:", userPhone);
+      
+console.log("Sending phone:", userPhone);
 
- fetch('https://script.google.com/macros/s/AKfycbz_WBwikoZ1t_HFm-3toe4epzw9bz8tC3grjv0SAa83ZdW7sV5gXOTkil9-OYW7l5Qbog/exec'), {
-  method: "POST",
-  body: JSON.stringify({ name: userName, message: msg }),
-  headers: { "Content-Type": "application/json" }
+    fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec', {
+  method: 'POST',
+  mode: 'no-cors',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: userName, phone: userPhone, message: msg })
 })
-.then(res => res.text())
-.then(data => {
+.finally(() => {
   addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
-})
-.catch(() => {
-  addMessage("تعذر الاتصال بالخادم. تأكد من الاتصال بالإنترنت.", false);
 });
 
-      input.value = '';
+input.value = '';
+
     }
   }
-
-  window.addEventListener('load', () => {
-    const chatBox = document.getElementById('chat-box');
-    chatBox.style.opacity = '1';
-    chatBox.style.transform = 'translateY(0)';
-  });
   
  function handleTeamOption(type) {
   addMessage(type === 'individual' ? "🎯 الألعاب الفردية" : "🏃‍♂️ الألعاب الجماعية", true);
@@ -348,6 +354,7 @@ function clearChat() {
     const chatBox = document.getElementById('chat-box');
     chatBox.style.opacity = '1';
     chatBox.style.transform = 'translateY(0)';
+    startChat();
   });
 
   function reply(option) {
@@ -449,6 +456,7 @@ function clearChat() {
 <button onclick="showContactOptions()" 
   style="margin-top:5px; padding:16px 28px; font-size:18px; background:#f4e733; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
   تواصل مع السكرتير
+  </button>
       `, false);
 
       setTimeout(() => {
@@ -476,7 +484,6 @@ function clearChat() {
     }, 1000);
   }
 
-  startChat();
 </script>
 
 </body>
