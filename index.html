@@ -280,12 +280,20 @@ inputDiv.innerHTML = `
   message: msg
 });
   
-    fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec', {
+fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec', {
   method: 'POST',
-  mode: 'no-cors',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ name: userName, phone: userPhone, message: msg })
+  body: JSON.stringify({
+    name: userName,           // example: "Ali"
+    phone: userPhone,         // example: "0501234567"
+    message: msg              // example: "Hello!"
+    // 👈 no need to add "test" field — it's auto-added in script
+  })
 })
+.then(res => res.text())
+.then(console.log)
+.catch(console.error);
+
 .finally(() => {
   addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
 });
