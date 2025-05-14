@@ -261,29 +261,29 @@ inputDiv.innerHTML = `
   }
 }
 
-function submitUserMessage() {
-  const input = document.getElementById("userMessage");
-  const msg = input.value.trim();
-  if (msg) {
-    addMessage(msg, true);
+  function submitUserMessage() {
+    const input = document.getElementById("userMessage");
+    const msg = input.value.trim();
+    if (msg) {
+      addMessage(msg, true);
 
-    const query = new URLSearchParams({
-      name: userName,
-      message: msg
-    }).toString();
+    fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec', {
+        method: 'POST',
+        body: JSON.stringify({ name: userName, message: msg }),
+        headers: { 'Content-Type': 'application/json' }
+      }).then(res => {
+        if (res.ok) {
+          addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
+        } else {
+          addMessage("حدث خطأ أثناء إرسال الرسالة. حاول مرة أخرى لاحقاً.", false);
+        }
+      }).catch(() => {
+        addMessage("تعذر الاتصال بالخادم. تأكد من الاتصال بالإنترنت.", false);
+      });
 
-    fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec?' + query, {
-      method: 'GET',
-      mode: 'no-cors'
-    })
-    .finally(() => {
-      addMessage("شكراً على تواصلك، تم الإرسال.", false);
-    });
-
-    input.value = '';
+      input.value = '';
+    }
   }
-}
-
   
  function handleTeamOption(type) {
   addMessage(type === 'individual' ? "🎯 الألعاب الفردية" : "🏃‍♂️ الألعاب الجماعية", true);
