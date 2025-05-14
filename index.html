@@ -276,19 +276,13 @@ inputDiv.innerHTML = `
       
 const query = new URLSearchParams({
   name: userName,
-  phone: userPhone,
   message: msg
 }).toString();
-console.log("🚀 Full URL sent to Apps Script:", 
-  'https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec?' + query);
 
-fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec?' + query, {
-  method: 'GET',
-  mode: 'no-cors'
-})
-.finally(() => {
-  addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
-});
+fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?' + query)
+  .finally(() => {
+    addMessage("شكراً على تواصلك، تم الإرسال.", false);
+  });
 
 input.value = '';
 
