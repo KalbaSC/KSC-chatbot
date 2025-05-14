@@ -280,17 +280,15 @@ inputDiv.innerHTML = `
   message: msg
 });
   
-fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec', {
-  method: 'POST',
-  mode: 'no-cors', // ✅ Needed for GitHub Pages
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    name: userName,
-    phone: userPhone,
-    message: msg
-  })
+const query = new URLSearchParams({
+  name: userName,
+  phone: userPhone,
+  message: msg
+}).toString();
+
+fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec?' + query, {
+  method: 'GET',
+  mode: 'no-cors'
 })
 .finally(() => {
   addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
