@@ -226,13 +226,13 @@ function clearChat() {
     </div>`;
 }
 
-  function startChat() {
+function startChat() {
     clearChat();
     addMessage("مرحباً بك في نادي كلباء الرياضي الثقافي! 👋 ما اسمك؟", false);
 
     const inputDiv = document.createElement("div");
 inputDiv.style.marginTop = "10px";
-inputDiv.innerHTML = `
+inputDiv.innerHTML = 
   <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." 
          style="padding:10px; font-size:16px; width:70%; border-radius:5px; border:1px solid #ccc;"><br><br>
   <input id="phoneInput" type="text" placeholder="رقم الهاتف..." 
@@ -240,7 +240,7 @@ inputDiv.innerHTML = `
   <button onclick="submitName()" 
           style="padding:10px 15px; background:#f4e733; font-weight:bold; border:none; border-radius:5px;">
     إرسال
-  </button>`;
+  </button>;
     document.getElementById("chat-box").insertBefore(inputDiv, document.getElementById('main-buttons'));
   }
 
@@ -252,13 +252,13 @@ inputDiv.innerHTML = `
   const phone = phoneInput.value.trim();
 
   if (name && phone) {
-    addMessage(`${name} - ${phone}`, true); // Optional: show both
+    addMessage(${name} - ${phone}, true); // Optional: show both
     userName = name;
     userPhone = phone; // ✅ save phone globally
     input.parentElement.remove();
 
     setTimeout(() => {
-      addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
+      addMessage(مرحباً بك ${name}، كيف يمكننا مساعدتك؟, false);
       document.getElementById("main-buttons").style.display = "flex";
       document.getElementById("inner-input-bar").style.display = "flex";
     }, 500);
@@ -267,33 +267,29 @@ inputDiv.innerHTML = `
   }
 }
 
- function submitUserMessage() {
-  const input = document.getElementById("userMessage");
-  const msg = input.value.trim();
+  function submitUserMessage() {
+    const input = document.getElementById("userMessage");
+    const msg = input.value.trim();
+    if (msg) {
+      addMessage(msg, true);
+      console.log("📞 Sending phone number:", userPhone);
+      
+console.log("Sending phone:", userPhone);
 
-  if (msg) {
-    addMessage(msg, true);
-    console.log("📞 Sending phone number:", userPhone);
+    fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpClTZZAE_w/exec', {
+  method: 'POST',
+  mode: 'no-cors',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: userName, phone: userPhone, message: msg })
+})
+.finally(() => {
+  addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
+});
 
-    fetch('https://script.google.com/macros/s/AKfycbyh1Wj8HJ7qVypnVXQgvwfOJdMz7CBKj_U26NmMlKOgG-JmnGnzSn6tvycvpC1TZZAE_w/exec', {
-      method: 'POST',
-      mode: 'no-cors', // ✅ bypass CORS but won't return response
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: userName,
-        phone: userPhone,
-        message: msg
-      })
-    });
+input.value = '';
 
-    input.value = '';
-    addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
+    }
   }
-}
-
-
 
   window.addEventListener('load', () => {
     const chatBox = document.getElementById('chat-box');
