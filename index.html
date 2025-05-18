@@ -292,16 +292,16 @@ function startChat(retries = 0) {
   const inputDiv = document.createElement("div");
   inputDiv.id = "nameInputWrapper";
   inputDiv.style.marginTop = "10px";
-  inputDiv.innerHTML = 
-    <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
-      <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." 
-             style="padding:10px; font-size:16px; flex: 1; border-radius:5px; border:1px solid #ccc;">
-      <button onclick="submitName()" 
-              style="padding:10px 15px; background:#f4e733; font-weight:bold; border:none; border-radius:5px;">
-        إرسال
-      </button>
-    </div>
-  ;
+inputDiv.innerHTML = `
+  <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
+    <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." 
+           style="padding:10px; font-size:16px; flex: 1; border-radius:5px; border:1px solid #ccc;">
+    <button onclick="submitName()" 
+            style="padding:10px 15px; background:#f4e733; font-weight:bold; border:none; border-radius:5px;">
+      إرسال
+    </button>
+  </div>
+`;
   chatBody.appendChild(inputDiv);
 }
 
