@@ -311,18 +311,19 @@ inputDiv.innerHTML = `
   const name = input.value.trim();
 
   if (name) {
-    addMessage(${name}, true);
-    userName = name;
-document.getElementById("nameInputWrapper").remove();
-    setTimeout(() => {
-      addMessage(مرحباً بك ${name}، كيف يمكننا مساعدتك؟, false);
-showMainButtons();
-const inputBar = document.getElementById("inner-input-bar");
-if (inputBar) inputBar.style.display = "flex";
-    }, 500);
-  } 
+  addMessage(`${name}`, true);
+  userName = name;
+  document.getElementById("nameInputWrapper").remove();
+  
+  setTimeout(() => {
+    addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
+    showMainButtons();
+    const inputBar = document.getElementById("inner-input-bar");
+    if (inputBar) inputBar.style.display = "flex";
+  }, 500);
 }
-
+ }
+  
   function submitUserMessage() {
     const input = document.getElementById("userMessage");
     const msg = input.value.trim();
