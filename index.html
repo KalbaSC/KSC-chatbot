@@ -65,19 +65,20 @@
       vertical-align: middle;
     }
 
-    #chat-box {
-      background-color: white;
-      color: black;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      padding: 20px;
-      margin: 30px auto;
-      max-width: 500px;
-      width: 90%;
-      min-height: 300px;
-      opacity: 1;
-    }
-
+#chat-box {
+  background-color: white;
+  color: black;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  margin: 30px auto;
+  width: 100%;
+  max-width: 500px;
+  height: 450px; /* ✅ Fixed height */
+  overflow-y: auto; /* ✅ Enables vertical scrolling */
+  opacity: 1;
+}
+    
     .message-wrapper {
       display: flex;
       align-items: flex-start;
@@ -128,32 +129,43 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
-    @media (max-width: 600px) {
-      #chat-box {
-        width: 75% !important;
-        padding: 25px !important;
-        max-width: 95% !important;
-        min-height: 70vh !important;
-        font-size: 18px !important;
-      }
+/* ✅ Scrollbar styles go outside the @media block */
+#chat-box::-webkit-scrollbar {
+  width: 8px;
+}
+#chat-box::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
 
-      .content {
-        font-size: 18px !important;
-      }
+/* ✅ Then the media query starts properly */
+@media (max-width: 600px) {
+  #chat-box {
+    width: 75% !important;
+    padding: 25px !important;
+    max-width: 95% !important;
+    min-height: 70vh !important;
+    font-size: 18px !important;
+  }
 
-      .chat-btn {
-        padding: 14px 18px !important;
-        font-size: 17px !important;
-      }
+  .content {
+    font-size: 18px !important;
+  }
 
-      header h1 {
-        font-size: 22px !important;
-      }
+  .chat-btn {
+    padding: 14px 18px !important;
+    font-size: 17px !important;
+  }
 
-      header img {
-        height: 70px !important;
-      }
-    }
+  header h1 {
+    font-size: 22px !important;
+  }
+
+  header img {
+    height: 70px !important;
+  }
+}
+
   </style>
 </head>
 <body>
