@@ -246,7 +246,7 @@ function addMessage(content, isUser = false) {
 
   const avatar = document.createElement('div');
   avatar.className = 'avatar';
-  avatar.style.backgroundImage = url('${isUser ? 'user-icon.png' : 'bot-icon.png'}');
+  avatar.style.backgroundImage = `url('${isUser ? 'user-icon.png' : 'bot-icon.png'}')`;
 
   const bubble = document.createElement('div');
   bubble.className = 'content';
