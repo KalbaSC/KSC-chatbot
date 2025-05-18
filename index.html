@@ -77,10 +77,9 @@
   height: 400px; /* ✅ fixed height */
   display: flex;
   flex-direction: column;
-  opacity: 0;
-  transform: translateY(30px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 1.5s ease, transform 1.5s ease;
-  display: none;
   z-index: 9999;
 }
 
@@ -157,6 +156,13 @@
       cursor: pointer;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
+.chat-body::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-body::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
 
 /* ✅ Scrollbar styles go outside the @media block */
 #chat-box::-webkit-scrollbar {
