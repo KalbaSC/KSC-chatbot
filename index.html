@@ -425,7 +425,7 @@ input.value = '';
     else if (option === 'teams') userText = 'معلومات عن الرياضات';
 
     addMessage(userText, true); 
-    addMessage(<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>, false);
+    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
 
     setTimeout(() => {
 const typingDots = document.querySelector('.typing-dots');
@@ -478,7 +478,7 @@ if (typingDots) {
   if (bubble) bubble.remove();
 }
 
-addMessage(
+addMessage(`
   يمكنك التواصل معنا عبر البريد الإلكتروني: <a href="mailto:info@ksc.shj.ae" style="color:blue;">info@ksc.shj.ae</a><br><br>
   أو استخدام أي من وسائل التواصل الاجتماعي التالية:
   <div style="margin-top: 15px; text-align: center;">
@@ -491,7 +491,7 @@ addMessage(
   <button onclick="showContactOptions()" style="margin-top:5px; padding:16px 28px; font-size:18px; background:#f4e733; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
     تواصل مع السكرتير
   </button>
-, false);
+`, false);
 
       setTimeout(() => {
 const mainButtons = document.getElementById("main-buttons");
