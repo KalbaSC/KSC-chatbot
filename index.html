@@ -184,31 +184,56 @@
 }
 
     @media (max-width: 600px) {
-      #chat-box {
-        width: 75% !important;
-        padding: 25px !important;
-        max-width: 95% !important;
-        min-height: 70vh !important;
-        font-size: 18px !important;
-      }
+  #chat-box {
+    width: 95% !important;
+    height: 80vh !important;
+    margin: 20px auto !important;
+    padding: 0 !important;
+    font-size: 16px !important;
+    display: flex;
+    flex-direction: column;
+  }
 
-      .content {
-        font-size: 18px !important;
-      }
+  .chat-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+  }
 
-      .chat-btn {
-        padding: 14px 18px !important;
-        font-size: 17px !important;
-      }
+  .chat-footer {
+    padding: 8px;
+    gap: 8px;
+  }
 
-      header h1 {
-        font-size: 22px !important;
-      }
+  .chat-footer input {
+    font-size: 16px;
+    padding: 10px;
+  }
 
-      header img {
-        height: 70px !important;
-      }
-    }
+  .chat-footer button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .content {
+    font-size: 16px !important;
+  }
+
+  .chat-btn {
+    padding: 14px 20px !important;
+    font-size: 16px !important;
+    width: 100%;
+  }
+
+  header h1 {
+    font-size: 20px !important;
+  }
+
+  header img {
+    height: 60px !important;
+  }
+}
+
   </style>
 </head>
 <body>
