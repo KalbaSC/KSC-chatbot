@@ -65,48 +65,19 @@
       vertical-align: middle;
     }
 
-#chat-box {
-  position: fixed;
-  bottom: 90px;
-  right: 20px;
-  background-color: white;
-  color: black;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  width: 360px;
-  height: 400px; /* ✅ fixed height */
-  display: flex;
-  flex-direction: column;
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 1.5s ease, transform 1.5s ease;
-  z-index: 9999;
-}
+    #chat-box {
+      background-color: white;
+      color: black;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      margin: 30px auto;
+      max-width: 450px;
+      width: 90%;
+      min-height: 300px;
+      opacity: 1;
+    }
 
-.chat-header {
-  flex-shrink: 0;
-  display: flex;
-  justify-content: flex-start;
-  padding: 8px 10px;
-  border-bottom: 1px solid #ccc;
-}
-
-.chat-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px;
-}
-
-.chat-footer {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  padding: 6px 10px;
-  border-top: 1px solid #ccc;
-  background: white;
-  gap: 10px;
-}
-   
     .message-wrapper {
       display: flex;
       align-items: flex-start;
@@ -156,16 +127,8 @@
       cursor: pointer;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
-.chat-body::-webkit-scrollbar {
-  width: 6px;
-}
-.chat-body::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-}
-
-/* ✅ Scrollbar styles go outside the @media block */
-#chat-box::-webkit-scrollbar {
+    
+    #chat-box::-webkit-scrollbar {
   width: 8px;
 }
 #chat-box::-webkit-scrollbar-thumb {
@@ -173,34 +136,32 @@
   border-radius: 10px;
 }
 
-/* ✅ Then the media query starts properly */
-@media (max-width: 600px) {
-  #chat-box {
-    width: 75% !important;
-    padding: 25px !important;
-    max-width: 95% !important;
-    min-height: 70vh !important;
-    font-size: 18px !important;
-  }
+    @media (max-width: 600px) {
+      #chat-box {
+        width: 75% !important;
+        padding: 25px !important;
+        max-width: 95% !important;
+        min-height: 70vh !important;
+        font-size: 18px !important;
+      }
 
-  .content {
-    font-size: 18px !important;
-  }
+      .content {
+        font-size: 18px !important;
+      }
 
-  .chat-btn {
-    padding: 14px 18px !important;
-    font-size: 17px !important;
-  }
+      .chat-btn {
+        padding: 14px 18px !important;
+        font-size: 17px !important;
+      }
 
-  header h1 {
-    font-size: 22px !important;
-  }
+      header h1 {
+        font-size: 22px !important;
+      }
 
-  header img {
-    height: 70px !important;
-  }
-}
-
+      header img {
+        height: 70px !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -285,7 +246,7 @@ function addMessage(content, isUser = false) {
 
   const avatar = document.createElement('div');
   avatar.className = 'avatar';
-  avatar.style.backgroundImage = `url('${isUser ? 'user-icon.png' : 'bot-icon.png'}')`;
+  avatar.style.backgroundImage = url('${isUser ? 'user-icon.png' : 'bot-icon.png'}');
 
   const bubble = document.createElement('div');
   bubble.className = 'content';
@@ -331,7 +292,7 @@ function startChat(retries = 0) {
   const inputDiv = document.createElement("div");
   inputDiv.id = "nameInputWrapper";
   inputDiv.style.marginTop = "10px";
-  inputDiv.innerHTML = `
+  inputDiv.innerHTML = 
     <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
       <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." 
              style="padding:10px; font-size:16px; flex: 1; border-radius:5px; border:1px solid #ccc;">
@@ -340,7 +301,7 @@ function startChat(retries = 0) {
         إرسال
       </button>
     </div>
-  `;
+  ;
   chatBody.appendChild(inputDiv);
 }
 
@@ -350,11 +311,11 @@ function startChat(retries = 0) {
   const name = input.value.trim();
 
   if (name) {
-    addMessage(`${name}`, true);
+    addMessage(${name}, true);
     userName = name;
 document.getElementById("nameInputWrapper").remove();
     setTimeout(() => {
-      addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
+      addMessage(مرحباً بك ${name}، كيف يمكننا مساعدتك؟, false);
 showMainButtons();
 const inputBar = document.getElementById("inner-input-bar");
 if (inputBar) inputBar.style.display = "flex";
@@ -432,13 +393,13 @@ input.value = '';
       addMessage(sport.name, true);
       addMessage(sport.info, false);
       setTimeout(() => {
-    const html = `
+    const html = 
       <p style="font-weight:bold; text-align:right; margin: 0 0 10px;">هل يمكنني مساعدتك في شيء آخر؟</p>
       <div style="display: flex; justify-content: center; margin: 0 0 10px;">
         <button class="chat-btn" onclick="showMainButtons()">عرض الخيارات</button>
       </div>
       <p style="text-align:right; margin: 0 0 10px;">كما يمكنك كتابة استفسارك مع معلومات التواصل، وسيتم الرد عليك في أقرب وقت.</p>
-    `;
+    ;
     addMessage(html, false);
   }, 1000);   
 };
@@ -463,7 +424,7 @@ input.value = '';
     else if (option === 'teams') userText = 'معلومات عن الرياضات';
 
     addMessage(userText, true); 
-    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
+    addMessage(<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>, false);
 
     setTimeout(() => {
 const typingDots = document.querySelector('.typing-dots');
@@ -473,13 +434,13 @@ if (typingDots) {
 }
 
       if (option === 'teams') {
-const html = `
+const html = 
   <p style="font-weight: bold; text-align: center;">اختر نوع الرياضة:</p>
   <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 10px;">
     <button class="chat-btn" onclick="handleTeamOption(&quot;individual&quot;)">🎯 الألعاب الفردية</button>
     <button class="chat-btn" onclick="handleTeamOption(&quot;group&quot;)">🏃‍♂️ الألعاب الجماعية</button>
   </div>
-`;
+;
   addMessage(html, false);
 }
  else if (option === 'training') {
@@ -490,13 +451,13 @@ const html = `
 
            if (option !== 'teams') {
         setTimeout(() => {
-  const html = `
+  const html = 
     <p style="font-weight:bold; text-align:right; margin: 0 0 10px;">هل يمكنني مساعدتك في شيء آخر؟</p>
     <div style="display: flex; justify-content: center; margin: 0 0 10px;">
       <button class="chat-btn" onclick="showMainButtons()">عرض الخيارات</button>
     </div>
     <p style="text-align:right; margin: 0 0 10px;">كما يمكنك كتابة استفسارك مع معلومات التواصل، وسيتم الرد عليك في أقرب وقت.</p>
-  `;
+  ;
   addMessage(html, false);
 }, 1000);
 
@@ -507,7 +468,7 @@ const html = `
 
   function showContactMain() {
     addMessage("تواصل معنا", true);
-    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
+    addMessage(<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>, false);
 
     setTimeout(() => {
 const typingDots = document.querySelector('.typing-dots');
@@ -516,7 +477,7 @@ if (typingDots) {
   if (bubble) bubble.remove();
 }
 
-addMessage(`
+addMessage(
   يمكنك التواصل معنا عبر البريد الإلكتروني: <a href="mailto:info@ksc.shj.ae" style="color:blue;">info@ksc.shj.ae</a><br><br>
   أو استخدام أي من وسائل التواصل الاجتماعي التالية:
   <div style="margin-top: 15px; text-align: center;">
@@ -529,7 +490,7 @@ addMessage(`
   <button onclick="showContactOptions()" style="margin-top:5px; padding:16px 28px; font-size:18px; background:#f4e733; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
     تواصل مع السكرتير
   </button>
-`, false);
+, false);
 
       setTimeout(() => {
 const mainButtons = document.getElementById("main-buttons");
@@ -540,7 +501,7 @@ if (mainButtons) mainButtons.style.display = "flex";
 
   function showContactOptions() {
     addMessage("تواصل مع السكرتير", true);
-    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
+    addMessage(<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>, false);
 
     setTimeout(() => {
 const typingDots = document.querySelector('.typing-dots');
@@ -549,7 +510,7 @@ if (typingDots) {
   if (bubble) bubble.remove();
 }
      
-      addMessage(`يرجى زيارة بطاقة السكرتير عبر <a href="https://kalbasc.github.io/sameh/Business%20E-Card.html" target="_blank" style="color:blue;">هذا الرابط</a>.`, false);
+      addMessage(يرجى زيارة بطاقة السكرتير عبر <a href="https://kalbasc.github.io/sameh/Business%20E-Card.html" target="_blank" style="color:blue;">هذا الرابط</a>., false);
 
     }, 1000);
   }
