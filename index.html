@@ -266,9 +266,7 @@ function startChat(retries = 0) {
   if (name) {
     addMessage(`${name}`, true);
     userName = name;
-    
-    input.parentElement.remove();
-
+document.getElementById("nameInputWrapper").remove();
     setTimeout(() => {
       addMessage(`مرحباً بك ${name}، كيف يمكننا مساعدتك؟`, false);
 showMainButtons();
