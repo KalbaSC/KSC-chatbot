@@ -78,7 +78,47 @@
   overflow-y: auto; 
   opacity: 1;
 }
+.chat-header {
+  display: flex;
+  justify-content: flex-start;
+  padding: 8px 10px;
+  border-bottom: 1px solid #ccc;
+}
 
+.chat-header span {
+  font-size: 18px;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+}
+    .chat-footer {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-top: 1px solid #ccc;
+  background: white;
+  gap: 10px;
+}
+
+.chat-footer input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+.chat-footer button {
+  background: #f4e733; /* Yellow */
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
     .message-wrapper {
       display: flex;
       align-items: flex-start;
@@ -181,16 +221,14 @@
     <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
     <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
   </div>
-<div id="inner-input-bar" style="margin-top: 20px; display: none; align-items: center; gap: 20px;">
-    <input id="userMessage" type="text" placeholder="اكتب شيئًا..." 
-      style="flex: 1; padding: 10px; border-radius: 20px; border: 1px solid #ccc; font-size: 16px;">
-    <button onclick="submitUserMessage()" 
-  style="background: #f4e733; border: none; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="20" height="20">
-    <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-  </svg>
-</button>
-  </div>
+<div class="chat-footer" id="inner-input-bar" style="display: none;">
+  <input id="userMessage" type="text" placeholder="اكتب شيئًا...">
+  <button onclick="submitUserMessage()">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="20" height="20">
+      <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    </svg>
+  </button>
+</div>
 </div>
 
 <script>
