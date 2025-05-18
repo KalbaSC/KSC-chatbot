@@ -75,9 +75,7 @@
       max-width: 500px;
       width: 90%;
       min-height: 300px;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 1.5s ease, transform 1.5s ease;
+      opacity: 1;
     }
 
     .message-wrapper {
@@ -166,6 +164,7 @@
 </header>
 
 <div id="chat-box">
+  <div class="chat-body" id="chat-body"></div>
   <div class="button-container" id="main-buttons" style="display: none;">
     <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
     <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
@@ -455,47 +454,6 @@ if (mainButtons) mainButtons.style.display = "flex";
     }, 1000);
   }
 
-function toggleChat() {
-  const chatBox = document.getElementById('chat-box');
-  const badge = document.getElementById('chat-badge');
-  const tooltip = document.getElementById('chat-tooltip');
-  const alreadyStarted = !!chatBox.querySelector('.message-wrapper');
-
-  if (chatBox.style.display === 'none' || chatBox.style.display === '') {
-    chatBox.style.display = 'block';
-    badge.style.display = 'none';
-    tooltip.style.display = 'none';
-
-    setTimeout(() => {
-      chatBox.style.opacity = '1';
-      chatBox.style.transform = 'translateY(0)';
-
-      setTimeout(() => {
-        const chatBody = document.getElementById('chat-body');
-        if (chatBody && !alreadyStarted) {
-          startChat(); 
-        }
-      }, 200);
-    }, 50);
-
-  } else {
-    chatBox.style.opacity = '0';
-    chatBox.style.transform = 'translateY(30px)';
-    setTimeout(() => {
-      chatBox.style.display = 'none';
-      badge.style.display = 'flex';
-      if (!tooltipDismissed) tooltip.style.display = 'block';
-    }, 500);
-  }
-}
-
-let tooltipDismissed = false;
-
-function dismissTooltip() {
-  document.getElementById('chat-tooltip').style.display = 'none';
-  tooltipDismissed = true;
-}
-
   function showContactOptions() {
     addMessage("تواصل مع السكرتير", true);
     addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
@@ -513,6 +471,8 @@ if (typingDots) {
   }
 
 </script>
-
+<footer style="background-color: #f4e733; color: black; padding: 20px; text-align: center; width: 100%;">
+  <p>© نادي كلباء الرياضي الثقافي - جميع الحقوق محفوظة</p>
+</footer>
 </body>
 </html>
