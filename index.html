@@ -435,13 +435,13 @@ if (typingDots) {
 }
 
       if (option === 'teams') {
-const html = 
+const html = `
   <p style="font-weight: bold; text-align: center;">اختر نوع الرياضة:</p>
   <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 10px;">
-    <button class="chat-btn" onclick="handleTeamOption(&quot;individual&quot;)">🎯 الألعاب الفردية</button>
-    <button class="chat-btn" onclick="handleTeamOption(&quot;group&quot;)">🏃‍♂️ الألعاب الجماعية</button>
+    <button class="chat-btn" onclick="handleTeamOption('individual')">🎯 الألعاب الفردية</button>
+    <button class="chat-btn" onclick="handleTeamOption('group')">🏃‍♂️ الألعاب الجماعية</button>
   </div>
-;
+`;
   addMessage(html, false);
 }
  else if (option === 'training') {
