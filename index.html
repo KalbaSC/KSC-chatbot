@@ -394,13 +394,13 @@ input.value = '';
       addMessage(sport.name, true);
       addMessage(sport.info, false);
       setTimeout(() => {
-    const html = 
-      <p style="font-weight:bold; text-align:right; margin: 0 0 10px;">هل يمكنني مساعدتك في شيء آخر؟</p>
-      <div style="display: flex; justify-content: center; margin: 0 0 10px;">
-        <button class="chat-btn" onclick="showMainButtons()">عرض الخيارات</button>
-      </div>
-      <p style="text-align:right; margin: 0 0 10px;">كما يمكنك كتابة استفسارك مع معلومات التواصل، وسيتم الرد عليك في أقرب وقت.</p>
-    ;
+    const html = `
+  <p style="font-weight:bold; text-align:right; margin: 0 0 10px;">هل يمكنني مساعدتك في شيء آخر؟</p>
+  <div style="display: flex; justify-content: center; margin: 0 0 10px;">
+    <button class="chat-btn" onclick="showMainButtons()">عرض الخيارات</button>
+  </div>
+  <p style="text-align:right; margin: 0 0 10px;">كما يمكنك كتابة استفسارك مع معلومات التواصل، وسيتم الرد عليك في أقرب وقت.</p>
+`;
     addMessage(html, false);
   }, 1000);   
 };
