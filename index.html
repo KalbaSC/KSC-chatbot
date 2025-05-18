@@ -186,6 +186,45 @@
 
 <script>
 let userName = '';
+  
+function showMainButtons() {
+  const buttonsWrapper = document.createElement("div");
+  buttonsWrapper.className = "button-container";
+
+  const buttons = [
+    { label: "مواعيد التدريبات", action: () => reply('training') },
+    { label: "التسجيل في النادي", action: () => reply('register') },
+    { label: "معلومات عن الرياضات", action: () => reply('teams') },
+    { label: "تواصل معنا", action: () => showContactMain() },
+    { label: "🔁 إعادة المحادثة", action: () => startChat() },
+  ];
+
+  buttons.forEach(btn => {
+    const el = document.createElement("button");
+    el.className = "chat-btn";
+    el.innerText = btn.label;
+    el.onclick = btn.action;
+    buttonsWrapper.appendChild(el);
+  });
+
+  const wrapper = document.createElement("div");
+  wrapper.className = 'message-wrapper bot';
+
+  const avatar = document.createElement("div");
+  avatar.className = 'avatar';
+  avatar.style.backgroundImage = "url('bot-icon.png')";
+
+  const bubble = document.createElement("div");
+  bubble.className = 'content';
+  bubble.appendChild(buttonsWrapper);
+
+  wrapper.appendChild(avatar);
+  wrapper.appendChild(bubble);
+
+  const chatBody = document.getElementById("chat-body");
+  chatBody.appendChild(wrapper);
+  wrapper.scrollIntoView({ behavior: "smooth" });
+}
 
 function addMessage(content, isUser = false) {
   const chatBody = document.getElementById('chat-body');
