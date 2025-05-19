@@ -373,7 +373,7 @@ function startChat(retries = 0) {
   if (!chatBody) {
     if (retries < 10) {
       console.warn("⏳ Waiting for chat-body... Retry:", retries + 1);
-      return setTimeout(() => startChat(retries + 1), 150); // retry after 150ms
+      return setTimeout(() => startChat(retries + 1), 150);
     } else {
       console.error("❌ chat-body not found after retries.");
       return;
@@ -478,7 +478,7 @@ input.value = '';
   bubble.className = 'content';
 
   const buttonsWrapper = document.createElement("div");
-  buttonsWrapper.className = "button-container";  // reuse your existing class
+  buttonsWrapper.className = "button-container";  
   buttonsWrapper.style.marginTop = "10px";
 
   sportsList.forEach(sport => {
@@ -494,7 +494,7 @@ input.value = '';
   <div style="display: flex; justify-content: center; margin: 0 0 10px;">
     <button class="chat-btn" onclick="showMainButtons()">عرض الخيارات</button>
   </div>
-  <p style="text-align:right; margin: 0 0 10px;">كما يمكنك كتابة استفسارك مع معلومات التواصل، وسيتم الرد عليك في أقرب وقت.</p>
+   <p style="text-align:right; margin: 0 0 10px;">كما يمكنك مشاركة أرائك أو أقتراحاتك أو كتابة استفسارك مع معلومات التواصل، وسيتم الرد عليك في أقرب وقت.</p>
 `;
     addMessage(html, false);
   }, 1000);   
@@ -540,9 +540,9 @@ const html = `
   addMessage(html, false);
 }
  else if (option === 'training') {
-        addMessage("تُقام التدريبات أيام الأحد والثلاثاء والخميس الساعة 5 مساءً.", false);
+        addMessage("تُقام التدريبات من يوم السبت إلى الخميس من الساعة 5 مساءً وحتى الساعة 8 مساءً.", false);
       } else if (option === 'register') {
-        addMessage("للتسجيل، يرجى زيارة مقر النادي أو التواصل عبر الهاتف 0503874714.", false);
+        addMessage("للتسجيل، يرجى التواصل مع إداري اللعبة المعنية من خلال الأرقام التالية:", false);
       }
 
            if (option !== 'teams') {
@@ -552,7 +552,7 @@ const html = `
     <div style="display: flex; justify-content: center; margin: 0 0 10px;">
       <button class="chat-btn" onclick="showMainButtons()">عرض الخيارات</button>
     </div>
-    <p style="text-align:right; margin: 0 0 10px;">كما يمكنك كتابة استفسارك مع معلومات التواصل، وسيتم الرد عليك في أقرب وقت.</p>
+    <p style="text-align:right; margin: 0 0 10px;">كما يمكنك مشاركة أرائك أو أقتراحاتك أو كتابة استفسارك مع معلومات التواصل، وسيتم الرد عليك في أقرب وقت.</p>
   `;
   addMessage(html, false);
 }, 1000);
@@ -562,54 +562,73 @@ const html = `
     }, 1000);
   } // ✅ THIS closes the reply() function
 
-  function showContactMain() {
-    addMessage("تواصل معنا", true);
-    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
+function showContactMain() {
+  addMessage("تواصل معنا", true);
+  addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
+
+  setTimeout(() => {
+    const typingDots = document.querySelector('.typing-dots');
+    if (typingDots) {
+      const bubble = typingDots.closest('.message-wrapper');
+      if (bubble) bubble.remove();
+    }
+
+    addMessage(`
+      يمكنك التواصل معنا عبر البريد الإلكتروني: 
+      <a href="mailto:info@ksc.shj.ae" style="color:blue;">info@ksc.shj.ae</a><br><br>
+      أو استخدام أي من وسائل التواصل الاجتماعي التالية:
+      <div style="margin-top: 15px; text-align: center;">
+        <!-- social icons -->
+      </div>
+      <br>
+      <p style="font-size: 16px; font-weight: bold; margin-bottom: 10px;">
+        إذا كنت بحاجة إلى مساعدة مباشرة، يمكنك التواصل مع السكرتير:
+      </p>
+      <button onclick="showContactOptions()" 
+        style="margin-top:5px; padding:16px 28px; font-size:18px; background:#f4e733; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
+        تواصل مع السكرتير
+      </button>
+    `, false);
 
     setTimeout(() => {
-const typingDots = document.querySelector('.typing-dots');
-if (typingDots) {
-  const bubble = typingDots.closest('.message-wrapper');
-  if (bubble) bubble.remove();
+      const html = `
+        <p style="font-weight:bold; text-align:right; margin: 0 0 10px;">هل يمكنني مساعدتك في شيء آخر؟</p>
+        <div style="display: flex; justify-content: center; margin: 0 0 10px;">
+          <button class="chat-btn" onclick="showMainButtons()">عرض الخيارات</button>
+        </div>
+         <p style="text-align:right; margin: 0 0 10px;">كما يمكنك مشاركة أرائك أو أقتراحاتك أو كتابة استفسارك مع معلومات التواصل، وسيتم الرد عليك في أقرب وقت.</p>
+      `;
+      addMessage(html, false);
+    }, 1000);
+  }, 1000);
 }
 
-addMessage(`
-  يمكنك التواصل معنا عبر البريد الإلكتروني: <a href="mailto:info@ksc.shj.ae" style="color:blue;">info@ksc.shj.ae</a><br><br>
-  أو استخدام أي من وسائل التواصل الاجتماعي التالية:
-  <div style="margin-top: 15px; text-align: center;">
-    <!-- social icons -->
-  </div>
-  <br>
-  <p style="font-size: 16px; font-weight: bold; margin-bottom: 10px;">
-    إذا كنت بحاجة إلى مساعدة مباشرة، يمكنك التواصل مع السكرتير:
-  </p>
-  <button onclick="showContactOptions()" style="margin-top:5px; padding:16px 28px; font-size:18px; background:#f4e733; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
-    تواصل مع السكرتير
-  </button>
-`, false);
+function showContactOptions() {
+  addMessage("تواصل مع السكرتير", true);
+  addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
 
-      setTimeout(() => {
-const mainButtons = document.getElementById("main-buttons");
-if (mainButtons) mainButtons.style.display = "flex";
-      }, 800);
-    }, 1000);
-  }
+  setTimeout(() => {
+    const typingDots = document.querySelector('.typing-dots');
+    if (typingDots) {
+      const bubble = typingDots.closest('.message-wrapper');
+      if (bubble) bubble.remove();
+    }
 
-  function showContactOptions() {
-    addMessage("تواصل مع السكرتير", true);
-    addMessage(`<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>`, false);
+    addMessage(`يرجى زيارة بطاقة السكرتير عبر 
+      <a href="https://kalbasc.github.io/sameh/Business%20E-Card.html" target="_blank" style="color:blue;">هذا الرابط</a>.`, false);
 
     setTimeout(() => {
-const typingDots = document.querySelector('.typing-dots');
-if (typingDots) {
-  const bubble = typingDots.closest('.message-wrapper');
-  if (bubble) bubble.remove();
-}
-     
-      addMessage(`يرجى زيارة بطاقة السكرتير عبر <a href="https://kalbasc.github.io/sameh/Business%20E-Card.html" target="_blank" style="color:blue;">هذا الرابط</a>.`, false);
-
+      const html = `
+        <p style="font-weight:bold; text-align:right; margin: 0 0 10px;">هل يمكنني مساعدتك في شيء آخر؟</p>
+        <div style="display: flex; justify-content: center; margin: 0 0 10px;">
+          <button class="chat-btn" onclick="showMainButtons()">عرض الخيارات</button>
+        </div>
+         <p style="text-align:right; margin: 0 0 10px;">كما يمكنك مشاركة أرائك أو أقتراحاتك أو كتابة استفسارك مع معلومات التواصل، وسيتم الرد عليك في أقرب وقت.</p>
+      `;
+      addMessage(html, false);
     }, 1000);
-  }
+  }, 1000);
+}
 window.addEventListener('DOMContentLoaded', () => {
   startChat();
 });
