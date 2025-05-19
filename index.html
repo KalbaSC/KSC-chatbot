@@ -629,6 +629,20 @@ function showContactOptions() {
     }, 1000);
   }, 1000);
 }
+document.addEventListener("keydown", function (e) {
+  const nameInput = document.getElementById("nameInput");
+  if (nameInput && document.activeElement === nameInput && e.key === "Enter") {
+    submitName();
+  }
+});
+
+document.addEventListener("keydown", function (e) {
+  const msgInput = document.getElementById("userMessage");
+  if (msgInput && document.activeElement === msgInput && e.key === "Enter") {
+    submitUserMessage();
+  }
+});
+
 window.addEventListener('DOMContentLoaded', () => {
   startChat();
 });
