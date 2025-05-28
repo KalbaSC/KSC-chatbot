@@ -32,29 +32,27 @@
       font-style: normal;
     }
 
-    body, .content, .chat-btn {
-      font-family: 'NotoKufiArabic', 'Cairo', sans-serif;
-    }
-
-    body {
-      background: url('black_and_yellow_grunge_background.jpg') no-repeat center center fixed;
-      background-size: cover;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'NotoKufiArabic', 'Cairo', sans-serif;
+  background: url('black_and_yellow_grunge_background.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
 
 .header-right {
+  width: 100%;
+  max-width: 1170px;
+  margin: auto;
   display: flex;
   align-items: center;
+  justify-content: center; 
   gap: 20px;
   padding: 20px 42px;
   background-color: #111;
   border-bottom: 3px solid #f4e733;
+  box-sizing: border-box;
   color: white;
-  width: 94.5%;
-  box-sizing: border-box; 
 }
 
 .header-right img.logo {
@@ -68,7 +66,7 @@
 }
 
 .header-info {
-  text-align: right;
+  text-align: center;
 }
 
 .header-info .arabic-name {
@@ -283,7 +281,7 @@ html, body {
 </head>
 <body>
 
-<header>
+<header style="background: #111;">
   <div class="header-right">
     <img src="Picture3.png" alt="شعار الشارقة" class="logo">
     <div class="divider"></div>
