@@ -37,7 +37,12 @@ main {
       font-weight: normal;
       font-style: normal;
     }
-
+    
+html, body {
+  scroll-behavior: smooth;
+  overflow-anchor: none;
+}
+    
 body {
   margin: 0;
   padding: 0;
@@ -411,9 +416,12 @@ function addMessage(content, isUser = false) {
   wrapper.appendChild(bubble);
   chatBody.appendChild(wrapper);
 
-  setTimeout(() => {
+setTimeout(() => {
+  const isNearBottom = chatBody.scrollHeight - chatBody.scrollTop - chatBody.clientHeight < 100;
+  if (isNearBottom) {
     chatBody.scrollTop = chatBody.scrollHeight;
-  }, 100);
+  }
+}, 100);
 }
 
 function clearChat() {
@@ -448,7 +456,7 @@ function startChat(retries = 0) {
   inputDiv.id = "nameInputWrapper";
   inputDiv.style.marginTop = "10px";
 inputDiv.innerHTML = `
-  <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
+  <div style="display: flex; gap: 10px; align-items: center;">
     <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." 
            style="padding:10px; font-size:16px; flex: 1; border-radius:5px; border:1px solid #ccc;">
     <button type="button" onclick="submitName()" style="padding:10px 15px; background:#f4e733; font-weight:bold; border:none; border-radius:5px;">
@@ -567,9 +575,10 @@ input.value = '';
 
   const chatBox = document.getElementById("chat-body");
   chatBox.appendChild(wrapper);
-  wrapper.scrollIntoView({ behavior: "smooth" });
-}
-
+setTimeout(() => {
+  wrapper.scrollIntoView({ behavior: "smooth", block: "end" });
+}, 200);
+ }
 
   function reply(option) {
 
