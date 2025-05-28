@@ -328,15 +328,15 @@ footer {
 <div id="chat-box">
   <div class="chat-body" id="chat-body"></div>
   <div class="button-container" id="main-buttons" style="display: none;">
-    <button class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
-    <button class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
-    <button class="chat-btn" onclick="reply('teams')">معلومات عن الرياضات</button>
-    <button class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
-    <button class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
+    <button type="button" class="chat-btn" onclick="reply('training')">مواعيد التدريبات</button>
+    <button type="button" class="chat-btn" onclick="reply('register')">التسجيل في النادي</button>
+    <button type="button" class="chat-btn" onclick="reply('teams')">معلومات عن الرياضات</button>
+    <button type="button" class="chat-btn" onclick="showContactMain()">تواصل معنا</button>
+    <button type="button" class="chat-btn" onclick="startChat()">🔁 إعادة المحادثة</button>
   </div>
 <div class="chat-footer" id="inner-input-bar" style="display: none;">
   <input id="userMessage" type="text" placeholder="اكتب شيئًا...">
-  <button onclick="submitUserMessage()">
+  <button type="button" onclick="submitUserMessage()">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="20" height="20">
       <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
     </svg>
@@ -364,6 +364,7 @@ function showMainButtons() {
     el.className = "chat-btn";
     el.innerText = btn.label;
     el.onclick = btn.action;
+    el.type = "button";
     buttonsWrapper.appendChild(el);
   });
 
@@ -549,7 +550,7 @@ input.value = '';
     const html = `
   <p style="font-weight:bold; text-align:right; margin: 0 0 10px;">هل يمكنني مساعدتك في شيء آخر؟</p>
   <div style="display: flex; justify-content: center; margin: 0 0 10px;">
-    <button class="chat-btn" onclick="showMainButtons()">عرض الخيارات</button>
+    <button type="button" class="chat-btn" onclick="showMainButtons()">عرض الخيارات</button>
   </div>
    <p style="text-align:right; margin: 0 0 10px;">كما يمكنك مشاركة أرائك أو أقتراحاتك أو كتابة استفسارك مع معلومات التواصل، وسيتم الرد عليك في أقرب وقت.</p>
 `;
@@ -590,8 +591,8 @@ if (typingDots) {
 const html = `
   <p style="font-weight: bold; text-align: center;">اختر نوع الرياضة:</p>
   <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 10px;">
-    <button class="chat-btn" onclick="handleTeamOption('individual')">🎯 الألعاب الفردية</button>
-    <button class="chat-btn" onclick="handleTeamOption('group')">🏃‍♂️ الألعاب الجماعية</button>
+    <button type="button" class="chat-btn" onclick="handleTeamOption('individual')">🎯 الألعاب الفردية</button>
+    <button type="button" class="chat-btn" onclick="handleTeamOption('group')">🏃‍♂️ الألعاب الجماعية</button>
   </div>
 `;
   addMessage(html, false);
@@ -607,7 +608,7 @@ const html = `
   const html =` 
     <p style="font-weight:bold; text-align:right; margin: 0 0 10px;">هل يمكنني مساعدتك في شيء آخر؟</p>
     <div style="display: flex; justify-content: center; margin: 0 0 10px;">
-      <button class="chat-btn" onclick="showMainButtons()">عرض الخيارات</button>
+      <button type="button" class="chat-btn" onclick="showMainButtons()">عرض الخيارات</button>
     </div>
     <p style="text-align:right; margin: 0 0 10px;">كما يمكنك مشاركة أرائك أو أقتراحاتك أو كتابة استفسارك مع معلومات التواصل، وسيتم الرد عليك في أقرب وقت.</p>
   `;
@@ -641,7 +642,7 @@ function showContactMain() {
       <p style="font-size: 16px; font-weight: bold; margin-bottom: 10px;">
         إذا كنت بحاجة إلى مساعدة مباشرة، يمكنك التواصل مع السكرتير:
       </p>
-      <button onclick="showContactOptions()" 
+      <button type="button" onclick="showContactOptions()" 
         style="margin-top:5px; padding:16px 28px; font-size:18px; background:#f4e733; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
         تواصل مع السكرتير
       </button>
@@ -651,7 +652,7 @@ function showContactMain() {
       const html = `
         <p style="font-weight:bold; text-align:right; margin: 0 0 10px;">هل يمكنني مساعدتك في شيء آخر؟</p>
         <div style="display: flex; justify-content: center; margin: 0 0 10px;">
-          <button class="chat-btn" onclick="showMainButtons()">عرض الخيارات</button>
+          <button type="button" class="chat-btn" onclick="showMainButtons()">عرض الخيارات</button>
         </div>
          <p style="text-align:right; margin: 0 0 10px;">كما يمكنك مشاركة أرائك أو أقتراحاتك أو كتابة استفسارك مع معلومات التواصل، وسيتم الرد عليك في أقرب وقت.</p>
       `;
@@ -678,7 +679,7 @@ function showContactOptions() {
       const html = `
         <p style="font-weight:bold; text-align:right; margin: 0 0 10px;">هل يمكنني مساعدتك في شيء آخر؟</p>
         <div style="display: flex; justify-content: center; margin: 0 0 10px;">
-          <button class="chat-btn" onclick="showMainButtons()">عرض الخيارات</button>
+          <button type="button" class="chat-btn" onclick="showMainButtons()">عرض الخيارات</button>
         </div>
          <p style="text-align:right; margin: 0 0 10px;">كما يمكنك مشاركة أرائك أو أقتراحاتك أو كتابة استفسارك مع معلومات التواصل، وسيتم الرد عليك في أقرب وقت.</p>
       `;
