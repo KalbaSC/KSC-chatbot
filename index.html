@@ -389,7 +389,8 @@ function showMainButtons() {
 
   const chatBody = document.getElementById("chat-body");
   chatBody.appendChild(wrapper);
-  wrapper.scrollIntoView({ behavior: "smooth" });
+const chatBody = document.getElementById("chat-body");
+if (chatBody) chatBody.scrollTop = chatBody.scrollHeight;
 }
 
 function addMessage(content, isUser = false) {
@@ -570,7 +571,8 @@ input.value = '';
 
   const chatBox = document.getElementById("chat-body");
   chatBox.appendChild(wrapper);
-  wrapper.scrollIntoView({ behavior: "smooth" });
+const chatBody = document.getElementById("chat-body");
+if (chatBody) chatBody.scrollTop = chatBody.scrollHeight;
  }
 
   function reply(option) {
