@@ -45,26 +45,39 @@
       align-items: center;
     }
 
-    header {
-      background-color: #f4e733;
-      color: black;
-      text-align: center;
-      padding: 20px;
-      width: 100%;
-    }
+    .header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 42px;
+  background-color: #111;
+  border-bottom: 3px solid #f4e733;
+  color: white;
+}
 
-    header img {
-      height: 80px;
-      vertical-align: middle;
-    }
+.header-right img.logo {
+  height: 70px;
+}
 
-    header h1 {
-      display: inline-block;
-      margin: 0 10px;
-      font-size: 24px;
-      vertical-align: middle;
-    }
+.header-right .divider {
+  width: 1.5px;
+  height: 65px;
+  background-color: #f4e733;
+}
 
+.header-info {
+  text-align: right;
+}
+
+.header-info .arabic-name {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.header-info .english-name {
+  font-size: 14px;
+  color: #f4e733;
+}
 #chat-box {
   background-color: white;
   color: black;
@@ -264,9 +277,17 @@
 <body>
 
 <header>
-  <img src="logo.png" alt="شعار نادي كلباء">
-  <h1>نادي كلباء الرياضي الثقافي</h1>
+  <div class="header-right">
+    <img src="Picture3.png" alt="شعار الشارقة" class="logo">
+    <div class="divider"></div>
+    <img src="logo.png" alt="شعار نادي كلباء" class="logo">
+    <div class="header-info">
+      <div class="arabic-name">نادي كلباء الرياضي الثقافي</div>
+      <div class="english-name">KALBA SPORTS & CULTURAL CLUB</div>
+    </div>
+  </div>
 </header>
+
 
 <div id="chat-box">
   <div class="chat-body" id="chat-body"></div>
