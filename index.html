@@ -41,7 +41,7 @@ body {
 }
 
 .header-right {
-  width: 100%;
+  width: 94.5%;
   max-width: 1170px;
   margin: auto;
   display: flex;
@@ -50,11 +50,14 @@ body {
   gap: 20px;
   padding: 20px 42px;
   background-color: #111;
-  border-bottom: 3px solid #f4e733;
   box-sizing: border-box;
   color: white;
 }
-
+.header-container {
+  width: 100%;
+  background: #111;
+  border-bottom: 3px solid #f4e733;
+}
 .header-right img.logo {
   height: 70px;
 }
@@ -77,10 +80,6 @@ body {
 .header-info .english-name {
   font-size: 14px;
   color: #f4e733;
-}
-html, body {
-  margin: 0;
-  padding: 0;
 }
 
 #chat-box {
@@ -281,7 +280,7 @@ html, body {
 </head>
 <body>
 
-<header style="background: #111;">
+<header class="header-container">
   <div class="header-right">
     <img src="Picture3.png" alt="شعار الشارقة" class="logo">
     <div class="divider"></div>
