@@ -81,7 +81,35 @@ body {
   font-size: 14px;
   color: #f4e733;
 }
+footer {
+  background-color: #000;
+  color: white;
+  padding: 40px 10vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
+  direction: rtl;
+  border-top: 3px solid #f4e733;
+  text-align: right;
+}
 
+.footer-column {
+  flex: 1;
+  min-width: 250px;
+}
+
+.footer-bottom {
+  width: 100%;
+  text-align: center;
+  padding-top: 15px;
+  border-top: 1px solid #444;
+  color: #888;
+  font-size: 12px;
+  margin-top: 30px;
+}
+    
 #chat-box {
   background-color: white;
   color: black;
@@ -205,7 +233,7 @@ body {
     width: 95%;
     max-width: 500px;
     height: 60vh;
-    margin: 20px auto 30px auto; /* ✅ bottom margin for spacing */
+    margin: 20px auto 30px auto; 
     padding: 0;
     font-size: 16px;
     display: flex;
