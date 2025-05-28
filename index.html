@@ -388,7 +388,9 @@ function showMainButtons() {
   wrapper.appendChild(bubble);
 
 const chatBody = document.getElementById("chat-body");
-if (chatBody) chatBody.scrollTop = chatBody.scrollHeight;
+chatBody.appendChild(wrapper);
+chatBody.scrollTop = chatBody.scrollHeight;
+
 }
 
 function addMessage(content, isUser = false) {
