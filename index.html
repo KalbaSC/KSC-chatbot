@@ -415,10 +415,7 @@ function addMessage(content, isUser = false) {
   chatBody.appendChild(wrapper);
 
 setTimeout(() => {
-  const isNearBottom = chatBody.scrollHeight - chatBody.scrollTop - chatBody.clientHeight < 100;
-  if (isNearBottom) {
-    chatBody.scrollTop = chatBody.scrollHeight;
-  }
+chatBody.scrollTop = chatBody.scrollHeight;
 }, 100);
 }
 
@@ -573,9 +570,7 @@ input.value = '';
 
   const chatBox = document.getElementById("chat-body");
   chatBox.appendChild(wrapper);
-setTimeout(() => {
-  wrapper.scrollIntoView({ behavior: "smooth", block: "end" });
-}, 200);
+  wrapper.scrollIntoView({ behavior: "smooth" });
  }
 
   function reply(option) {
