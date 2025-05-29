@@ -516,16 +516,26 @@ inputDiv.innerHTML = `
       addMessage(msg, true);
 
 
-    fetch('https://script.google.com/macros/s/AKfycbxDZueStRLKKpwEWE2OYvgO4zSz7omnIaaLrkJp77olh6u-jESzIB-sD-jTHGTTMknhTQ/exec', {
+  fetch('https://script.google.com/macros/s/AKfycbxDZueStRLKKpwEWE2OYvgO4zSz7omnIaaLrkJp77olh6u-jESzIB-sD-jTHGTTMknhTQ/exec', {
   method: 'POST',
   mode: 'no-cors',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ name: userName, message: msg })
 })
+
 .finally(() => {
   addMessage("شكراً على تواصلك، سيتم الرد عليك في أقرب وقت.", false);
-});
-
+    setTimeout(() => {
+      const html = `
+        <p style="font-weight:bold; text-align:right; margin: 0 0 10px;">هل يمكنني مساعدتك في شيء آخر؟</p>
+        <div style="display: flex; justify-content: center; margin: 0 0 10px;">
+          <button type="button" class="chat-btn" onclick="showMainButtons()">عرض الخيارات</button>
+        </div>
+         <p style="text-align:right; margin: 0 0 10px;">كما يمكنك مشاركة أرائك أو أقتراحاتك أو كتابة استفسارك مع معلومات التواصل، وسيتم الرد عليك في أقرب وقت.</p>
+      `;
+      addMessage(html, false);
+    }, 1000);	
+    });
 input.value = '';
 
     }
@@ -772,10 +782,11 @@ window.addEventListener('DOMContentLoaded', () => {
         const form = e.target;
         const formData = new FormData(form);
 
-        fetch("https://script.google.com/macros/s/AKfycbxDZueStRLKKpwEWE2OYvgO4zSz7omnIaaLrkJp77olh6u-jESzIB-sD-jTHGTTMknhTQ/exec", {
-          method: "POST",
-          body: new URLSearchParams(formData)
-        }).then(() => {
+        fetch("https://script.google.com/macros/s/AKfycbwbIgYkN_r7D1YCCEmSlZkFf3kg03dWUvgs66nsgQpZD90o83tWxsf9bOGIYSI_Gr9e/exec", {
+  method: "POST",
+  body: new URLSearchParams(formData)
+})
+		.then(() => {
           document.getElementById("responseMessage").style.display = "block";
           form.reset();
         }).catch(() => {
