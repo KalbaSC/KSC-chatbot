@@ -777,9 +777,7 @@ window.addEventListener('DOMContentLoaded', () => {
     </form>
 
     <script>
-      document.getElementById("feedbackForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-        const form = e.target;
+      document.getElementById("feedbackForm").addEventListener("submit"{
         const formData = new FormData(form);
 
         fetch("https://script.google.com/macros/s/AKfycbxTAHbtd2mWp-mNfjOggn6G9IlQcapNtsjhEREwlunwO7Z0XLPJmVlwUSPWJIVt9zWC/exec", {
