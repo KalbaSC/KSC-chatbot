@@ -776,24 +776,35 @@ window.addEventListener('DOMContentLoaded', () => {
       <p id="responseMessage" style="margin-top: 10px; color: #4caf50; display: none;">✔️ تم الإرسال بنجاح!</p>
     </form>
 
-    <script>
-      document.getElementById("feedbackForm").addEventListener("submit"{
-        const formData = new FormData(form);
+   <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("feedbackForm");
 
-        fetch("https://script.google.com/macros/s/AKfycbxTAHbtd2mWp-mNfjOggn6G9IlQcapNtsjhEREwlunwO7Z0XLPJmVlwUSPWJIVt9zWC/exec", {
-  method: "POST",
-  body: new URLSearchParams(formData)
-})
-		.then(() => {
-          document.getElementById("responseMessage").style.display = "block";
-          form.reset();
-        }).catch(() => {
-          document.getElementById("responseMessage").textContent = "❌ Error sending. Try again.";
-          document.getElementById("responseMessage").style.color = "red";
-          document.getElementById("responseMessage").style.display = "block";
-        });
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      fetch("https://script.google.com/macros/s/AKfycbxTAHbtd2mWp-mNfjOggn6G9IlQcapNtsjhEREwlunwO7Z0XLPJmVlwUSPWJIVt9zWC/exec", {
+        method: "POST",
+        body: new URLSearchParams(formData)
+      })
+      .then(() => {
+        const msg = document.getElementById("responseMessage");
+        msg.textContent = "✅ Sent successfully!";
+        msg.style.color = "green";
+        msg.style.display = "block";
+        form.reset();
+      })
+      .catch(() => {
+        const msg = document.getElementById("responseMessage");
+        msg.textContent = "❌ Error sending. Try again.";
+        msg.style.color = "red";
+        msg.style.display = "block";
       });
-    </script>
+    });
+  });
+</script>
+
   </div>
 
   <!-- Bottom -->
