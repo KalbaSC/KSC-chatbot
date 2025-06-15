@@ -641,9 +641,23 @@ const html = `
 }
  else if (option === 'training') {
         addMessage("تُقام التدريبات من يوم السبت إلى الخميس من الساعة 5 مساءً وحتى الساعة 8 مساءً.", false);
-      } else if (option === 'register') {
-        addMessage("للتسجيل، يرجى التواصل مع إداري اللعبة المعنية من خلال الأرقام التالية:", false);
-      }
+      }else if (option === 'register') {
+  addMessage(`
+    <div>
+      <p>للتسجيل، يُرجى مسح رمز الاستجابة السريعة (QR) المناسب:</p>
+
+      <div style="margin-top: 10px;">
+        <strong>📌 الألعاب الجماعية:</strong><br>
+        <img src="mosaad_qr.png" alt="QR للألعاب الجماعية" width="200">
+      </div>
+
+      <div style="margin-top: 20px;">
+        <strong>📌 الألعاب الفردية:</strong><br>
+        <img src="sameh-qr.png" alt="QR للألعاب الفردية" width="200">
+      </div>
+    </div>
+  `, false);
+}
 
            if (option !== 'teams') {
         setTimeout(() => {
