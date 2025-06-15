@@ -565,8 +565,6 @@ input.value = '';
     { name: "كرة قدم الصالات", info: "نسخة داخلية من كرة القدم تُلعب في صالات مغلقة." }
   ];
 
-
-  // Create styled container like other bot messages
   const wrapper = document.createElement("div");
   wrapper.className = 'message-wrapper bot';
 
@@ -648,12 +646,12 @@ const html = `
 
       <div style="margin-top: 10px;">
         <strong>📌 الألعاب الجماعية:</strong><br>
-        <img src="mosaad_qr.png" alt="QR للألعاب الجماعية" width="200">
+        <img src="mosaad_qr.png" alt="QR للألعاب الجماعية" width="120">
       </div>
 
-      <div style="margin-top: 20px;">
+      <div style="margin-top: 10px;">
         <strong>📌 الألعاب الفردية:</strong><br>
-        <img src="sameh-qr.png" alt="QR للألعاب الفردية" width="200">
+        <img src="sameh-qr.png" alt="QR للألعاب الفردية" width="120">
       </div>
     </div>
   `, false);
@@ -669,12 +667,12 @@ const html = `
     <p style="text-align:right; margin: 0 0 10px;">كما يمكنك مشاركة أرائك أو أقتراحاتك أو كتابة استفسارك مع معلومات التواصل، وسيتم الرد عليك في أقرب وقت.</p>
   `;
   addMessage(html, false);
-}, 1000);
+}, 1800);
 
       }
 
     }, 1000);
-  } // ✅ THIS closes the reply() function
+  } 
 
 function showContactMain() {
   addMessage("تواصل معنا", true);
@@ -791,26 +789,37 @@ window.addEventListener('DOMContentLoaded', () => {
 </form>
 <iframe name="hidden_iframe" style="display:none;"></iframe>
 
-  <script>
-  let submitted = false;
-
+ <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("feedbackForm");
+    const form = document.querySelector("form");
+    const confirmationMessage = document.createElement("div");
+    confirmationMessage.style.marginTop = "15px";
+    confirmationMessage.style.color = "#00ff88";
+    confirmationMessage.style.fontWeight = "bold";
+    form.parentNode.insertBefore(confirmationMessage, form.nextSibling);
+
+    let submitted = false;
+
     form.addEventListener("submit", function () {
       submitted = true;
+      confirmationMessage.textContent = "جارٍ الإرسال...";
+      
+      setTimeout(function () {
+        if (submitted) {
+          confirmationMessage.textContent = "✅ شكراً لك، تم إرسال رسالتك بنجاح!";
+          form.reset();
+          submitted = false;
+        }
+      }, 2000); 
+    });
+
+    window.addEventListener("error", function () {
+      if (submitted) {
+        confirmationMessage.textContent = "❌ لم يتم التسليم، حاول مرة أخرى.";
+        submitted = false;
+      }
     });
   });
-
-  function showConfirmationMessage() {
-    if (submitted) {
-      const msg = document.getElementById("responseMessage");
-      msg.textContent = "✔️ شكراً لملاحظتك!";
-      msg.style.color = "#4caf50";
-      msg.style.display = "block";
-      document.getElementById("feedbackForm").reset();
-      submitted = false;
-    }
-  }
 </script>
   </div>
 
